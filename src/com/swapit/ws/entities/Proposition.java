@@ -49,14 +49,15 @@ public class Proposition implements Serializable {
 	private String zipCode;
 	
 	@Column(name="publish_date")
+	@Temporal(TemporalType.DATE)
 	private Date publish_date;
 
-	@OneToMany(cascade = ALL, orphanRemoval = true)
+	@OneToMany(cascade = ALL)
 	@JoinColumn(name = "image_id")
 	private List<Image> image_id;
 	
 
-	@OneToMany( fetch = EAGER, orphanRemoval = true, cascade = ALL)
+	@OneToMany( fetch = EAGER, cascade = ALL)
 	@JoinColumn(name = "category_id")
 	private List<Category> prop_category;
 	
