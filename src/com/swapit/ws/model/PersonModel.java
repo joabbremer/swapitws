@@ -2,9 +2,6 @@ package com.swapit.ws.model;
 
 import java.util.List;
 
-import com.google.gson.Gson;
-
-
 public class PersonModel {
 	
 	private String personId;

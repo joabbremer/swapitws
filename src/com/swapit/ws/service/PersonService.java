@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.google.gson.Gson;
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.model.PersonModel;
 
