@@ -1,6 +1,8 @@
 package com.swapit.ws.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
@@ -24,18 +26,22 @@ public class PersonController {
 	};
 	
 	public List<PersonModel> toModel(List<Person> personEntity){
+		AddressController addressCtrl = new AddressController();
+		FavoriteController favoriteCtrl = new FavoriteController();
+		List<PersonModel> personModel = new ArrayList<PersonModel>();
 		for (Person person : personEntity) {
-			new PersonModel(person.getPersonId(),
+			personModel.add(new PersonModel(person.getPersonId(),
 					person.getEmail(),
 					person.getPassword(),
 					person.getPersonName(),
 					person.getPhone(),
 					person.getSex(),
-					person.getFavorite(),
-					person.getAddresses());
+					favoriteCtrl.toModel(person.getFavorite()),
+					addressCtrl.toModel(person.getAddresses())));
+			
 		}
 		
-		return null;
+		return personModel;
 		
 	};
 	public String toJson(List<PersonModel> personModel){
