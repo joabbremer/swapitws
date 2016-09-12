@@ -42,7 +42,7 @@ public class Person {
 	@Column(length=1)
 	private String sex;
 	
-	@OneToMany(cascade = ALL, orphanRemoval = true, fetch = EAGER)
+	@OneToMany(cascade = ALL, fetch = EAGER)
 	@JoinColumn(name = "person_id")
 	private List<Favorite> favorite;
 
