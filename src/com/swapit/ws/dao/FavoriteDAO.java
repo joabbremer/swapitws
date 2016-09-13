@@ -14,7 +14,7 @@ public class FavoriteDAO implements PojoInterfaceDAO<Favorite> {
 	}
 
 	@Override
-	public List<Favorite> select(int id) throws ConnectException {
+	public Favorite select(String id) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,7 +26,7 @@ public class FavoriteDAO implements PojoInterfaceDAO<Favorite> {
 	}
 
 	@Override
-	public Favorite save(Favorite obj) throws ConnectException {
+	public Boolean save(Favorite obj) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}

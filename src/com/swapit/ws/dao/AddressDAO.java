@@ -14,7 +14,7 @@ public class AddressDAO implements PojoInterfaceDAO<Address> {
 	}
 
 	@Override
-	public List<Address> select(int id) throws ConnectException {
+	public Address select(String id) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,7 +26,7 @@ public class AddressDAO implements PojoInterfaceDAO<Address> {
 	}
 
 	@Override
-	public Address save(Address obj) throws ConnectException {
+	public Boolean save(Address obj) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}

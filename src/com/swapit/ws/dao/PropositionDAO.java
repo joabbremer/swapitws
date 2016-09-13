@@ -16,7 +16,7 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 	}
 
 	@Override
-	public List<Proposition> select(int id) throws ConnectException {
+	public Proposition select(String id) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -28,7 +28,7 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 	}
 
 	@Override
-	public Proposition save(Proposition proposition) throws ConnectException {
+	public Boolean save(Proposition proposition) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		em.getTransaction().begin();
 		em.persist(proposition);

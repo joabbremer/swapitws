@@ -14,7 +14,7 @@ public class ImageDAO implements PojoInterfaceDAO<Image> {
 	}
 
 	@Override
-	public List<Image> select(int id) throws ConnectException {
+	public Image select(String id) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,7 +26,7 @@ public class ImageDAO implements PojoInterfaceDAO<Image> {
 	}
 
 	@Override
-	public Image save(Image obj) throws ConnectException {
+	public Boolean save(Image obj) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}

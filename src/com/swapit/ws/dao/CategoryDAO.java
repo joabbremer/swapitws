@@ -14,7 +14,7 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 	}
 
 	@Override
-	public List<Category> select(int id) throws ConnectException {
+	public Category select(String id) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -26,7 +26,7 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 	}
 
 	@Override
-	public Category save(Category obj) throws ConnectException {
+	public Boolean save(Category obj) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
 	}

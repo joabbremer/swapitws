@@ -2,7 +2,9 @@ package com.swapit.ws.dao;
 
 import java.util.List;
 
+
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Person;
@@ -18,9 +20,11 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	}
 
 	@Override
-	public List<Person> select(int id) throws ConnectException {
-		// TODO Auto-generated method stub
-		return null;
+	public Person select(String id) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("selectIDPerson");
+		query.setParameter("personId",id);
+		return (Person) query.getSingleResult();
 	}
 
 	@Override
@@ -30,12 +34,20 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	}
 
 	@Override
-	public Person save(Person person) throws ConnectException {
+	public Boolean save(Person person) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		em.getTransaction().begin();
-		em.persist(person);
-		em.getTransaction().commit();
-		return null;
+		Boolean response;
+		try {
+			em.getTransaction().begin();
+		    em.persist(person);
+			em.getTransaction().commit();
+			em.close();
+			response =  true;
+			
+		} catch (Exception e) {
+			response = false;
+		}		
+		return response;
 	}
 
 	@Override

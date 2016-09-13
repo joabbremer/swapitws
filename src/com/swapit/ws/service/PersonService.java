@@ -1,6 +1,7 @@
 package com.swapit.ws.service;
 
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,39 +12,46 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.google.gson.Gson;
 import com.swapit.ws.controller.PersonController;
+import com.swapit.ws.entities.Person;
 import com.swapit.ws.model.PersonModel;
 
 @Path("/person")
-public class PersonService implements SwapitIplementsService<PersonModel> {
+@Consumes(MediaType.APPLICATION_JSON)
+@Produces(MediaType.APPLICATION_JSON)
+public class PersonService {
 
-	@Override
+	
 	@GET()
 	@Path("/getAll")
-	@Produces(MediaType.APPLICATION_JSON)
+	
 	public Response getAll() {
 		PersonController personCtrl = new PersonController();
 		return Response.ok(personCtrl.getALL()).build();
 				
 	}
 
-	@Override
+	
 	@GET
 	@Path("/getbyID/{id}")
 	public Response getbyID(@PathParam("id") String id) {
-		// TODO Auto-generated method stub
-		return null;
+		PersonController personCtrl = new PersonController();
+		return Response.ok(personCtrl.get(id)).build();
 	}
 
-	@Override
+	
 	@POST
 	@Path("/save")
-	public Response save(PersonModel personModel) {
-		// TODO Auto-generated method stub
-		return null;
+	public Response save(String personModel) {
+		System.out.println("Entrou");
+		Gson gson = new Gson();
+		gson.toJson(personModel);
+		PersonController personCtrl = new PersonController();
+		return Response.ok(personCtrl.save(personModel)).build();
 	}
 
-	@Override
+	
 	@PUT
 	@Path("/update/{id}")
 	public Response update(@PathParam("id") String id) {
@@ -51,7 +59,7 @@ public class PersonService implements SwapitIplementsService<PersonModel> {
 		return null;
 	}
 
-	@Override
+	
 	@DELETE
 	@Path("delete/{id}")
 	public Response delete(@PathParam("id") String id) {

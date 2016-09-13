@@ -17,5 +17,16 @@ public class AddressController {
 					addressEntity.getZipCode());
 		
 	}
+	
+	public Address toEntity(AddressModel addressModel){
+		return new Address(addressModel.getAddressId(),
+				addressModel.getAddress(),
+				addressModel.getCity(),
+				addressModel.getComplement(),
+				addressModel.getNumber(),
+				addressModel.getState(),
+				addressModel.getZipCode());
+	
+	};
 
 }
