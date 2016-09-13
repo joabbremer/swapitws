@@ -82,6 +82,23 @@ public class PersonModel {
 	public void setSex(String sex) {
 		this.sex = sex;
 	}
+	
+
+	public List<FavoriteModel> getFavorite() {
+		return favorite;
+	}
+
+	public void setFavorite(List<FavoriteModel> favorite) {
+		this.favorite = favorite;
+	}
+
+	public AddressModel getAddress_id() {
+		return address_id;
+	}
+
+	public void setAddress_id(AddressModel address_id) {
+		this.address_id = address_id;
+	}
 
 	public AddressModel getAddresses() {
 		return address_id;

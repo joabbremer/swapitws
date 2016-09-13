@@ -14,12 +14,19 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name="person")
-@NamedQuery(name="findAllPersons", query="SELECT p FROM Person p")
+
+@NamedQueries({
+	@NamedQuery(name="findAllPersons", query="SELECT p FROM Person p"),
+	@NamedQuery(name="selectIDPerson", query = "SELECT P FROM Person p WHERE p.personId = :personId")
+})
+
 public class Person {
 	
 	@Id
