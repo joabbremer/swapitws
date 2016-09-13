@@ -12,20 +12,23 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.apache.catalina.WebResource;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.entities.Person;
 import com.swapit.ws.model.PersonModel;
 
 @Path("/person")
-@Consumes(MediaType.APPLICATION_JSON)
-@Produces(MediaType.APPLICATION_JSON)
+@Consumes({MediaType.APPLICATION_JSON})
+@Produces({MediaType.APPLICATION_JSON})
 public class PersonService {
 
 	
 	@GET()
 	@Path("/getAll")
-	
+	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		PersonController personCtrl = new PersonController();
 		return Response.ok(personCtrl.getALL()).build();
@@ -43,10 +46,9 @@ public class PersonService {
 	
 	@POST
 	@Path("/save")
-	public Response save(String personModel) {
-		System.out.println("Entrou");
-		Gson gson = new Gson();
-		gson.toJson(personModel);
+	@Consumes("application/json")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response save(PersonModel personModel) {
 		PersonController personCtrl = new PersonController();
 		return Response.ok(personCtrl.save(personModel)).build();
 	}
