@@ -2,6 +2,7 @@ package com.swapit.ws.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import javax.ws.rs.core.Response;
 
@@ -9,6 +10,7 @@ import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Person;
+import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
 
 
@@ -41,6 +43,7 @@ public class PersonController {
 	public Boolean save(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		
+		personModel = CreatID(personModel);
 		try {
 			return personDao.save(toEntity(personModel));
 		} catch (ConnectException e) {
@@ -49,6 +52,14 @@ public class PersonController {
 		}
 		return false;
 	}
+	
+	private PersonModel CreatID(PersonModel personModel){
+		personModel.setPersonId(UUID.randomUUID().toString());
+		AddressModel addrresModel = personModel.getAddresses();
+		addrresModel.setAddressId(UUID.randomUUID().toString());
+		personModel.setAddresses(addrresModel);
+		return personModel;
+	};
 	
 	public PersonModel toModel(Person person){
 		FavoriteController favoriteCtrl = new FavoriteController();
@@ -86,7 +97,7 @@ public class PersonController {
 	public Person toEntity(PersonModel personModel){
 		FavoriteController favoriteCtrl = new FavoriteController();
 		AddressController addressCtrl = new AddressController();
-		new Person(personModel.getPersonId(),
+		return new Person(personModel.getPersonId(),
 				personModel.getEmail(),
 				personModel.getPassword(),
 				personModel.getPersonName(),
@@ -94,7 +105,7 @@ public class PersonController {
 				personModel.getSex(),
 				favoriteCtrl.toEntity(personModel.getFavorite()),
 				addressCtrl.toEntity(personModel.getAddresses()));
-		return null;
+		 
 	};
 	
 	public String toJson(List<PersonModel> personModel){
