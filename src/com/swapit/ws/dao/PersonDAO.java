@@ -10,6 +10,7 @@ import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Person;
 
 
+
 public class PersonDAO implements PojoInterfaceDAO<Person> {
 
 	@SuppressWarnings("unchecked")
@@ -28,8 +29,19 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	}
 
 	@Override
-	public void update(Person obj) throws ConnectException {
-		// TODO Auto-generated method stub
+	public Boolean update(Person person) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Boolean response;
+		try {
+			em.getTransaction().begin();
+			em.merge(person);
+			em.getTransaction().commit();
+			em.close();
+			response =  true;
+		} catch (Exception e) {
+			response = false;
+		}
+		return response;
 		
 	}
 
@@ -51,9 +63,22 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	}
 
 	@Override
-	public void delete(Person obj) throws ConnectException {
-		// TODO Auto-generated method stub
+	public Boolean delete(Person person) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		em.detach(person);
 		
+		Boolean response;
+		try {
+			em.getTransaction().begin();
+			em.remove(em.merge(person));
+			em.getTransaction().commit();
+			em.close();
+			response = true;
+		} catch (Exception e) {
+			response = false;
+			e.printStackTrace();
+		}
+		return response;
 	}
 
 }

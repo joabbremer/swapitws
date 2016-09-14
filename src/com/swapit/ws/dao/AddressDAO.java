@@ -20,7 +20,8 @@ public class AddressDAO implements PojoInterfaceDAO<Address> {
 	}
 
 	@Override
-	public void update(Address obj) throws ConnectException {
+	public Boolean update(Address obj) throws ConnectException {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
@@ -32,8 +33,9 @@ public class AddressDAO implements PojoInterfaceDAO<Address> {
 	}
 
 	@Override
-	public void delete(Address obj) throws ConnectException {
+	public Boolean delete(Address obj) throws ConnectException {
 		// TODO Auto-generated method stub
+		return null;
 		
 	}
 

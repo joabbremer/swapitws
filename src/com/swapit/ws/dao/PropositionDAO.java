@@ -22,7 +22,8 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 	}
 
 	@Override
-	public void update(Proposition obj) throws ConnectException {
+	public Boolean update(Proposition obj) throws ConnectException {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
@@ -37,7 +38,8 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 	}
 
 	@Override
-	public void delete(Proposition obj) throws ConnectException {
+	public Boolean delete(Proposition obj) throws ConnectException {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

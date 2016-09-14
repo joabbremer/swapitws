@@ -20,7 +20,8 @@ public class ImageDAO implements PojoInterfaceDAO<Image> {
 	}
 
 	@Override
-	public void update(Image obj) throws ConnectException {
+	public Boolean update(Image obj) throws ConnectException {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
@@ -32,9 +33,9 @@ public class ImageDAO implements PojoInterfaceDAO<Image> {
 	}
 
 	@Override
-	public void delete(Image obj) throws ConnectException {
+	public Boolean delete(Image obj) throws ConnectException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }
