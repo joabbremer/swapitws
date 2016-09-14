@@ -20,7 +20,8 @@ public class FavoriteDAO implements PojoInterfaceDAO<Favorite> {
 	}
 
 	@Override
-	public void update(Favorite obj) throws ConnectException {
+	public Boolean update(Favorite obj) throws ConnectException {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
@@ -32,9 +33,9 @@ public class FavoriteDAO implements PojoInterfaceDAO<Favorite> {
 	}
 
 	@Override
-	public void delete(Favorite obj) throws ConnectException {
+	public Boolean delete(Favorite obj) throws ConnectException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 
 }

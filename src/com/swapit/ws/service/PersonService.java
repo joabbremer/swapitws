@@ -12,12 +12,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.catalina.WebResource;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.swapit.ws.controller.PersonController;
-import com.swapit.ws.entities.Person;
 import com.swapit.ws.model.PersonModel;
 
 @Path("/person")
@@ -46,7 +42,7 @@ public class PersonService {
 	
 	@POST
 	@Path("/save")
-	@Consumes("application/json")
+	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(PersonModel personModel) {
 		PersonController personCtrl = new PersonController();
@@ -55,18 +51,20 @@ public class PersonService {
 
 	
 	@PUT
-	@Path("/update/{id}")
-	public Response update(@PathParam("id") String id) {
-		// TODO Auto-generated method stub
-		return null;
+	@Path("/update")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response update(PersonModel personModel) {
+		PersonController personCtrl = new PersonController();
+		return Response.ok(personCtrl.update(personModel)).build();
 	}
 
 	
 	@DELETE
-	@Path("delete/{id}")
-	public Response delete(@PathParam("id") String id) {
-		// TODO Auto-generated method stub
-		return null;
+	@Path("/delete")
+	public Response delete(PersonModel personModel) {
+		PersonController personCtrl = new PersonController();
+		return Response.ok(personCtrl.delete(personModel)).build();
 	}
 
 	
