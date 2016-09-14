@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.ws.rs.core.Response;
-
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
 import com.swapit.ws.dao.exception.ConnectException;
@@ -22,7 +20,6 @@ public class PersonController {
 		try {
 			person = personDao.listAll();
 		} catch (ConnectException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		return toJson(toModel(person));
@@ -34,18 +31,37 @@ public class PersonController {
 		try {
 			person = personDao.select(id);
 		} catch (ConnectException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}		
 		return toJson(toModel(person));
 	};
+	
 	public Boolean save(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		
 		personModel = CreatID(personModel);
 		try {
 			return personDao.save(toEntity(personModel));
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Boolean update(PersonModel personModel) {
+		PersonDAO personDao = new PersonDAO();		
+		try {
+			return personDao.update(toEntity(personModel));
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public Boolean delete(PersonModel personModel) {
+		PersonDAO personDao = new PersonDAO();
+		try {
+			return personDao.delete(toEntity(personModel));
 		} catch (ConnectException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,6 +132,10 @@ public class PersonController {
 		Gson gson = new Gson();
 		return gson.toJson(personModel);
 	}
+
+	
+
+	
 
 	
 

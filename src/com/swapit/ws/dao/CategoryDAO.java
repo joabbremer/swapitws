@@ -20,7 +20,8 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 	}
 
 	@Override
-	public void update(Category obj) throws ConnectException {
+	public Boolean update(Category obj) throws ConnectException {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}
@@ -32,8 +33,9 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 	}
 
 	@Override
-	public void delete(Category obj) throws ConnectException {
+	public Boolean delete(Category obj) throws ConnectException {
 		// TODO Auto-generated method stub
+		return null;
 		
 	}
 
