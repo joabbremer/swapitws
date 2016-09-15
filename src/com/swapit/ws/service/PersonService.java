@@ -12,10 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.model.PersonModel;
 
