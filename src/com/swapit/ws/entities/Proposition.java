@@ -2,91 +2,92 @@ package com.swapit.ws.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.TemporalType.DATE;
+import static javax.persistence.TemporalType.TIMESTAMP;
 
 
 @Entity
 @Table(name="proposition")
 @NamedQuery(name="Proposition.findAll", query="SELECT p FROM Proposition p")
 
-public class Proposition implements Serializable {
+public class Proposition implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="proposition_id", unique=true, nullable=false, length=36)
+	@Column(name="propositionid", unique=true, nullable=false, length=36)
 	private String propositionId;
-
-	@Column(nullable=false, length=50)
-	private String city;
-
-	@Column(nullable=false, length=200)
-	private String description;
-
-	@Column(name="interest_category", length=36)
-	private String interestCategory;
-
-	@Column(precision=10, scale=2)
-	private BigDecimal price;
-
-	@Column(name="price_cat_interest", precision=10, scale=2)
-	private BigDecimal priceCatInterest;
-
-	@Column(nullable=false, length=2)
-	private String state;
-
-	@Column(nullable=false, length=50)
+	
+	@Column(length=50, name="title")
 	private String title;
-
-	@Column(name="total_price", precision=10, scale=2)
-	private BigDecimal totalPrice;
-
-	@Column(name="zip_code", nullable=false, length=9)
-	private String zipCode;
 	
-	@Column(name="publish_date")
-	@Temporal(TemporalType.DATE)
-	private Date publish_date;
-
-	@OneToMany(cascade = ALL)
-	@JoinColumn(name = "image_id")
-	private List<Image> image_id;
+	@Column(length=200, name="description")
+	private String description;
 	
-
+	@OneToOne(orphanRemoval = true, cascade = ALL, fetch = EAGER)
+	@JoinColumn(name = "addressid", referencedColumnName = "addressid")
+	private Address addressId;
+	
+	@Column(name="price")
+	private double price;
+	
+	@Column(name="price_cat_interest")
+	private double priceCatInterest;
+	
+	@Column(name="total_price")
+	private double totalPrice;
+	
 	@OneToMany( fetch = EAGER, cascade = ALL)
-	@JoinColumn(name = "category_id")
-	private List<Category> prop_category;
+	@JoinColumn(name = "categoryid")
+	private List<Category> categoryId;
+	
+	@Column(name="interest_category", length=36)
+	private String interest_category;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "person_id")
+	@JoinColumn(name = "personid")
 	private List<Person> personId;
+	
+
+	@OneToMany(cascade = ALL)
+	@JoinColumn(name = "imageid")
+	private List<PropositionImage> imageId;
+	
+	@Column(name="publish_date")
+	@Temporal(DATE)
+	private Date publish_date;
+	
+	@Column(name="removel_date")
+	@Temporal(TIMESTAMP)
+	private Date removel_date;
+	
+	
 
 	public Proposition() {
 		super();
 	}
 
-	public Proposition(String propositionId, String city, String description, String interestCategory, BigDecimal price,
-			BigDecimal priceCatInterest, String state, String title, BigDecimal totalPrice, String zipCode,
-			Date publish_date, List<Image> image_id, List<Category> prop_category, List<Person> personId) {
+	public Proposition(String propositionId, String title, String description, Address addressId, double price,
+			double priceCatInterest, double totalPrice, List<Category> categoryId, String interest_category,
+			List<Person> personId, List<PropositionImage> imageId, Date publish_date, Date removel_date) {
 		super();
 		this.propositionId = propositionId;
-		this.city = city;
+		this.title = title;
 		this.description = description;
-		this.interestCategory = interestCategory;
+		this.addressId = addressId;
 		this.price = price;
 		this.priceCatInterest = priceCatInterest;
-		this.state = state;
-		this.title = title;
 		this.totalPrice = totalPrice;
-		this.zipCode = zipCode;
-		this.publish_date = publish_date;
-		this.image_id = image_id;
-		this.prop_category = prop_category;
+		this.categoryId = categoryId;
+		this.interest_category = interest_category;
 		this.personId = personId;
+		this.imageId = imageId;
+		this.publish_date = publish_date;
+		this.removel_date = removel_date;
 	}
 
 	public String getPropositionId() {
@@ -97,12 +98,12 @@ public class Proposition implements Serializable {
 		this.propositionId = propositionId;
 	}
 
-	public String getCity() {
-		return city;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public String getDescription() {
@@ -113,84 +114,52 @@ public class Proposition implements Serializable {
 		this.description = description;
 	}
 
-	public String getInterestCategory() {
-		return interestCategory;
+	public Address getAddressId() {
+		return addressId;
 	}
 
-	public void setInterestCategory(String interestCategory) {
-		this.interestCategory = interestCategory;
+	public void setAddressId(Address addressId) {
+		this.addressId = addressId;
 	}
 
-	public BigDecimal getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(BigDecimal price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
-	public BigDecimal getPriceCatInterest() {
+	public double getPriceCatInterest() {
 		return priceCatInterest;
 	}
 
-	public void setPriceCatInterest(BigDecimal priceCatInterest) {
+	public void setPriceCatInterest(double priceCatInterest) {
 		this.priceCatInterest = priceCatInterest;
 	}
 
-	public String getState() {
-		return state;
-	}
-
-	public void setState(String state) {
-		this.state = state;
-	}
-
-	public String getTitle() {
-		return title;
-	}
-
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public BigDecimal getTotalPrice() {
+	public double getTotalPrice() {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(BigDecimal totalPrice) {
+	public void setTotalPrice(double totalPrice) {
 		this.totalPrice = totalPrice;
 	}
 
-	public String getZipCode() {
-		return zipCode;
+	public List<Category> getCategoryId() {
+		return categoryId;
 	}
 
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
+	public void setCategoryId(List<Category> categoryId) {
+		this.categoryId = categoryId;
 	}
 
-	public Date getPublish_date() {
-		return publish_date;
+	public String getInterest_category() {
+		return interest_category;
 	}
 
-	public void setPublish_date(Date publish_date) {
-		this.publish_date = publish_date;
-	}
-
-	public List<Image> getImage_id() {
-		return image_id;
-	}
-
-	public void setImage_id(List<Image> image_id) {
-		this.image_id = image_id;
-	}
-
-	public List<Category> getProp_category() {
-		return prop_category;
-	}
-
-	public void setProp_category(List<Category> prop_category) {
-		this.prop_category = prop_category;
+	public void setInterest_category(String interest_category) {
+		this.interest_category = interest_category;
 	}
 
 	public List<Person> getPersonId() {
@@ -201,33 +170,60 @@ public class Proposition implements Serializable {
 		this.personId = personId;
 	}
 
+	public List<PropositionImage> getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(List<PropositionImage> imageId) {
+		this.imageId = imageId;
+	}
+
+	public Date getPublish_date() {
+		return publish_date;
+	}
+
+	public void setPublish_date(Date publish_date) {
+		this.publish_date = publish_date;
+	}
+
+	public Date getRemovel_date() {
+		return removel_date;
+	}
+
+	public void setRemovel_date(Date removel_date) {
+		this.removel_date = removel_date;
+	}
+
 	@Override
 	public String toString() {
-		return "Proposition [propositionId=" + propositionId + ", city=" + city + ", description=" + description
-				+ ", interestCategory=" + interestCategory + ", price=" + price + ", priceCatInterest="
-				+ priceCatInterest + ", state=" + state + ", title=" + title + ", totalPrice=" + totalPrice
-				+ ", zipCode=" + zipCode + ", publish_date=" + publish_date + ", image_id=" + image_id
-				+ ", prop_category=" + prop_category + ", personId=" + personId + "]";
+		return "Proposition [propositionId=" + propositionId + ", title=" + title + ", description=" + description
+				+ ", addressId=" + addressId + ", price=" + price + ", priceCatInterest=" + priceCatInterest
+				+ ", totalPrice=" + totalPrice + ", categoryId=" + categoryId + ", interest_category="
+				+ interest_category + ", personId=" + personId + ", imageId=" + imageId + ", publish_date="
+				+ publish_date + ", removel_date=" + removel_date + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
+		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((image_id == null) ? 0 : image_id.hashCode());
-		result = prime * result + ((interestCategory == null) ? 0 : interestCategory.hashCode());
+		result = prime * result + ((imageId == null) ? 0 : imageId.hashCode());
+		result = prime * result + ((interest_category == null) ? 0 : interest_category.hashCode());
 		result = prime * result + ((personId == null) ? 0 : personId.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
-		result = prime * result + ((priceCatInterest == null) ? 0 : priceCatInterest.hashCode());
-		result = prime * result + ((prop_category == null) ? 0 : prop_category.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(price);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		temp = Double.doubleToLongBits(priceCatInterest);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((propositionId == null) ? 0 : propositionId.hashCode());
 		result = prime * result + ((publish_date == null) ? 0 : publish_date.hashCode());
-		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((removel_date == null) ? 0 : removel_date.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((totalPrice == null) ? 0 : totalPrice.hashCode());
-		result = prime * result + ((zipCode == null) ? 0 : zipCode.hashCode());
+		temp = Double.doubleToLongBits(totalPrice);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -240,45 +236,39 @@ public class Proposition implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Proposition other = (Proposition) obj;
-		if (city == null) {
-			if (other.city != null)
+		if (addressId == null) {
+			if (other.addressId != null)
 				return false;
-		} else if (!city.equals(other.city))
+		} else if (!addressId.equals(other.addressId))
+			return false;
+		if (categoryId == null) {
+			if (other.categoryId != null)
+				return false;
+		} else if (!categoryId.equals(other.categoryId))
 			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (image_id == null) {
-			if (other.image_id != null)
+		if (imageId == null) {
+			if (other.imageId != null)
 				return false;
-		} else if (!image_id.equals(other.image_id))
+		} else if (!imageId.equals(other.imageId))
 			return false;
-		if (interestCategory == null) {
-			if (other.interestCategory != null)
+		if (interest_category == null) {
+			if (other.interest_category != null)
 				return false;
-		} else if (!interestCategory.equals(other.interestCategory))
+		} else if (!interest_category.equals(other.interest_category))
 			return false;
 		if (personId == null) {
 			if (other.personId != null)
 				return false;
 		} else if (!personId.equals(other.personId))
 			return false;
-		if (price == null) {
-			if (other.price != null)
-				return false;
-		} else if (!price.equals(other.price))
+		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
-		if (priceCatInterest == null) {
-			if (other.priceCatInterest != null)
-				return false;
-		} else if (!priceCatInterest.equals(other.priceCatInterest))
-			return false;
-		if (prop_category == null) {
-			if (other.prop_category != null)
-				return false;
-		} else if (!prop_category.equals(other.prop_category))
+		if (Double.doubleToLongBits(priceCatInterest) != Double.doubleToLongBits(other.priceCatInterest))
 			return false;
 		if (propositionId == null) {
 			if (other.propositionId != null)
@@ -290,31 +280,24 @@ public class Proposition implements Serializable {
 				return false;
 		} else if (!publish_date.equals(other.publish_date))
 			return false;
-		if (state == null) {
-			if (other.state != null)
+		if (removel_date == null) {
+			if (other.removel_date != null)
 				return false;
-		} else if (!state.equals(other.state))
+		} else if (!removel_date.equals(other.removel_date))
 			return false;
 		if (title == null) {
 			if (other.title != null)
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (totalPrice == null) {
-			if (other.totalPrice != null)
-				return false;
-		} else if (!totalPrice.equals(other.totalPrice))
-			return false;
-		if (zipCode == null) {
-			if (other.zipCode != null)
-				return false;
-		} else if (!zipCode.equals(other.zipCode))
+		if (Double.doubleToLongBits(totalPrice) != Double.doubleToLongBits(other.totalPrice))
 			return false;
 		return true;
 	}
-
-
-
+	
+	
+	
+	
 
 
 

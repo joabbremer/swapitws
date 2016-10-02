@@ -18,6 +18,7 @@ import javax.persistence.NamedQueries;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
+import javax.persistence.JoinTable;
 
 @Entity
 @Table(name="person")
@@ -31,52 +32,52 @@ public class Person {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="person_id", unique=true, nullable=false, length=36)
+	@Column(name="personid", unique=true, nullable=false, length=36)
 	private String personId;
-
-	@Column(length=50)
-	private String email;
-
-	@Column(length=20)
-	private String password;
-
-	@Column(name="person_name", length=50)
+	
+	@Column(length=50, name="person_name")
 	private String personName;
-
-	@Column(length=12)
+	
+	@Column(length=50, name="email")
+	private String email;
+	
+	@Column(length=12, name="phone")
 	private String phone;
-
-	@Column(length=1)
-	private String sex;
+	
+	@Column(length=20, name="password")
+	private String password;
+	
+	@Column(length=1, name="sex")
+	private char sex;
+	
+	@Column(length=11, name="blocked")
+	private int blocked;
 	
 	@OneToMany(cascade = ALL, fetch = EAGER)
-	@JoinColumn(name = "person_id")
-	private List<Favorite> favorite;
-
-	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "address_id", referencedColumnName = "address_id")
-	private Address address_id;
-
+	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "personid", referencedColumnName = "personid"), inverseJoinColumns = @JoinColumn(name = "propositionid", referencedColumnName = "propositionid"))
+	private List<Proposition> favorite;
 	
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinColumn(name = "addressid", referencedColumnName = "addressid")
+	private Address addresid;
+
 	public Person() {
 		super();
 	}
 
-	public Person(String personId, String email, String password, String personName, String phone, String sex,
-			List<Favorite> favorite, Address address_id) {
+	public Person(String personId, String personName, String email, String phone, String password, char sex,
+			int blocked, List<Proposition> favorite, Address addresid) {
 		super();
 		this.personId = personId;
-		this.email = email;
-		this.password = password;
 		this.personName = personName;
+		this.email = email;
 		this.phone = phone;
+		this.password = password;
 		this.sex = sex;
+		this.blocked = blocked;
 		this.favorite = favorite;
-		this.address_id = address_id;
+		this.addresid = addresid;
 	}
-
-
-
 
 	public String getPersonId() {
 		return personId;
@@ -84,23 +85,6 @@ public class Person {
 
 	public void setPersonId(String personId) {
 		this.personId = personId;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getPersonName() {
@@ -111,6 +95,14 @@ public class Person {
 		this.personName = personName;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -119,49 +111,66 @@ public class Person {
 		this.phone = phone;
 	}
 
-	public String getSex() {
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public char getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(char sex) {
 		this.sex = sex;
 	}
 
-	public List<Favorite> getFavorite() {
+	public int getBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(int blocked) {
+		this.blocked = blocked;
+	}
+
+	public List<Proposition> getFavorite() {
 		return favorite;
 	}
 
-	public void setFavorite(List<Favorite> favorite) {
+	public void setFavorite(List<Proposition> favorite) {
 		this.favorite = favorite;
 	}
 
-	public Address getAddresses() {
-		return address_id;
+	public Address getAddresid() {
+		return addresid;
 	}
 
-	public void setAddresses(Address addresses) {
-		this.address_id = addresses;
+	public void setAddresid(Address addresid) {
+		this.addresid = addresid;
 	}
 
 	@Override
 	public String toString() {
-		return "Person [personId=" + personId + ", email=" + email + ", password=" + password + ", personName="
-				+ personName + ", phone=" + phone + ", sex=" + sex + ", favorite=" + favorite + ", address_id="
-				+ address_id + "]";
+		return "Person [personId=" + personId + ", personName=" + personName + ", email=" + email + ", phone=" + phone
+				+ ", password=" + password + ", sex=" + sex + ", blocked=" + blocked + ", favorite=" + favorite
+				+ ", addresid=" + addresid + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address_id == null) ? 0 : address_id.hashCode());
+		result = prime * result + ((addresid == null) ? 0 : addresid.hashCode());
+		result = prime * result + blocked;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((favorite == null) ? 0 : favorite.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((personId == null) ? 0 : personId.hashCode());
 		result = prime * result + ((personName == null) ? 0 : personName.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
+		result = prime * result + sex;
 		return result;
 	}
 
@@ -174,10 +183,12 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (address_id == null) {
-			if (other.address_id != null)
+		if (addresid == null) {
+			if (other.addresid != null)
 				return false;
-		} else if (!address_id.equals(other.address_id))
+		} else if (!addresid.equals(other.addresid))
+			return false;
+		if (blocked != other.blocked)
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -209,16 +220,15 @@ public class Person {
 				return false;
 		} else if (!phone.equals(other.phone))
 			return false;
-		if (sex == null) {
-			if (other.sex != null)
-				return false;
-		} else if (!sex.equals(other.sex))
+		if (sex != other.sex)
 			return false;
 		return true;
 	}
-
-
 	
 	
+	
+	
+	
+
 
 }

@@ -19,6 +19,11 @@ public class CategoryController {
 		}
 		
 		return categoryModel;
+	}
+
+	public List<Category> toEntity(List<CategoryModel> categoryId) {
+		// TODO Auto-generated method stub
+		return null;
 	};
 	
 	
