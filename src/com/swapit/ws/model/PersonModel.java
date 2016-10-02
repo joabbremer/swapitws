@@ -2,37 +2,43 @@ package com.swapit.ws.model;
 
 import java.util.List;
 
+
 public class PersonModel {
 	
-	private String personId;
-	private String email;
-	private String password;
-	private String personName;
-	private String phone;
-	private String sex;
-	private List<FavoriteModel> favorite;
-	private AddressModel address_id;
-
+	private String personId;	
+	private String personName;	
+	private String email;	
+	private String phone;	
+	private String password;	
+	private char sex;	
+	private int blocked;
+	private List<PropositionModel> favorite;	
+	private AddressModel addresid;
 	
 	public PersonModel() {
 		super();
 	}
+	
 
-	public PersonModel(String personId, String email, String password, String personName, String phone, String sex,
-			List<FavoriteModel> favorite, AddressModel address_id) {
+	public PersonModel(String personName) {
 		super();
-		this.personId = personId;
-		this.email = email;
-		this.password = password;
 		this.personName = personName;
-		this.phone = phone;
-		this.sex = sex;
-		this.favorite = favorite;
-		this.address_id = address_id;
 	}
 
 
-
+	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
+			int blocked, List<PropositionModel> favorite, AddressModel addresid) {
+		super();
+		this.personId = personId;
+		this.personName = personName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.sex = sex;
+		this.blocked = blocked;
+		this.favorite = favorite;
+		this.addresid = addresid;
+	}
 
 	public String getPersonId() {
 		return personId;
@@ -40,23 +46,6 @@ public class PersonModel {
 
 	public void setPersonId(String personId) {
 		this.personId = personId;
-	}
-
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getPersonName() {
@@ -67,6 +56,14 @@ public class PersonModel {
 		this.personName = personName;
 	}
 
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getPhone() {
 		return phone;
 	}
@@ -75,59 +72,66 @@ public class PersonModel {
 		this.phone = phone;
 	}
 
-	public String getSex() {
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public char getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(char sex) {
 		this.sex = sex;
 	}
-	
 
-	public List<FavoriteModel> getFavorite() {
+	public int getBlocked() {
+		return blocked;
+	}
+
+	public void setBlocked(int blocked) {
+		this.blocked = blocked;
+	}
+
+	public List<PropositionModel> getFavorite() {
 		return favorite;
 	}
 
-	public void setFavorite(List<FavoriteModel> favorite) {
+	public void setFavorite(List<PropositionModel> favorite) {
 		this.favorite = favorite;
 	}
 
-	public AddressModel getAddress_id() {
-		return address_id;
+	public AddressModel getAddresid() {
+		return addresid;
 	}
 
-	public void setAddress_id(AddressModel address_id) {
-		this.address_id = address_id;
-	}
-
-	public AddressModel getAddresses() {
-		return address_id;
-	}
-
-	public void setAddresses(AddressModel addresses) {
-		this.address_id = addresses;
+	public void setAddresid(AddressModel addresid) {
+		this.addresid = addresid;
 	}
 
 	@Override
 	public String toString() {
-		return "PersonModel [personId=" + personId + ", email=" + email + ", password=" + password + ", personName="
-				+ personName + ", phone=" + phone + ", sex=" + sex + ", favorite=" + favorite + ", address_id="
-				+ address_id + "]";
+		return "PersonModel [personId=" + personId + ", personName=" + personName + ", email=" + email + ", phone="
+				+ phone + ", password=" + password + ", sex=" + sex + ", blocked=" + blocked + ", favorite=" + favorite
+				+ ", addresid=" + addresid + "]";
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address_id == null) ? 0 : address_id.hashCode());
+		result = prime * result + ((addresid == null) ? 0 : addresid.hashCode());
+		result = prime * result + blocked;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((favorite == null) ? 0 : favorite.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((personId == null) ? 0 : personId.hashCode());
 		result = prime * result + ((personName == null) ? 0 : personName.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
+		result = prime * result + sex;
 		return result;
 	}
 
@@ -140,10 +144,12 @@ public class PersonModel {
 		if (getClass() != obj.getClass())
 			return false;
 		PersonModel other = (PersonModel) obj;
-		if (address_id == null) {
-			if (other.address_id != null)
+		if (addresid == null) {
+			if (other.addresid != null)
 				return false;
-		} else if (!address_id.equals(other.address_id))
+		} else if (!addresid.equals(other.addresid))
+			return false;
+		if (blocked != other.blocked)
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -175,15 +181,12 @@ public class PersonModel {
 				return false;
 		} else if (!phone.equals(other.phone))
 			return false;
-		if (sex == null) {
-			if (other.sex != null)
-				return false;
-		} else if (!sex.equals(other.sex))
+		if (sex != other.sex)
 			return false;
 		return true;
 	}
 
-
+	
 	
 	
 
