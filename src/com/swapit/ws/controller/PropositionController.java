@@ -1,7 +1,6 @@
 package com.swapit.ws.controller;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -74,11 +73,7 @@ public class PropositionController {
 											propImgCtrl.toEntity(propModel.getImageId()),
 											propModel.getPublish_date(),
 											propModel.getRemovel_date()));
-			
-			//proposition.addAll((Collection<? extends Proposition>) propModel.getClass().cast(propModel));
-			
-			
-			
+						
 		}
 		
 		return proposition;

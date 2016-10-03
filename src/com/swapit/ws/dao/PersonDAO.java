@@ -81,4 +81,12 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 		return response;
 	}
 
+	public Person login(String email, String senha) {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("loginPerson");
+		query.setParameter("email",email);
+		query.setParameter("password",senha);
+		return (Person) query.getSingleResult();
+	}
+
 }

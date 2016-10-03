@@ -16,7 +16,7 @@ public class PropositionModel  {
 	private double totalPrice;	
 	private List<CategoryModel> categoryId;	
 	private String interest_category;	
-	private List<PersonModel> personId;	
+	private PersonModel personId;	
 	private List<PropositionImageModel> imageId;	
 	private Date publish_date;	
 	private Date removel_date;
@@ -27,7 +27,7 @@ public class PropositionModel  {
 
 	public PropositionModel(String propositionId, String title, String description, AddressModel addressId,
 			double price, double priceCatInterest, double totalPrice, List<CategoryModel> categoryId,
-			String interest_category, List<PersonModel> personId, List<PropositionImageModel> imageId,
+			String interest_category, PersonModel personId, List<PropositionImageModel> imageId,
 			Date publish_date, Date removel_date) {
 		super();
 		this.propositionId = propositionId;
@@ -117,11 +117,11 @@ public class PropositionModel  {
 		this.interest_category = interest_category;
 	}
 
-	public List<PersonModel> getPersonId() {
+	public PersonModel getPersonId() {
 		return personId;
 	}
 
-	public void setPersonId(List<PersonModel> personId) {
+	public void setPersonId(PersonModel personId) {
 		this.personId = personId;
 	}
 

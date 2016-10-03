@@ -38,7 +38,17 @@ public class PersonService {
 		PersonController personCtrl = new PersonController();
 		return Response.ok(personCtrl.get(id)).build();
 	}
-
+	
+	@GET
+	@Path("/login/{email}/{senha}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(@PathParam("email") String email,
+						  @PathParam("senha") String senha){
+		PersonController personCtrl = new PersonController();
+		return personCtrl.login(email, senha);
+		
+	}
 	
 	@POST
 	@Path("/save")

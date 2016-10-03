@@ -7,25 +7,18 @@ import com.swapit.ws.model.AddressModel;
 public class AddressController {
 	
 	public AddressModel toModel(Address addressEntity){		
-		
-			return new AddressModel(addressEntity.getAddressId(),
-					addressEntity.getAddress(),
-					addressEntity.getCity(),
-					addressEntity.getComplement(),
-					addressEntity.getNumber(),
-					addressEntity.getState(),
-					addressEntity.getZipCode());
+		StreetController streetCtrl = new StreetController();
+		return new AddressModel(addressEntity.getAddressId(),
+								streetCtrl.toModel(addressEntity.getStreetid()),
+								addressEntity.getNumber());
 		
 	}
 	
 	public Address toEntity(AddressModel addressModel){
+		StreetController streetCtrl = new StreetController();		
 		return new Address(addressModel.getAddressId(),
-				addressModel.getAddress(),
-				addressModel.getCity(),
-				addressModel.getComplement(),
-				addressModel.getNumber(),
-				addressModel.getState(),
-				addressModel.getZipCode());
+				streetCtrl.toEntity(addressModel.getStreetid()),
+				addressModel.getNumber());
 	
 	};
 

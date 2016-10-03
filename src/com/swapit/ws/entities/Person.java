@@ -19,13 +19,13 @@ import javax.persistence.NamedQueries;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinTable;
+import javax.persistence.OrderColumn;
 
 @Entity
-@Table(name="person")
-
 @NamedQueries({
 	@NamedQuery(name="findAllPersons", query="SELECT p FROM Person p"),
-	@NamedQuery(name="selectIDPerson", query = "SELECT P FROM Person p WHERE p.personId = :personId")
+	@NamedQuery(name="selectIDPerson", query = "SELECT P FROM Person p WHERE p.personId = :personId"),
+	@NamedQuery(name="loginPerson", query = "SELECT P FROM Person p WHERE p.email = :email, p.password = :password")
 })
 
 public class Person {
@@ -54,16 +54,30 @@ public class Person {
 	private int blocked;
 	
 	@OneToMany(cascade = ALL, fetch = EAGER)
-	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "personid", referencedColumnName = "personid"), inverseJoinColumns = @JoinColumn(name = "propositionid", referencedColumnName = "propositionid"))
+	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "personid", referencedColumnName = "personid", nullable=true), inverseJoinColumns = @JoinColumn(name = "propositionid", referencedColumnName = "propositionid", nullable=true))
 	private List<Proposition> favorite;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "addressid", referencedColumnName = "addressid")
+	@JoinColumn(name = "addressid", referencedColumnName = "addressid", nullable=true)
 	private Address addresid;
 
 	public Person() {
 		super();
 	}
+	
+	
+	public Person(String personId, String personName, String email, String phone, String password, char sex,
+			int blocked) {
+		super();
+		this.personId = personId;
+		this.personName = personName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.sex = sex;
+		this.blocked = blocked;
+	}
+
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
 			int blocked, List<Proposition> favorite, Address addresid) {
