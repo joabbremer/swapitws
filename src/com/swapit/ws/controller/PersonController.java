@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import javax.ws.rs.core.Response;
+
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Person;
+import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
 
 
@@ -67,6 +70,13 @@ public class PersonController {
 		return false;
 	}
 	
+	public String login(String email, String senha) throws ConnectException {
+		PersonDAO personDao = new PersonDAO();
+		Person person = null;
+		person = personDao.login(email, senha);		
+		return toJson(toModel(person));
+	}
+	
 	private PersonModel CreatID(PersonModel personModel){
 		personModel.setPersonId(UUID.randomUUID().toString());
 		//AddressModel addrresModel = personModel.getAddresid();
@@ -100,9 +110,9 @@ public class PersonController {
 					person.getPhone(),
 					person.getPassword(),
 					person.getSex(),
-					person.getBlocked(),
-					propCtrl.toModel(person.getFavorite()),
-					addressCtrl.toModel(person.getAddresid())));
+					person.getBlocked()));
+					//propCtrl.toModel(person.getFavorite()),
+					//addressCtrl.toModel(person.getAddresid())));
 			
 		}		
 		return personModel;
@@ -118,9 +128,9 @@ public class PersonController {
 				personModel.getPhone(),
 				personModel.getPassword(), 
 				personModel.getSex(),
-				personModel.getBlocked(),
-				propCtrl.toEntity(personModel.getFavorite()), 
-				addressCtrl.toEntity(personModel.getAddresid()));
+				personModel.getBlocked());
+				//propCtrl.toEntity(personModel.getFavorite()), 
+				//addressCtrl.toEntity(personModel.getAddresid()));
 		
 		
 		
@@ -136,14 +146,25 @@ public class PersonController {
 		return gson.toJson(personModel);
 	}
 	
-	//Add argumentos
 	public List<Person> toEntity(List<PersonModel> personModel) {
+		AddressController addressCtrl = new AddressController();
+		PropositionController propCtrl = new PropositionController();
 		List<Person> person = new ArrayList<Person>();
-		for (PersonModel perModel : personModel) {
-			person.add(new Person());
+		for (PersonModel persoModel : personModel) {
+			person.add(new Person(persoModel.getPersonId(),
+								  persoModel.getPersonName(),
+								  persoModel.getEmail(),
+								  persoModel.getPhone(),
+								  persoModel.getPassword(),
+								  persoModel.getSex(),
+								  persoModel.getBlocked(),
+								  propCtrl.toEntity(persoModel.getFavorite()),
+								  addressCtrl.toEntity(persoModel.getAddresid())));
 		}
 		return person;
 	}
+
+	
 
 	
 

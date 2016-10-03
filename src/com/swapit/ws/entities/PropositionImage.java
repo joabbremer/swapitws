@@ -25,6 +25,15 @@ public class PropositionImage {
 		super();
 		this.imageid = imageid;
 	}
+	
+
+	public String getImageid() {
+		return imageid;
+	}
+
+	public void setImageid(String imageid) {
+		this.imageid = imageid;
+	}
 
 	@Override
 	public String toString() {

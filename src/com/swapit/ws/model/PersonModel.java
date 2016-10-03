@@ -20,9 +20,16 @@ public class PersonModel {
 	}
 	
 
-	public PersonModel(String personName) {
+	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
+			int blocked) {
 		super();
+		this.personId = personId;
 		this.personName = personName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.sex = sex;
+		this.blocked = blocked;
 	}
 
 
