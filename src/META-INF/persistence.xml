@@ -16,8 +16,8 @@
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swapit"/>
 			<property name="javax.persistence.jdbc.user" value="swapit"/>
-			<property name="javax.persistence.jdbc.password" value="swapit"/>
-			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/> 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.password" value="swapit"/> 
 		</properties>
 	</persistence-unit>
 </persistence>

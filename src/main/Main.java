@@ -10,7 +10,7 @@ public class Main {
 		
 		PersonController personCtrl = new PersonController();
 			
-		//Boolean i = personCtrl.save(new PersonModel(null, "Joab", "joab.brmer", "999999", "123456", 'M', 0));
+		//Boolean i = personCtrl.save(new PersonModel(null, "Joab", "joab.bremer@gmail.com", "96447503", "123456",0));
 		
 		//System.out.println(i);
 		
