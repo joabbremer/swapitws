@@ -6,52 +6,50 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinTable;
-import javax.persistence.OrderColumn;
 
 @Entity
 @NamedQueries({
 	@NamedQuery(name="findAllPersons", query="SELECT p FROM Person p"),
 	@NamedQuery(name="selectIDPerson", query = "SELECT P FROM Person p WHERE p.personId = :personId"),
-	@NamedQuery(name="loginPerson", query = "SELECT P FROM Person p WHERE p.email = :email, p.password = :password")
+	@NamedQuery(name="loginPerson", query = "SELECT P FROM Person p WHERE p.email = :email AND p.password = :password"),
 })
 
 public class Person {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="personid", unique=true, nullable=false, length=36)
 	private String personId;
 	
-	@Column(length=50, name="person_name")
+	@Column(length=50, name="person_name", nullable=false)
 	private String personName;
 	
-	@Column(length=50, name="email")
+	@Column(length=50, name="email", nullable=true)
 	private String email;
 	
-	@Column(length=12, name="phone")
+	@Column(length=12, name="phone", nullable=true)
 	private String phone;
 	
-	@Column(length=20, name="password")
+	@Column(length=20, name="password", nullable=false)
 	private String password;
 	
-	@Column(length=1, name="sex")
+	@Column(length=1, name="sex", nullable=true)
 	private char sex;
 	
-	@Column(length=11, name="blocked")
+	@Column(length=11, name="blocked", nullable=true)
 	private int blocked;
+	
+	@Column(length=10, name="level", nullable=true)
+	private String level;
 	
 	@OneToMany(cascade = ALL, fetch = EAGER)
 	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "personid", referencedColumnName = "personid", nullable=true), inverseJoinColumns = @JoinColumn(name = "propositionid", referencedColumnName = "propositionid", nullable=true))
@@ -66,6 +64,19 @@ public class Person {
 	}
 	
 	
+	
+	public Person(String personId, String personName, String email, String phone, String password, int blocked) {
+		super();
+		this.personId = personId;
+		this.personName = personName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.blocked = blocked;
+	}
+
+
+
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
 			int blocked) {
 		super();

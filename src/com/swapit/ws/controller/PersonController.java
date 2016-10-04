@@ -70,10 +70,14 @@ public class PersonController {
 		return false;
 	}
 	
-	public String login(String email, String senha) throws ConnectException {
+	public String login(String email, String password) {
 		PersonDAO personDao = new PersonDAO();
 		Person person = null;
-		person = personDao.login(email, senha);		
+		try {
+			person = personDao.login(email, password);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}		
 		return toJson(toModel(person));
 	}
 	
@@ -94,9 +98,9 @@ public class PersonController {
 				person.getPhone(),
 				person.getPassword(),
 				person.getSex(),
-				person.getBlocked(),
-				propCtrl.toModel(person.getFavorite()),
-				addressCtrl.toModel(person.getAddresid()));
+				person.getBlocked());
+				//propCtrl.toModel(person.getFavorite()),
+				//addressCtrl.toModel(person.getAddresid()));
 	};
 	
 	public List<PersonModel> toModel(List<Person> personEntity){

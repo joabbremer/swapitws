@@ -46,7 +46,7 @@ public class PersonService {
 	public Response login(@PathParam("email") String email,
 						  @PathParam("senha") String senha){
 		PersonController personCtrl = new PersonController();
-		return personCtrl.login(email, senha);
+		return Response.ok(personCtrl.login(email, senha)).build();
 		
 	}
 	

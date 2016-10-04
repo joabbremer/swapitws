@@ -18,7 +18,6 @@ public class Proposition implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="propositionid", unique=true, nullable=false, length=36)
 	private String propositionId;
 	
