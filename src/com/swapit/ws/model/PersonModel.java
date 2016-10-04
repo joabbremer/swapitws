@@ -12,6 +12,7 @@ public class PersonModel {
 	private String password;	
 	private char sex;	
 	private int blocked;
+	private String level;
 	private List<PropositionModel> favorite;	
 	private AddressModel addresid;
 	
@@ -19,6 +20,19 @@ public class PersonModel {
 		super();
 	}
 	
+	
+
+	public PersonModel(String personId, String personName, String email, String phone, String password, int blocked) {
+		super();
+		this.personId = personId;
+		this.personName = personName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.blocked = blocked;
+	}
+
+
 
 	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
 			int blocked) {
@@ -106,6 +120,16 @@ public class PersonModel {
 	public List<PropositionModel> getFavorite() {
 		return favorite;
 	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
+
 
 	public void setFavorite(List<PropositionModel> favorite) {
 		this.favorite = favorite;
