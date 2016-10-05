@@ -11,7 +11,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
+import javax.ws.rs.core.Response.ResponseBuilder;
+import javax.ws.rs.core.Response.Status;
 
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.model.PersonModel;
@@ -55,8 +56,14 @@ public class PersonService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(PersonModel personModel) {
+		System.out.println("passou aqui");
 		PersonController personCtrl = new PersonController();
-		return Response.ok(personCtrl.save(personModel)).build();
+		if(personCtrl.save(personModel)){
+			return Response.status(Status.OK).build();
+			
+		}		
+		
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 
 	
