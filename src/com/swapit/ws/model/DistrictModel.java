@@ -5,16 +5,16 @@ public class DistrictModel {
 	
 	private String districtid;	
 	private String name;	
-	private CityModel cityid;
+	private CityModel city;
 	
 	public DistrictModel() {
 		super();
 	}
-	public DistrictModel(String districtid, String name, CityModel cityid) {
+	public DistrictModel(String districtid, String name, CityModel city) {
 		super();
 		this.districtid = districtid;
 		this.name = name;
-		this.cityid = cityid;
+		this.city = city;
 	}
 	public String getDistrictid() {
 		return districtid;
@@ -28,11 +28,11 @@ public class DistrictModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public CityModel getCityid() {
-		return cityid;
+	public CityModel getCity() {
+		return city;
 	}
-	public void setCityid(CityModel cityid) {
-		this.cityid = cityid;
+	public void setCityid(CityModel city) {
+		this.city = city;
 	}
 	@Override
 	public String toString() {
