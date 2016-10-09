@@ -62,6 +62,25 @@ public class PersonModel {
 		this.favorite = favorite;
 		this.addresid = addresid;
 	}
+	
+	
+
+	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
+			int blocked, String level, List<PropositionModel> favorite, AddressModel addresid) {
+		super();
+		this.personId = personId;
+		this.personName = personName;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+		this.sex = sex;
+		this.blocked = blocked;
+		this.level = level;
+		this.favorite = favorite;
+		this.addresid = addresid;
+	}
+
+
 
 	public String getPersonId() {
 		return personId;

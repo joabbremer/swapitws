@@ -14,6 +14,7 @@ import com.swapit.ws.entities.Person;
 import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
+import com.swapit.ws.model.PropositionModel;
 
 
 public class PersonController {
@@ -53,7 +54,8 @@ public class PersonController {
 	}
 	
 	public Boolean update(PersonModel personModel) {
-		PersonDAO personDao = new PersonDAO();		
+		PersonDAO personDao = new PersonDAO();	
+		personModel = CreatID(personModel);
 		try {
 			return personDao.update(toEntity(personModel));
 		} catch (ConnectException e) {
@@ -84,10 +86,16 @@ public class PersonController {
 	}
 	
 	private PersonModel CreatID(PersonModel personModel){
-		personModel.setPersonId(UUID.randomUUID().toString());
-		//AddressModel addrresModel = personModel.getAddresid();
-		//addrresModel.setAddressId(UUID.randomUUID().toString());
-		//personModel.setAddresid(addrresModel);
+		if(personModel.getPersonId().isEmpty()){
+			personModel.setPersonId(UUID.randomUUID().toString());
+		}		
+		AddressModel addrresModel = personModel.getAddresid();
+		if(addrresModel.getAddressId() ==null){			
+			addrresModel.setAddressId(UUID.randomUUID().toString());
+			personModel.setAddresid(addrresModel);
+		}
+		
+		
 		return personModel;
 	};
 	
@@ -107,10 +115,22 @@ public class PersonController {
 	};
 	
 	public List<PersonModel> toModel(List<Person> personEntity){
+		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
+		AddressModel addresModel = new AddressModel();
 		AddressController addressCtrl = new AddressController();
 		PropositionController propCtrl = new PropositionController();
 		List<PersonModel> personModel = new ArrayList<PersonModel>();
+		
+		
+		
 		for (Person person : personEntity) {
+			if(person.getFavorite() != null){
+				favoriteModel = propCtrl.toModel(person.getFavorite());
+			}
+			if(person.getAddresid() != null){
+				addresModel = addressCtrl.toModel(person.getAddresid());
+			}
+			
 			personModel.add(new PersonModel(person.getPersonId(),
 					person.getPersonName(),
 					person.getEmail(),
@@ -118,9 +138,12 @@ public class PersonController {
 					person.getPassword(),
 					person.getSex(),
 					person.getBlocked(),
-					person.getLevel()));
-					//propCtrl.toModel(person.getFavorite()),
-					//addressCtrl.toModel(person.getAddresid())));
+					person.getLevel(),
+					favoriteModel,
+					addresModel));
+			
+			favoriteModel = null;
+			addresModel = null;
 			
 		}		
 		return personModel;
