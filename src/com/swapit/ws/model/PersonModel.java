@@ -22,7 +22,7 @@ public class PersonModel {
 	
 	
 
-	public PersonModel(String personId, String personName, String email, String phone, String password, int blocked) {
+	public PersonModel(String personId, String personName, String email, String phone, String password, int blocked, String level) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -30,12 +30,13 @@ public class PersonModel {
 		this.phone = phone;
 		this.password = password;
 		this.blocked = blocked;
+		this.level=level;
 	}
 
 
 
 	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked) {
+			int blocked, String level) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -44,6 +45,7 @@ public class PersonModel {
 		this.password = password;
 		this.sex = sex;
 		this.blocked = blocked;
+		this.level = level;
 	}
 
 
