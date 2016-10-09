@@ -9,7 +9,7 @@ public class DistrictController {
 		CityController cityCtrl = new CityController();
 		return new District(districtModel.getDistrictid(),
 							districtModel.getName(),
-							cityCtrl.toEntity(districtModel.getCityid()));
+							cityCtrl.toEntity(districtModel.getCity()));
 	}
 
 	public DistrictModel toModel(District district) {

@@ -5,18 +5,18 @@ public class CityModel {
 	private String cityid;	
 	private String name;	
 	private String zipcode;	
-	private StateModel stateid;
+	private StateModel state;
 	
 	public CityModel() {
 		super();
 	}
 
-	public CityModel(String cityid, String name, String zipcode, StateModel stateid) {
+	public CityModel(String cityid, String name, String zipcode, StateModel state) {
 		super();
 		this.cityid = cityid;
 		this.name = name;
 		this.zipcode = zipcode;
-		this.stateid = stateid;
+		this.state = state;
 	}
 
 	public String getCityid() {
@@ -43,17 +43,17 @@ public class CityModel {
 		this.zipcode = zipcode;
 	}
 
-	public StateModel getStateid() {
-		return stateid;
+	public StateModel getState() {
+		return state;
 	}
 
-	public void setStateid(StateModel stateid) {
-		this.stateid = stateid;
+	public void setState(StateModel state) {
+		this.state = state;
 	}
 
 	@Override
 	public String toString() {
-		return "CityModel [cityid=" + cityid + ", name=" + name + ", zipcode=" + zipcode + ", stateid=" + stateid + "]";
+		return "CityModel [cityid=" + cityid + ", name=" + name + ", zipcode=" + zipcode + ", stateid=" + state + "]";
 	}
 
 	@Override
@@ -62,7 +62,7 @@ public class CityModel {
 		int result = 1;
 		result = prime * result + ((cityid == null) ? 0 : cityid.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((stateid == null) ? 0 : stateid.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
 	}
@@ -86,10 +86,10 @@ public class CityModel {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (stateid == null) {
-			if (other.stateid != null)
+		if (state == null) {
+			if (other.state != null)
 				return false;
-		} else if (!stateid.equals(other.stateid))
+		} else if (!state.equals(other.state))
 			return false;
 		if (zipcode == null) {
 			if (other.zipcode != null)

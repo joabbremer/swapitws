@@ -4,23 +4,23 @@ package com.swapit.ws.model;
 public class StreetModel {
 	
 	private String streetid;
-	private StreetTypeModel streettypeid;	
+	private StreetTypeModel streettype;	
 	private String name;
 	private String complement;	
-	private DistrictModel districtid;
+	private DistrictModel district;
 	private String zipcode;
 	
 	public StreetModel() {
 		super();
 	}
-	public StreetModel(String streetid, StreetTypeModel streettypeid, String name, String complement,
-			DistrictModel districtid, String zipcode) {
+	public StreetModel(String streetid, StreetTypeModel streettype, String name, String complement,
+			DistrictModel district, String zipcode) {
 		super();
 		this.streetid = streetid;
-		this.streettypeid = streettypeid;
+		this.streettype = streettype;
 		this.name = name;
 		this.complement = complement;
-		this.districtid = districtid;
+		this.district = district;
 		this.zipcode = zipcode;
 	}
 	public String getStreetid() {
@@ -29,11 +29,11 @@ public class StreetModel {
 	public void setStreetid(String streetid) {
 		this.streetid = streetid;
 	}
-	public StreetTypeModel getStreettypeid() {
-		return streettypeid;
+	public StreetTypeModel getStreettype() {
+		return streettype;
 	}
-	public void setStreettypeid(StreetTypeModel streettypeid) {
-		this.streettypeid = streettypeid;
+	public void setStreettypeid(StreetTypeModel streettype) {
+		this.streettype = streettype;
 	}
 	public String getName() {
 		return name;
@@ -47,11 +47,11 @@ public class StreetModel {
 	public void setComplement(String complement) {
 		this.complement = complement;
 	}
-	public DistrictModel getDistrictid() {
-		return districtid;
+	public DistrictModel getDistrict() {
+		return district;
 	}
-	public void setDistrictid(DistrictModel districtid) {
-		this.districtid = districtid;
+	public void setDistrict(DistrictModel district) {
+		this.district = district;
 	}
 	public String getZipcode() {
 		return zipcode;
@@ -61,7 +61,7 @@ public class StreetModel {
 	}
 	@Override
 	public String toString() {
-		return "StreetModel [streetid=" + streetid + ", streettypeid=" + streettypeid + ", name=" + name
+		return "StreetModel [streetid=" + streetid + ", streettypeid=" + streettype + ", name=" + name
 				+ ", complement=" + complement + ", zipcode=" + zipcode + "]";
 	}
 
@@ -70,10 +70,10 @@ public class StreetModel {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((complement == null) ? 0 : complement.hashCode());
-		result = prime * result + ((districtid == null) ? 0 : districtid.hashCode());
+		result = prime * result + ((district == null) ? 0 : district.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((streetid == null) ? 0 : streetid.hashCode());
-		result = prime * result + ((streettypeid == null) ? 0 : streettypeid.hashCode());
+		result = prime * result + ((streettype == null) ? 0 : streettype.hashCode());
 		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
 	}
@@ -91,10 +91,10 @@ public class StreetModel {
 				return false;
 		} else if (!complement.equals(other.complement))
 			return false;
-		if (districtid == null) {
-			if (other.districtid != null)
+		if (district == null) {
+			if (other.district != null)
 				return false;
-		} else if (!districtid.equals(other.districtid))
+		} else if (!district.equals(other.district))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -106,10 +106,10 @@ public class StreetModel {
 				return false;
 		} else if (!streetid.equals(other.streetid))
 			return false;
-		if (streettypeid == null) {
-			if (other.streettypeid != null)
+		if (streettype == null) {
+			if (other.streettype != null)
 				return false;
-		} else if (!streettypeid.equals(other.streettypeid))
+		} else if (!streettype.equals(other.streettype))
 			return false;
 		if (zipcode == null) {
 			if (other.zipcode != null)

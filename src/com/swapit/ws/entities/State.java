@@ -18,25 +18,25 @@ public class State {
 	private String stateid;
 	
 	@Column(length=2, name="acronym")
-	private char acronym;
+	private String acronym;
 	
 	@Column(length=255, name="name")
 	private String name;
 	
 	@OneToOne(cascade = ALL, orphanRemoval = true, fetch = EAGER)
 	@JoinColumn(name = "countryid")
-	private Country countryid;
+	private Country country;
 
 	public State() {
 		super();
 	}
 
-	public State(String stateid, char acronym, String name, Country countryid) {
+	public State(String stateid, String acronym, String name, Country country) {
 		super();
 		this.stateid = stateid;
 		this.acronym = acronym;
 		this.name = name;
-		this.countryid = countryid;
+		this.country = country;
 	}
 
 	public String getStateid() {
@@ -47,11 +47,11 @@ public class State {
 		this.stateid = stateid;
 	}
 
-	public char getAcronym() {
+	public String getAcronym() {
 		return acronym;
 	}
 
-	public void setAcronym(char acronym) {
+	public void setAcronym(String acronym) {
 		this.acronym = acronym;
 	}
 
@@ -63,26 +63,28 @@ public class State {
 		this.name = name;
 	}
 
-	public Country getCountryid() {
-		return countryid;
+	public Country getCountry() {
+		return country;
 	}
 
-	public void setCountryid(Country countryid) {
-		this.countryid = countryid;
+	public void setCountryid(Country country) {
+		this.country = country;
 	}
 
 	@Override
 	public String toString() {
-		return "State [stateid=" + stateid + ", acronym=" + acronym + ", name=" + name + ", countryid=" + countryid
+		return "State [stateid=" + stateid + ", acronym=" + acronym + ", name=" + name + ", countryid=" + country
 				+ "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + acronym;
-		result = prime * result + ((countryid == null) ? 0 : countryid.hashCode());
+		result = prime * result + ((acronym == null) ? 0 : acronym.hashCode());
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((stateid == null) ? 0 : stateid.hashCode());
 		return result;
@@ -97,12 +99,15 @@ public class State {
 		if (getClass() != obj.getClass())
 			return false;
 		State other = (State) obj;
-		if (acronym != other.acronym)
-			return false;
-		if (countryid == null) {
-			if (other.countryid != null)
+		if (acronym == null) {
+			if (other.acronym != null)
 				return false;
-		} else if (!countryid.equals(other.countryid))
+		} else if (!acronym.equals(other.acronym))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
 			return false;
 		if (name == null) {
 			if (other.name != null)
