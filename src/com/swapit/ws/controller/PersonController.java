@@ -98,7 +98,8 @@ public class PersonController {
 				person.getPhone(),
 				person.getPassword(),
 				person.getSex(),
-				person.getBlocked());
+				person.getBlocked(),
+				person.getLevel());
 				//propCtrl.toModel(person.getFavorite()),
 				//addressCtrl.toModel(person.getAddresid()));
 	};
@@ -114,7 +115,8 @@ public class PersonController {
 					person.getPhone(),
 					person.getPassword(),
 					person.getSex(),
-					person.getBlocked()));
+					person.getBlocked(),
+					person.getLevel()));
 					//propCtrl.toModel(person.getFavorite()),
 					//addressCtrl.toModel(person.getAddresid())));
 			
@@ -132,9 +134,13 @@ public class PersonController {
 				personModel.getPhone(),
 				personModel.getPassword(), 
 				personModel.getSex(),
-				personModel.getBlocked());
+				personModel.getBlocked(),
+				personModel.getLevel());
 				//propCtrl.toEntity(personModel.getFavorite()), 
 				//addressCtrl.toEntity(personModel.getAddresid()));
+		
+		
+		
 		
 	};
 	

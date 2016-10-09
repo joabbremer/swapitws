@@ -64,7 +64,7 @@ public class Person {
 	}
 	
 	
-	
+	/*
 	public Person(String personId, String personName, String email, String phone, String password, int blocked) {
 		super();
 		this.personId = personId;
@@ -75,10 +75,11 @@ public class Person {
 		this.blocked = blocked;
 	}
 
+*/
 
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked) {
+			int blocked, String level) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -87,7 +88,9 @@ public class Person {
 		this.password = password;
 		this.sex = sex;
 		this.blocked = blocked;
+		this.level = level;
 	}
+
 
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
@@ -175,6 +178,17 @@ public class Person {
 	public void setAddresid(Address addresid) {
 		this.addresid = addresid;
 	}
+	
+	
+	public String getLevel() {
+		return level;
+	}
+
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
 
 	@Override
 	public String toString() {
