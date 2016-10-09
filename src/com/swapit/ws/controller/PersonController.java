@@ -130,14 +130,14 @@ public class PersonController {
 
 	public Person toEntity(PersonModel personModel){
 		List<Proposition> favorite = new ArrayList<Proposition>();
-		Address address = new Address();
+		Address address = null;
 		PropositionController propCtrl = new PropositionController();
 		AddressController addressCtrl = new AddressController();
 		if(personModel.getFavorite() != null){
 			favorite =  propCtrl.toEntity(personModel.getFavorite());
 		}
-		if(personModel.getFavorite() != null){
-			addressCtrl.toEntity(personModel.getAddresid());
+		if(personModel.getAddresid() != null){
+			address =  addressCtrl.toEntity(personModel.getAddresid());
 		}
 		return new Person(personModel.getPersonId(),
 				personModel.getPersonName(),
