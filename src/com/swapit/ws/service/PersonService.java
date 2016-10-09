@@ -17,6 +17,8 @@ import javax.ws.rs.core.Response.Status;
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.model.PersonModel;
 
+import sun.awt.RepaintArea;
+
 @Path("/person")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
@@ -56,13 +58,11 @@ public class PersonService {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response save(PersonModel personModel) {
-		System.out.println("passou aqui");
 		PersonController personCtrl = new PersonController();
 		if(personCtrl.save(personModel)){
 			return Response.status(Status.OK).build();
 			
 		}		
-		
 		return Response.status(Status.BAD_REQUEST).build();
 	}
 
@@ -73,7 +73,10 @@ public class PersonService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(PersonModel personModel) {
 		PersonController personCtrl = new PersonController();
-		return Response.ok(personCtrl.update(personModel)).build();
+		if(personCtrl.update(personModel)){
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 
 	

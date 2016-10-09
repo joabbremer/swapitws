@@ -136,9 +136,6 @@ public class PersonController {
 				//propCtrl.toEntity(personModel.getFavorite()), 
 				//addressCtrl.toEntity(personModel.getAddresid()));
 		
-		
-		
-		
 	};
 	
 	public String toJson(List<PersonModel> personModel){
