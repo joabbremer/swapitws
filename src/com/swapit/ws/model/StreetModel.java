@@ -8,13 +8,13 @@ public class StreetModel {
 	private String name;
 	private String complement;	
 	private DistrictModel districtid;
-	private char zipcode;
+	private String zipcode;
 	
 	public StreetModel() {
 		super();
 	}
 	public StreetModel(String streetid, StreetTypeModel streettypeid, String name, String complement,
-			DistrictModel districtid, char zipcode) {
+			DistrictModel districtid, String zipcode) {
 		super();
 		this.streetid = streetid;
 		this.streettypeid = streettypeid;
@@ -53,10 +53,10 @@ public class StreetModel {
 	public void setDistrictid(DistrictModel districtid) {
 		this.districtid = districtid;
 	}
-	public char getZipcode() {
+	public String getZipcode() {
 		return zipcode;
 	}
-	public void setZipcode(char zipcode) {
+	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
 	@Override
@@ -64,15 +64,17 @@ public class StreetModel {
 		return "StreetModel [streetid=" + streetid + ", streettypeid=" + streettypeid + ", name=" + name
 				+ ", complement=" + complement + ", zipcode=" + zipcode + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((complement == null) ? 0 : complement.hashCode());
+		result = prime * result + ((districtid == null) ? 0 : districtid.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((streetid == null) ? 0 : streetid.hashCode());
 		result = prime * result + ((streettypeid == null) ? 0 : streettypeid.hashCode());
-		result = prime * result + zipcode;
+		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
 	}
 	@Override
@@ -89,6 +91,11 @@ public class StreetModel {
 				return false;
 		} else if (!complement.equals(other.complement))
 			return false;
+		if (districtid == null) {
+			if (other.districtid != null)
+				return false;
+		} else if (!districtid.equals(other.districtid))
+			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -104,7 +111,10 @@ public class StreetModel {
 				return false;
 		} else if (!streettypeid.equals(other.streettypeid))
 			return false;
-		if (zipcode != other.zipcode)
+		if (zipcode == null) {
+			if (other.zipcode != null)
+				return false;
+		} else if (!zipcode.equals(other.zipcode))
 			return false;
 		return true;
 	}

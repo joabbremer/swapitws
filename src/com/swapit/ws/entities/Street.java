@@ -8,9 +8,14 @@ import javax.persistence.Table;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.CascadeType.ALL;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
 @Table(name="street")
+@NamedQueries({
+	@NamedQuery(name="selectCEP", query="SELECT s FROM Street s WHERE s.zipcode = :zipcode")
+})
 public class Street {
 	
 	@Id
@@ -32,14 +37,14 @@ public class Street {
 	private District districtid;
 	
 	@Column(length=9, name="zipcode")
-	private char zipcode;
+	private String zipcode;
 
 	public Street() {
 		super();
 	}
 
 	public Street(String streetid, StreetType streettypeid, String name, String complement, District districtid,
-			char zipcode) {
+			String zipcode) {
 		super();
 		this.streetid = streetid;
 		this.streettypeid = streettypeid;
@@ -89,11 +94,11 @@ public class Street {
 		this.districtid = districtid;
 	}
 
-	public char getZipcode() {
+	public String getZipcode() {
 		return zipcode;
 	}
 
-	public void setZipcode(char zipcode) {
+	public void setZipcode(String zipcode) {
 		this.zipcode = zipcode;
 	}
 
@@ -102,6 +107,8 @@ public class Street {
 		return "Street [streetid=" + streetid + ", streettypeid=" + streettypeid + ", name=" + name + ", complement="
 				+ complement + ", districtid=" + districtid + ", zipcode=" + zipcode + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -112,7 +119,7 @@ public class Street {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((streetid == null) ? 0 : streetid.hashCode());
 		result = prime * result + ((streettypeid == null) ? 0 : streettypeid.hashCode());
-		result = prime * result + zipcode;
+		result = prime * result + ((zipcode == null) ? 0 : zipcode.hashCode());
 		return result;
 	}
 
@@ -150,7 +157,10 @@ public class Street {
 				return false;
 		} else if (!streettypeid.equals(other.streettypeid))
 			return false;
-		if (zipcode != other.zipcode)
+		if (zipcode == null) {
+			if (other.zipcode != null)
+				return false;
+		} else if (!zipcode.equals(other.zipcode))
 			return false;
 		return true;
 	}
