@@ -16,12 +16,11 @@ import com.swapit.ws.controller.StreetController;
 public class StreetService {
 	
 	@GET
-	@Path("/getbycep")
+	@Path("/getbycep/{cep}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getByCEP(@PathParam("id") String cep){
+	public Response getByCEP(@PathParam("cep") String cep){
 		StreetController streetCtrl = new StreetController();
-		streetCtrl.getByCEP(cep);
-		return null;
+		return Response.ok(streetCtrl.getByCEP(cep)).build();
 	}
 
 }
