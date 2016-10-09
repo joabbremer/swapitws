@@ -35,7 +35,7 @@ public class StreetController {
 		 
 	}
 
-	public String getByCEP(String cep) {
+	public StreetModel getByCEP(String cep) {
 		StreetDAO streetDao = new StreetDAO();
 		Street street = new Street();
 		try {
@@ -43,7 +43,7 @@ public class StreetController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		return toJson(street);
+		return toModel(street);
 		
 		
 	}
