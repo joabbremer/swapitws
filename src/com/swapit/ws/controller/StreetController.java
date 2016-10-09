@@ -1,5 +1,11 @@
 package com.swapit.ws.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.swapit.ws.dao.StreetDAO;
+import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Street;
 import com.swapit.ws.model.StreetModel;
 
@@ -27,6 +33,23 @@ public class StreetController {
 						districtCtrl.toModel(streetEntity.getDistrictid()),
 						streetEntity.getZipcode());
 		 
+	}
+
+	public String getByCEP(String cep) {
+		StreetDAO streetDao = new StreetDAO();
+		Street street = new Street();
+		try {
+			street = streetDao.selectCEP(cep);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return toJson(street);
+		
+		
+	}
+	public String toJson(Street street){
+		Gson gson = new Gson();
+		return gson.toJson(street);
 	}
 
 }

@@ -9,7 +9,9 @@ import javax.ws.rs.core.Response;
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
 import com.swapit.ws.dao.exception.ConnectException;
+import com.swapit.ws.entities.Address;
 import com.swapit.ws.entities.Person;
+import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
 
@@ -125,9 +127,18 @@ public class PersonController {
 		
 	};
 	
+
 	public Person toEntity(PersonModel personModel){
+		List<Proposition> favorite = new ArrayList<Proposition>();
+		Address address = new Address();
 		PropositionController propCtrl = new PropositionController();
 		AddressController addressCtrl = new AddressController();
+		if(personModel.getFavorite() != null){
+			favorite =  propCtrl.toEntity(personModel.getFavorite());
+		}
+		if(personModel.getFavorite() != null){
+			addressCtrl.toEntity(personModel.getAddresid());
+		}
 		return new Person(personModel.getPersonId(),
 				personModel.getPersonName(),
 				personModel.getEmail(),
@@ -135,12 +146,9 @@ public class PersonController {
 				personModel.getPassword(), 
 				personModel.getSex(),
 				personModel.getBlocked(),
-				personModel.getLevel());
-				//propCtrl.toEntity(personModel.getFavorite()), 
-				//addressCtrl.toEntity(personModel.getAddresid()));
-		
-		
-		
+				personModel.getLevel(),
+				favorite,
+				address);
 		
 	};
 	
@@ -165,6 +173,7 @@ public class PersonController {
 								  persoModel.getPassword(),
 								  persoModel.getSex(),
 								  persoModel.getBlocked(),
+								  persoModel.getLevel(),
 								  propCtrl.toEntity(persoModel.getFavorite()),
 								  addressCtrl.toEntity(persoModel.getAddresid())));
 		}

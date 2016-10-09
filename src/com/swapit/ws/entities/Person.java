@@ -63,19 +63,6 @@ public class Person {
 		super();
 	}
 	
-	
-	/*
-	public Person(String personId, String personName, String email, String phone, String password, int blocked) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.blocked = blocked;
-	}
-
-*/
 
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
@@ -94,7 +81,7 @@ public class Person {
 
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, List<Proposition> favorite, Address addresid) {
+			int blocked, String level, List<Proposition> favorite, Address addresid) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -103,9 +90,12 @@ public class Person {
 		this.password = password;
 		this.sex = sex;
 		this.blocked = blocked;
+		this.level = level;
 		this.favorite = favorite;
 		this.addresid = addresid;
 	}
+
+
 
 	public String getPersonId() {
 		return personId;
