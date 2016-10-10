@@ -102,6 +102,15 @@ public class PersonController {
 	public PersonModel toModel(Person person){
 		PropositionController propCtrl = new PropositionController();
 		AddressController addressCtrl = new AddressController();
+		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
+		AddressModel addressModel = new AddressModel();
+		if(person.getFavorite() != null){
+			favoriteModel = propCtrl.toModel(person.getFavorite());
+		}
+		if(person.getAddress() != null){
+			addressModel = addressCtrl.toModel(person.getAddress());
+		}
+		
 		return new PersonModel(person.getPersonId(),
 				person.getPersonName(),
 				person.getEmail(),
@@ -109,9 +118,9 @@ public class PersonController {
 				person.getPassword(),
 				person.getSex(),
 				person.getBlocked(),
-				person.getLevel());
-				//propCtrl.toModel(person.getFavorite()),
-				//addressCtrl.toModel(person.getAddresid()));
+				person.getLevel(),
+				favoriteModel,
+				addressModel);
 	};
 	
 	public List<PersonModel> toModel(List<Person> personEntity){
@@ -127,8 +136,8 @@ public class PersonController {
 			if(person.getFavorite() != null){
 				favoriteModel = propCtrl.toModel(person.getFavorite());
 			}
-			if(person.getAddresid() != null){
-				addresModel = addressCtrl.toModel(person.getAddresid());
+			if(person.getAddress() != null){
+				addresModel = addressCtrl.toModel(person.getAddress());
 			}
 			
 			personModel.add(new PersonModel(person.getPersonId(),
