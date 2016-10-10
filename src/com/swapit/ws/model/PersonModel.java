@@ -14,7 +14,7 @@ public class PersonModel {
 	private int blocked;
 	private String level;
 	private List<PropositionModel> favorite;	
-	private AddressModel addresid;
+	private AddressModel address;
 	
 	public PersonModel() {
 		super();
@@ -50,7 +50,7 @@ public class PersonModel {
 
 
 	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, List<PropositionModel> favorite, AddressModel addresid) {
+			int blocked, List<PropositionModel> favorite, AddressModel address) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -60,13 +60,13 @@ public class PersonModel {
 		this.sex = sex;
 		this.blocked = blocked;
 		this.favorite = favorite;
-		this.addresid = addresid;
+		this.address = address;
 	}
 	
 	
 
 	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level, List<PropositionModel> favorite, AddressModel addresid) {
+			int blocked, String level, List<PropositionModel> favorite, AddressModel address) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -77,7 +77,7 @@ public class PersonModel {
 		this.blocked = blocked;
 		this.level = level;
 		this.favorite = favorite;
-		this.addresid = addresid;
+		this.address = address;
 	}
 
 
@@ -156,26 +156,26 @@ public class PersonModel {
 		this.favorite = favorite;
 	}
 
-	public AddressModel getAddresid() {
-		return addresid;
+	public AddressModel getAddres() {
+		return address;
 	}
 
-	public void setAddresid(AddressModel addresid) {
-		this.addresid = addresid;
+	public void setAddress(AddressModel address) {
+		this.address = address;
 	}
 
 	@Override
 	public String toString() {
 		return "PersonModel [personId=" + personId + ", personName=" + personName + ", email=" + email + ", phone="
 				+ phone + ", password=" + password + ", sex=" + sex + ", blocked=" + blocked + ", favorite=" + favorite
-				+ ", addresid=" + addresid + "]";
+				+ ", addresid=" + address + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((addresid == null) ? 0 : addresid.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + blocked;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((favorite == null) ? 0 : favorite.hashCode());
@@ -196,10 +196,10 @@ public class PersonModel {
 		if (getClass() != obj.getClass())
 			return false;
 		PersonModel other = (PersonModel) obj;
-		if (addresid == null) {
-			if (other.addresid != null)
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!addresid.equals(other.addresid))
+		} else if (!address.equals(other.address))
 			return false;
 		if (blocked != other.blocked)
 			return false;

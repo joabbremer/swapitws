@@ -10,7 +10,7 @@ public class StateController {
 		return new State(stateModel.getStateid(),
 						 stateModel.getAcronym(),
 						 stateModel.getName(),
-						 countryContrl.toEntity(stateModel.getCountryid()));
+						 countryContrl.toEntity(stateModel.getCountry()));
 	}
 
 	public StateModel toModel(State state) {
@@ -18,7 +18,7 @@ public class StateController {
 		return new StateModel(state.getStateid(),
 							state.getAcronym(),
 							state.getName(),
-							countryContrl.toModel(state.getCountryid()));
+							countryContrl.toModel(state.getCountry()));
 	}
 
 }

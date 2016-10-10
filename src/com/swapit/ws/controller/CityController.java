@@ -10,7 +10,7 @@ public class CityController {
 		return new City(cityModel.getCityid(),
 						cityModel.getName(),
 						cityModel.getZipcode(),
-						stateCtrl.toEntity(cityModel.getStateid()));
+						stateCtrl.toEntity(cityModel.getState()));
 	}
 
 	public CityModel toModel(City city) {

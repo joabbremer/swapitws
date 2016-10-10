@@ -89,10 +89,10 @@ public class PersonController {
 		if(personModel.getPersonId().isEmpty()){
 			personModel.setPersonId(UUID.randomUUID().toString());
 		}		
-		AddressModel addrresModel = personModel.getAddresid();
+		AddressModel addrresModel = personModel.getAddres();
 		if(addrresModel.getAddressId() ==null){			
 			addrresModel.setAddressId(UUID.randomUUID().toString());
-			personModel.setAddresid(addrresModel);
+			personModel.setAddress(addrresModel);
 		}
 		
 		
@@ -159,8 +159,8 @@ public class PersonController {
 		if(personModel.getFavorite() != null){
 			favorite =  propCtrl.toEntity(personModel.getFavorite());
 		}
-		if(personModel.getAddresid() != null){
-			address =  addressCtrl.toEntity(personModel.getAddresid());
+		if(personModel.getAddres() != null){
+			address =  addressCtrl.toEntity(personModel.getAddres());
 		}
 		return new Person(personModel.getPersonId(),
 				personModel.getPersonName(),
@@ -198,7 +198,7 @@ public class PersonController {
 								  persoModel.getBlocked(),
 								  persoModel.getLevel(),
 								  propCtrl.toEntity(persoModel.getFavorite()),
-								  addressCtrl.toEntity(persoModel.getAddresid())));
+								  addressCtrl.toEntity(persoModel.getAddres())));
 		}
 		return person;
 	}

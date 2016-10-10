@@ -1,7 +1,5 @@
 package com.swapit.ws.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.swapit.ws.dao.StreetDAO;
@@ -15,10 +13,10 @@ public class StreetController {
 		StreetTypeController StrTypeCtrl = new StreetTypeController();
 		DistrictController districtCtrl = new DistrictController();
 		return new Street(streetModel.getStreetid(),
-					StrTypeCtrl.toEntity(streetModel.getStreettypeid()),
+					StrTypeCtrl.toEntity(streetModel.getStreettype()),
 					streetModel.getName(),
 					streetModel.getComplement(),
-					districtCtrl.toEntity(streetModel.getDistrictid()),
+					districtCtrl.toEntity(streetModel.getDistrict()),
 					streetModel.getZipcode());
 		 
 	}
