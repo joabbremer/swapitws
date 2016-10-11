@@ -1,12 +1,14 @@
-package com.swapit.ws.model;
+package com.swapit.ws.reduce;
 
 import java.util.List;
 
-import com.swapit.ws.reduce.AddressReduce;
+import com.swapit.ws.model.PersonModel;
+import com.swapit.ws.model.PropositionModel;
 
 
-public class PersonModel {
-	
+
+public class PersonReduce {
+
 	private String personId;	
 	private String personName;	
 	private String email;	
@@ -16,59 +18,14 @@ public class PersonModel {
 	private int blocked;
 	private String level;
 	private List<PropositionModel> favorite;	
-	private AddressModel address;
+	private AddressReduce addressReduce;
 	
-	public PersonModel() {
+	public PersonReduce() {
 		super();
 	}
-	
-	
 
-	public PersonModel(String personId, String personName, String email, String phone, String password, int blocked, String level) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.blocked = blocked;
-		this.level=level;
-	}
-
-
-
-	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.sex = sex;
-		this.blocked = blocked;
-		this.level = level;
-	}
-
-
-	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, List<PropositionModel> favorite, AddressModel address) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.sex = sex;
-		this.blocked = blocked;
-		this.favorite = favorite;
-		this.address = address;
-	}
-	
-	
-
-	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level, List<PropositionModel> favorite, AddressModel address) {
+	public PersonReduce(String personId, String personName, String email, String phone, String password, char sex,
+			int blocked, String level, List<PropositionModel> favorite, AddressReduce addressReduce) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -79,17 +36,8 @@ public class PersonModel {
 		this.blocked = blocked;
 		this.level = level;
 		this.favorite = favorite;
-		this.address = address;
+		this.addressReduce = addressReduce;
 	}
-
-
-
-	public PersonModel(String personId2, String personName2, String email2, String phone2, String password2, char sex2,
-			int blocked2, String level2, List<PropositionModel> favorite2, AddressReduce simpleAddress) {
-		// TODO Auto-generated constructor stub
-	}
-
-
 
 	public String getPersonId() {
 		return personId;
@@ -147,10 +95,6 @@ public class PersonModel {
 		this.blocked = blocked;
 	}
 
-	public List<PropositionModel> getFavorite() {
-		return favorite;
-	}
-
 	public String getLevel() {
 		return level;
 	}
@@ -159,35 +103,31 @@ public class PersonModel {
 		this.level = level;
 	}
 
-
+	public List<PropositionModel> getFavorite() {
+		return favorite;
+	}
 
 	public void setFavorite(List<PropositionModel> favorite) {
 		this.favorite = favorite;
 	}
 
-	public AddressModel getAddres() {
-		return address;
+	public AddressReduce getAddressReduce() {
+		return addressReduce;
 	}
 
-	public void setAddress(AddressModel address) {
-		this.address = address;
-	}
-
-	@Override
-	public String toString() {
-		return "PersonModel [personId=" + personId + ", personName=" + personName + ", email=" + email + ", phone="
-				+ phone + ", password=" + password + ", sex=" + sex + ", blocked=" + blocked + ", favorite=" + favorite
-				+ ", addresid=" + address + "]";
+	public void setAddressReduce(AddressReduce addressReduce) {
+		this.addressReduce = addressReduce;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((addressReduce == null) ? 0 : addressReduce.hashCode());
 		result = prime * result + blocked;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((favorite == null) ? 0 : favorite.hashCode());
+		result = prime * result + ((level == null) ? 0 : level.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((personId == null) ? 0 : personId.hashCode());
 		result = prime * result + ((personName == null) ? 0 : personName.hashCode());
@@ -204,11 +144,11 @@ public class PersonModel {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PersonModel other = (PersonModel) obj;
-		if (address == null) {
-			if (other.address != null)
+		PersonReduce other = (PersonReduce) obj;
+		if (addressReduce == null) {
+			if (other.addressReduce != null)
 				return false;
-		} else if (!address.equals(other.address))
+		} else if (!addressReduce.equals(other.addressReduce))
 			return false;
 		if (blocked != other.blocked)
 			return false;
@@ -221,6 +161,11 @@ public class PersonModel {
 			if (other.favorite != null)
 				return false;
 		} else if (!favorite.equals(other.favorite))
+			return false;
+		if (level == null) {
+			if (other.level != null)
+				return false;
+		} else if (!level.equals(other.level))
 			return false;
 		if (password == null) {
 			if (other.password != null)
@@ -246,9 +191,9 @@ public class PersonModel {
 			return false;
 		return true;
 	}
-
 	
 	
 	
-
+	
+	
 }
