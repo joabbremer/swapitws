@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
@@ -15,6 +14,7 @@ import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
+import com.swapit.ws.reduce.PersonReduce;
 
 
 public class PersonController {
@@ -31,14 +31,16 @@ public class PersonController {
 	};
 	
 	public String get(String id){
+		AddressController addressCtrl = new AddressController();
 		PersonDAO personDao = new PersonDAO();
 		Person person = null;
 		try {
 			person = personDao.select(id);
 		} catch (ConnectException e) {
 			e.printStackTrace();
-		}		
-		return toJson(toModel(person));
+		}	
+		PersonReduce personReduce = addressCtrl.reduceAddress(toModel(person));
+		return toJson(personReduce);
 	};
 	
 	public Boolean save(PersonModel personModel) {
@@ -191,6 +193,10 @@ public class PersonController {
 	public String toJson(PersonModel personModel){
 		Gson gson = new Gson();
 		return gson.toJson(personModel);
+	}
+	public String toJson(PersonReduce personReduce){
+		Gson gson = new Gson();
+		return gson.toJson(personReduce);
 	}
 	
 	public List<Person> toEntity(List<PersonModel> personModel) {
