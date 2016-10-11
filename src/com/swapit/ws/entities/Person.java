@@ -57,28 +57,16 @@ public class Person {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressid", referencedColumnName = "addressid", nullable=true)
-	private Address addresid;
+	private Address address;
 
 	public Person() {
 		super();
 	}
 	
-	
-	
-	public Person(String personId, String personName, String email, String phone, String password, int blocked) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.blocked = blocked;
-	}
-
 
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked) {
+			int blocked, String level) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -87,11 +75,13 @@ public class Person {
 		this.password = password;
 		this.sex = sex;
 		this.blocked = blocked;
+		this.level = level;
 	}
 
 
+
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, List<Proposition> favorite, Address addresid) {
+			int blocked, String level, List<Proposition> favorite, Address address) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -100,9 +90,12 @@ public class Person {
 		this.password = password;
 		this.sex = sex;
 		this.blocked = blocked;
+		this.level = level;
 		this.favorite = favorite;
-		this.addresid = addresid;
+		this.address = address;
 	}
+
+
 
 	public String getPersonId() {
 		return personId;
@@ -168,26 +161,37 @@ public class Person {
 		this.favorite = favorite;
 	}
 
-	public Address getAddresid() {
-		return addresid;
+	public Address getAddress() {
+		return address;
 	}
 
 	public void setAddresid(Address addresid) {
-		this.addresid = addresid;
+		this.address = addresid;
 	}
+	
+	
+	public String getLevel() {
+		return level;
+	}
+
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+
 
 	@Override
 	public String toString() {
 		return "Person [personId=" + personId + ", personName=" + personName + ", email=" + email + ", phone=" + phone
 				+ ", password=" + password + ", sex=" + sex + ", blocked=" + blocked + ", favorite=" + favorite
-				+ ", addresid=" + addresid + "]";
+				+ ", addresid=" + address + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((addresid == null) ? 0 : addresid.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + blocked;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((favorite == null) ? 0 : favorite.hashCode());
@@ -208,10 +212,10 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (addresid == null) {
-			if (other.addresid != null)
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!addresid.equals(other.addresid))
+		} else if (!address.equals(other.address))
 			return false;
 		if (blocked != other.blocked)
 			return false;

@@ -1,21 +1,18 @@
 package com.swapit.ws.model;
 
-
-
-
 public class AddressModel{	
 	
 	private String addressId;
-	private StreetModel streetid;	
+	private StreetModel street;	
 	private String number;
 	
 	public AddressModel() {
 		super();
 	}
-	public AddressModel(String addressId, StreetModel streetid, String number) {
+	public AddressModel(String addressId, StreetModel street, String number) {
 		super();
 		this.addressId = addressId;
-		this.streetid = streetid;
+		this.street = street;
 		this.number = number;
 	}
 	public String getAddressId() {
@@ -24,11 +21,11 @@ public class AddressModel{
 	public void setAddressId(String addressId) {
 		this.addressId = addressId;
 	}
-	public StreetModel getStreetid() {
-		return streetid;
+	public StreetModel getStreet() {
+		return street;
 	}
-	public void setStreetid(StreetModel streetid) {
-		this.streetid = streetid;
+	public void setStreet(StreetModel street) {
+		this.street = street;
 	}
 	public String getNumber() {
 		return number;
@@ -38,7 +35,7 @@ public class AddressModel{
 	}
 	@Override
 	public String toString() {
-		return "AddressModel [addressId=" + addressId + ", streetid=" + streetid + ", number=" + number + "]";
+		return "AddressModel [addressId=" + addressId + ", streetid=" + street + ", number=" + number + "]";
 	}
 	@Override
 	public int hashCode() {
@@ -46,7 +43,7 @@ public class AddressModel{
 		int result = 1;
 		result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
 		result = prime * result + ((number == null) ? 0 : number.hashCode());
-		result = prime * result + ((streetid == null) ? 0 : streetid.hashCode());
+		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		return result;
 	}
 	@Override
@@ -68,10 +65,10 @@ public class AddressModel{
 				return false;
 		} else if (!number.equals(other.number))
 			return false;
-		if (streetid == null) {
-			if (other.streetid != null)
+		if (street == null) {
+			if (other.street != null)
 				return false;
-		} else if (!streetid.equals(other.streetid))
+		} else if (!street.equals(other.street))
 			return false;
 		return true;
 	}

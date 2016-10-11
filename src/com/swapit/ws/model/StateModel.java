@@ -5,18 +5,18 @@ package com.swapit.ws.model;
 public class StateModel {
 	
 	private String stateid;	
-	private char acronym;	
+	private String acronym;	
 	private String name;	
-	private CountryModel countryid;
+	private CountryModel country;
 	public StateModel() {
 		super();
 	}
-	public StateModel(String stateid, char acronym, String name, CountryModel countryid) {
+	public StateModel(String stateid, String acronym, String name, CountryModel country) {
 		super();
 		this.stateid = stateid;
 		this.acronym = acronym;
 		this.name = name;
-		this.countryid = countryid;
+		this.country = country;
 	}
 	public String getStateid() {
 		return stateid;
@@ -24,10 +24,10 @@ public class StateModel {
 	public void setStateid(String stateid) {
 		this.stateid = stateid;
 	}
-	public char getAcronym() {
+	public String getAcronym() {
 		return acronym;
 	}
-	public void setAcronym(char acronym) {
+	public void setAcronym(String acronym) {
 		this.acronym = acronym;
 	}
 	public String getName() {
@@ -36,21 +36,24 @@ public class StateModel {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public CountryModel getCountryid() {
-		return countryid;
+	public CountryModel getCountry() {
+		return country;
 	}
-	public void setCountryid(CountryModel countryid) {
-		this.countryid = countryid;
+	public void setCountry(CountryModel country) {
+		this.country = country;
 	}
 	@Override
 	public String toString() {
 		return "StateModel [stateid=" + stateid + ", acronym=" + acronym + ", name=" + name + "]";
 	}
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + acronym;
+		result = prime * result + ((acronym == null) ? 0 : acronym.hashCode());
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((stateid == null) ? 0 : stateid.hashCode());
 		return result;
@@ -64,7 +67,15 @@ public class StateModel {
 		if (getClass() != obj.getClass())
 			return false;
 		StateModel other = (StateModel) obj;
-		if (acronym != other.acronym)
+		if (acronym == null) {
+			if (other.acronym != null)
+				return false;
+		} else if (!acronym.equals(other.acronym))
+			return false;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
 			return false;
 		if (name == null) {
 			if (other.name != null)
