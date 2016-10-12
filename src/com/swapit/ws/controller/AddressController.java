@@ -1,6 +1,11 @@
 package com.swapit.ws.controller;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.swapit.ws.dao.AddressDAO;
+import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Address;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.CityModel;
@@ -15,6 +20,18 @@ import com.swapit.ws.reduce.PersonReduce;
 
 public class AddressController {
 	
+	public AddressModel getbyID(String addressID){
+		AddressDAO addressDao = new AddressDAO();
+		List<Address> address = new ArrayList<Address>();
+		try {
+			address = addressDao.getbyID(addressID);
+		} catch (ConnectException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return toModel(address);
+	}
+	
 	public AddressModel toModel(Address addressEntity){		
 		StreetController streetCtrl = new StreetController();
 		return new AddressModel(addressEntity.getAddressId(),
@@ -22,6 +39,19 @@ public class AddressController {
 								addressEntity.getNumber());
 		
 	}
+	public AddressModel toModel(List<Address> addressEntity){	
+		
+		StreetController streetCtrl = new StreetController();	
+		AddressModel addressModel = null;
+		for (Address address : addressEntity) {
+			addressModel = new AddressModel(address.getAddressId(),
+												streetCtrl.toModel(address.getStreetid()),
+												address.getNumber());
+			
+		}
+		
+		return addressModel;
+	} 
 	
 	public Address toEntity(AddressModel addressModel){
 		StreetController streetCtrl = new StreetController();		
