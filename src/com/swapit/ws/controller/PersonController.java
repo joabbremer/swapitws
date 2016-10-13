@@ -122,7 +122,8 @@ public class PersonController {
 			personModel.setPersonId(UUID.randomUUID().toString());
 		}		
 		AddressModel addrresModel = personModel.getAddres();
-		if(addrresModel.getAddressId() ==null){			
+		
+		if(addrresModel != null){			
 			addrresModel.setAddressId(UUID.randomUUID().toString());
 			personModel.setAddress(addrresModel);
 		}
