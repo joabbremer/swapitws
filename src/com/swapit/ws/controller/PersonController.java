@@ -14,6 +14,8 @@ import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
+import com.swapit.ws.model.StreetModel;
+import com.swapit.ws.reduce.AddressReduce;
 import com.swapit.ws.reduce.PersonReduce;
 
 
@@ -55,8 +57,9 @@ public class PersonController {
 		return false;
 	}
 	
-	public Boolean update(PersonModel personModel) {
+	public Boolean update(PersonReduce personReduce) {
 		PersonDAO personDao = new PersonDAO();	
+		PersonModel personModel =  personComplete(personReduce);
 		personModel = CreatID(personModel);
 		try {
 			return personDao.update(toEntity(personModel));
@@ -66,6 +69,33 @@ public class PersonController {
 		return false;
 	}
 	
+	private PersonModel personComplete(PersonReduce personReduce) {
+		AddressReduce addressReduce =  personReduce.getAddressReduce();
+		
+		StreetController streetCtrl = new StreetController();
+		
+		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
+		
+		
+		AddressModel addressModel = new AddressModel();
+		
+		addressModel.setStreet(streetModel);
+		addressModel.setNumber(addressReduce.getNumber());
+		
+		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
+													personReduce.getPersonName(),
+													personReduce.getEmail(),
+													personReduce.getPhone(),
+													personReduce.getPassword(),
+													personReduce.getSex(),
+													personReduce.getBlocked(),
+													personReduce.getLevel(),
+													personReduce.getFavorite(),
+													addressModel);
+		
+		return personModel;
+	}
+
 	public Boolean delete(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		try {
@@ -92,7 +122,8 @@ public class PersonController {
 			personModel.setPersonId(UUID.randomUUID().toString());
 		}		
 		AddressModel addrresModel = personModel.getAddres();
-		if(addrresModel.getAddressId() ==null){			
+		
+		if(addrresModel != null){			
 			addrresModel.setAddressId(UUID.randomUUID().toString());
 			personModel.setAddress(addrresModel);
 		}

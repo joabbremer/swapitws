@@ -8,7 +8,11 @@ import static javax.persistence.CascadeType.ALL;
 
 @Entity
 @Table(name="address")
-@NamedQuery(name="Address.findAll", query="SELECT a FROM Address a")
+@NamedQueries({
+	@NamedQuery(name="selectAddressID", query="SELECT a FROM Address a WHERE a.addressId = :addressID")
+})
+
+
 
 public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;

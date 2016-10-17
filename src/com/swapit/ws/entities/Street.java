@@ -14,7 +14,8 @@ import javax.persistence.NamedQuery;
 @Entity
 @Table(name="street")
 @NamedQueries({
-	@NamedQuery(name="selectCEP", query="SELECT s FROM Street s WHERE s.zipcode = :zipcode")
+	@NamedQuery(name="selectCEP", query="SELECT s FROM Street s WHERE s.zipcode = :zipcode"),
+	@NamedQuery(name="selectIDstreet", query="SELECT s FROM Street s WHERE s.streetid = :streetID")
 })
 public class Street {
 	
