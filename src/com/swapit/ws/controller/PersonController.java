@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import javax.ws.rs.core.Response;
 
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
@@ -15,6 +14,9 @@ import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
+import com.swapit.ws.model.StreetModel;
+import com.swapit.ws.reduce.AddressReduce;
+import com.swapit.ws.reduce.PersonReduce;
 
 
 public class PersonController {
@@ -31,14 +33,16 @@ public class PersonController {
 	};
 	
 	public String get(String id){
+		AddressController addressCtrl = new AddressController();
 		PersonDAO personDao = new PersonDAO();
 		Person person = null;
 		try {
 			person = personDao.select(id);
 		} catch (ConnectException e) {
 			e.printStackTrace();
-		}		
-		return toJson(toModel(person));
+		}	
+		PersonReduce personReduce = addressCtrl.reduceAddress(toModel(person));
+		return toJson(personReduce);
 	};
 	
 	public Boolean save(PersonModel personModel) {
@@ -53,8 +57,9 @@ public class PersonController {
 		return false;
 	}
 	
-	public Boolean update(PersonModel personModel) {
+	public Boolean update(PersonReduce personReduce) {
 		PersonDAO personDao = new PersonDAO();	
+		PersonModel personModel =  personComplete(personReduce);
 		personModel = CreatID(personModel);
 		try {
 			return personDao.update(toEntity(personModel));
@@ -64,6 +69,33 @@ public class PersonController {
 		return false;
 	}
 	
+	private PersonModel personComplete(PersonReduce personReduce) {
+		AddressReduce addressReduce =  personReduce.getAddressReduce();
+		
+		StreetController streetCtrl = new StreetController();
+		
+		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
+		
+		
+		AddressModel addressModel = new AddressModel();
+		
+		addressModel.setStreet(streetModel);
+		addressModel.setNumber(addressReduce.getNumber());
+		
+		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
+													personReduce.getPersonName(),
+													personReduce.getEmail(),
+													personReduce.getPhone(),
+													personReduce.getPassword(),
+													personReduce.getSex(),
+													personReduce.getBlocked(),
+													personReduce.getLevel(),
+													personReduce.getFavorite(),
+													addressModel);
+		
+		return personModel;
+	}
+
 	public Boolean delete(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		try {
@@ -90,7 +122,8 @@ public class PersonController {
 			personModel.setPersonId(UUID.randomUUID().toString());
 		}		
 		AddressModel addrresModel = personModel.getAddres();
-		if(addrresModel.getAddressId() ==null){			
+		
+		if(addrresModel != null){			
 			addrresModel.setAddressId(UUID.randomUUID().toString());
 			personModel.setAddress(addrresModel);
 		}
@@ -102,6 +135,15 @@ public class PersonController {
 	public PersonModel toModel(Person person){
 		PropositionController propCtrl = new PropositionController();
 		AddressController addressCtrl = new AddressController();
+		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
+		AddressModel addressModel = new AddressModel();
+		if(person.getFavorite() != null){
+			favoriteModel = propCtrl.toModel(person.getFavorite());
+		}
+		if(person.getAddress() != null){
+			addressModel = addressCtrl.toModel(person.getAddress());
+		}
+		
 		return new PersonModel(person.getPersonId(),
 				person.getPersonName(),
 				person.getEmail(),
@@ -109,9 +151,9 @@ public class PersonController {
 				person.getPassword(),
 				person.getSex(),
 				person.getBlocked(),
-				person.getLevel());
-				//propCtrl.toModel(person.getFavorite()),
-				//addressCtrl.toModel(person.getAddresid()));
+				person.getLevel(),
+				favoriteModel,
+				addressModel);
 	};
 	
 	public List<PersonModel> toModel(List<Person> personEntity){
@@ -127,8 +169,8 @@ public class PersonController {
 			if(person.getFavorite() != null){
 				favoriteModel = propCtrl.toModel(person.getFavorite());
 			}
-			if(person.getAddresid() != null){
-				addresModel = addressCtrl.toModel(person.getAddresid());
+			if(person.getAddress() != null){
+				addresModel = addressCtrl.toModel(person.getAddress());
 			}
 			
 			personModel.add(new PersonModel(person.getPersonId(),
@@ -182,6 +224,10 @@ public class PersonController {
 	public String toJson(PersonModel personModel){
 		Gson gson = new Gson();
 		return gson.toJson(personModel);
+	}
+	public String toJson(PersonReduce personReduce){
+		Gson gson = new Gson();
+		return gson.toJson(personReduce);
 	}
 	
 	public List<Person> toEntity(List<PersonModel> personModel) {

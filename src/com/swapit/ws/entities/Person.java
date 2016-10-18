@@ -57,7 +57,7 @@ public class Person {
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressid", referencedColumnName = "addressid", nullable=true)
-	private Address addresid;
+	private Address address;
 
 	public Person() {
 		super();
@@ -81,7 +81,7 @@ public class Person {
 
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level, List<Proposition> favorite, Address addresid) {
+			int blocked, String level, List<Proposition> favorite, Address address) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -92,7 +92,7 @@ public class Person {
 		this.blocked = blocked;
 		this.level = level;
 		this.favorite = favorite;
-		this.addresid = addresid;
+		this.address = address;
 	}
 
 
@@ -161,12 +161,12 @@ public class Person {
 		this.favorite = favorite;
 	}
 
-	public Address getAddresid() {
-		return addresid;
+	public Address getAddress() {
+		return address;
 	}
 
 	public void setAddresid(Address addresid) {
-		this.addresid = addresid;
+		this.address = addresid;
 	}
 	
 	
@@ -184,14 +184,14 @@ public class Person {
 	public String toString() {
 		return "Person [personId=" + personId + ", personName=" + personName + ", email=" + email + ", phone=" + phone
 				+ ", password=" + password + ", sex=" + sex + ", blocked=" + blocked + ", favorite=" + favorite
-				+ ", addresid=" + addresid + "]";
+				+ ", addresid=" + address + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((addresid == null) ? 0 : addresid.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + blocked;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((favorite == null) ? 0 : favorite.hashCode());
@@ -212,10 +212,10 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
-		if (addresid == null) {
-			if (other.addresid != null)
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!addresid.equals(other.addresid))
+		} else if (!address.equals(other.address))
 			return false;
 		if (blocked != other.blocked)
 			return false;

@@ -24,11 +24,11 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 		return (Street) query.getSingleResult();
 	}
 	
-	public Street selectCEP(String zipcode) throws ConnectException {
+	public List<Street> selectCEP(String zipcode) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectCEP");
 		query.setParameter("zipcode",zipcode);
-		return (Street) query.getSingleResult();
+		return query.getResultList();
 	}
 
 	@Override
@@ -47,6 +47,15 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 	public Boolean delete(Street obj) throws ConnectException {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public List<Street> selectID(String streetID) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("selectIDstreet");
+		query.setParameter("streetID",streetID);
+		return query.getResultList();
+		
+		
 	}
 
 }
