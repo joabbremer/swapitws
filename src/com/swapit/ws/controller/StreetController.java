@@ -9,7 +9,6 @@ import com.swapit.ws.dao.StreetDAO;
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Street;
 import com.swapit.ws.model.StreetModel;
-import com.swapit.ws.model.StreetTypeModel;
 
 public class StreetController {
 
@@ -36,7 +35,25 @@ public class StreetController {
 						streetEntity.getZipcode());
 		 
 	}
-	public List<StreetModel> toModel(List<Street> streetEntity){
+	public StreetModel toModel(List<Street> streetEntity){
+		StreetTypeController strTypeCtrl = new StreetTypeController();
+		DistrictController districtCtrl = new DistrictController();
+		
+		StreetModel streetModel = new StreetModel();
+		for (Street street : streetEntity) {
+			streetModel = new StreetModel(street.getStreetid(),
+											strTypeCtrl.toModel(street.getStreettypeid()),
+											street.getName(),
+											street.getComplement(),
+											districtCtrl.toModel(street.getDistrictid()),
+											street.getZipcode());
+			
+		}
+		
+		
+		return streetModel;
+	}
+	public List<StreetModel> toModelList(List<Street> streetEntity){
 		StreetTypeController strTypeCtrl = new StreetTypeController();
 		DistrictController districtCtrl = new DistrictController();
 		
@@ -55,7 +72,7 @@ public class StreetController {
 		return streetModel;
 	}
 
-	public List<StreetModel> getByCEP(String cep) {
+	public StreetModel getByCEP(String cep) {
 		StreetDAO streetDao = new StreetDAO();
 		List<Street> street = new ArrayList<Street>();
 		try {

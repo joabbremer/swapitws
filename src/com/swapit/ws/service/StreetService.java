@@ -21,6 +21,7 @@ public class StreetService {
 	public Response getByCEP(@PathParam("cep") String cep){
 		StreetController streetCtrl = new StreetController();
 		return Response.ok(streetCtrl.getByCEP(cep)).build();
+		
 	}
 
 }

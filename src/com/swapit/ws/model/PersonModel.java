@@ -2,7 +2,7 @@ package com.swapit.ws.model;
 
 import java.util.List;
 
-import com.swapit.ws.reduce.AddressReduce;
+import com.swapit.ws.model.reduce.AddressReduce;
 
 
 public class PersonModel {

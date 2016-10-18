@@ -10,14 +10,14 @@ public class PropositionModel  {
 	private String propositionId;	
 	private String title;	
 	private String description;	
-	private AddressModel addressId;	
+	private AddressModel address;	
 	private double price;	
 	private double priceCatInterest;	
 	private double totalPrice;	
-	private List<CategoryModel> categoryId;	
+	private List<CategoryModel> category;	
 	private String interest_category;	
-	private PersonModel personId;	
-	private List<PropositionImageModel> imageId;	
+	private PersonModel person;	
+	private List<PropositionImageModel> image;	
 	private Date publish_date;	
 	private Date removel_date;
 	
@@ -25,22 +25,22 @@ public class PropositionModel  {
 		super();
 	}
 
-	public PropositionModel(String propositionId, String title, String description, AddressModel addressId,
-			double price, double priceCatInterest, double totalPrice, List<CategoryModel> categoryId,
-			String interest_category, PersonModel personId, List<PropositionImageModel> imageId,
+	public PropositionModel(String propositionId, String title, String description, AddressModel address,
+			double price, double priceCatInterest, double totalPrice, List<CategoryModel> category,
+			String interest_category, PersonModel person, List<PropositionImageModel> image,
 			Date publish_date, Date removel_date) {
 		super();
 		this.propositionId = propositionId;
 		this.title = title;
 		this.description = description;
-		this.addressId = addressId;
+		this.address = address;
 		this.price = price;
 		this.priceCatInterest = priceCatInterest;
 		this.totalPrice = totalPrice;
-		this.categoryId = categoryId;
+		this.category = category;
 		this.interest_category = interest_category;
-		this.personId = personId;
-		this.imageId = imageId;
+		this.person = person;
+		this.image = image;
 		this.publish_date = publish_date;
 		this.removel_date = removel_date;
 	}
@@ -69,12 +69,12 @@ public class PropositionModel  {
 		this.description = description;
 	}
 
-	public AddressModel getAddressId() {
-		return addressId;
+	public AddressModel getAddress() {
+		return address;
 	}
 
-	public void setAddressId(AddressModel addressId) {
-		this.addressId = addressId;
+	public void setAddress(AddressModel address) {
+		this.address = address;
 	}
 
 	public double getPrice() {
@@ -101,12 +101,12 @@ public class PropositionModel  {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<CategoryModel> getCategoryId() {
-		return categoryId;
+	public List<CategoryModel> getCategory() {
+		return category;
 	}
 
-	public void setCategoryId(List<CategoryModel> categoryId) {
-		this.categoryId = categoryId;
+	public void setCategoryId(List<CategoryModel> category) {
+		this.category = category;
 	}
 
 	public String getInterest_category() {
@@ -118,19 +118,19 @@ public class PropositionModel  {
 	}
 
 	public PersonModel getPersonId() {
-		return personId;
+		return person;
 	}
 
 	public void setPersonId(PersonModel personId) {
-		this.personId = personId;
+		this.person = personId;
 	}
 
-	public List<PropositionImageModel> getImageId() {
-		return imageId;
+	public List<PropositionImageModel> getImage() {
+		return image;
 	}
 
-	public void setImageId(List<PropositionImageModel> imageId) {
-		this.imageId = imageId;
+	public void setImage(List<PropositionImageModel> image) {
+		this.image = image;
 	}
 
 	public Date getPublish_date() {
@@ -152,9 +152,9 @@ public class PropositionModel  {
 	@Override
 	public String toString() {
 		return "PropositionModel [propositionId=" + propositionId + ", title=" + title + ", description=" + description
-				+ ", addressId=" + addressId + ", price=" + price + ", priceCatInterest=" + priceCatInterest
-				+ ", totalPrice=" + totalPrice + ", categoryId=" + categoryId + ", interest_category="
-				+ interest_category + ", personId=" + personId + ", imageId=" + imageId + ", publish_date="
+				+ ", addressId=" + address + ", price=" + price + ", priceCatInterest=" + priceCatInterest
+				+ ", totalPrice=" + totalPrice + ", categoryId=" + category + ", interest_category="
+				+ interest_category + ", personId=" + person + ", imageId=" + image + ", publish_date="
 				+ publish_date + ", removel_date=" + removel_date + "]";
 	}
 
@@ -162,12 +162,12 @@ public class PropositionModel  {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
-		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((category == null) ? 0 : category.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		result = prime * result + ((imageId == null) ? 0 : imageId.hashCode());
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((interest_category == null) ? 0 : interest_category.hashCode());
-		result = prime * result + ((personId == null) ? 0 : personId.hashCode());
+		result = prime * result + ((person == null) ? 0 : person.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -191,35 +191,35 @@ public class PropositionModel  {
 		if (getClass() != obj.getClass())
 			return false;
 		PropositionModel other = (PropositionModel) obj;
-		if (addressId == null) {
-			if (other.addressId != null)
+		if (address == null) {
+			if (other.address != null)
 				return false;
-		} else if (!addressId.equals(other.addressId))
+		} else if (!address.equals(other.address))
 			return false;
-		if (categoryId == null) {
-			if (other.categoryId != null)
+		if (category == null) {
+			if (other.category != null)
 				return false;
-		} else if (!categoryId.equals(other.categoryId))
+		} else if (!category.equals(other.category))
 			return false;
 		if (description == null) {
 			if (other.description != null)
 				return false;
 		} else if (!description.equals(other.description))
 			return false;
-		if (imageId == null) {
-			if (other.imageId != null)
+		if (image == null) {
+			if (other.image != null)
 				return false;
-		} else if (!imageId.equals(other.imageId))
+		} else if (!image.equals(other.image))
 			return false;
 		if (interest_category == null) {
 			if (other.interest_category != null)
 				return false;
 		} else if (!interest_category.equals(other.interest_category))
 			return false;
-		if (personId == null) {
-			if (other.personId != null)
+		if (person == null) {
+			if (other.person != null)
 				return false;
-		} else if (!personId.equals(other.personId))
+		} else if (!person.equals(other.person))
 			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;

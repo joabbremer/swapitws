@@ -12,7 +12,10 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 
 @Entity
 @Table(name="proposition")
-@NamedQuery(name="Proposition.findAll", query="SELECT p FROM Proposition p")
+@NamedQueries({
+	@NamedQuery(name="findAllProposition", query="SELECT PR FROM Person PR"),
+	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId")
+})
 
 public class Proposition implements Serializable{
 	private static final long serialVersionUID = 1L;
