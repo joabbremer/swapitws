@@ -15,6 +15,12 @@ public class AddressModel{
 		this.street = street;
 		this.number = number;
 	}
+	
+	public AddressModel(String addressId, StreetModel street) {
+		super();
+		this.addressId = addressId;
+		this.street = street;
+	}
 	public String getAddressId() {
 		return addressId;
 	}

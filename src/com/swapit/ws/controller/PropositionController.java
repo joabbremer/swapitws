@@ -10,6 +10,7 @@ import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.PropositionModel;
 
 public class PropositionController {
+	
 	public String getALL() {
 		PropositionDAO propDao = new PropositionDAO();
 		List<Proposition> prop = null;
@@ -21,6 +22,40 @@ public class PropositionController {
 		return toJson(toModel(prop));
 	};
 	
+	public List<PropositionModel> getbyID(String id){
+		PropositionDAO propDao = new PropositionDAO();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.getbyid(id);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		
+		return toModel(prop);
+		
+	}
+	
+	public boolean save(PropositionModel propositionModel) {
+		PropositionDAO propDao = new PropositionDAO();
+		try {
+			return propDao.save(toEntity(propositionModel));
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}		
+		return false;
+	};
+	
+	public boolean update(PropositionModel propositionModel) {
+		PropositionDAO propDao = new PropositionDAO();
+		try {
+			return propDao.update(toEntity(propositionModel));
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+
 	public String toJson(List<PropositionModel> propModel){
 		Gson gson = new Gson();
 		return gson.toJson(propModel);
@@ -52,6 +87,33 @@ public class PropositionController {
 		}
 		return propModel;
 	}
+	
+	public Proposition toEntity(PropositionModel propModel) {
+		PropositionImageController  propImgCtrl = new PropositionImageController();
+		PersonController personCtrl = new PersonController();
+		CategoryController categoryCtrl = new CategoryController();
+		AddressController addressCtrl = new AddressController();
+		Proposition proposition = new Proposition();	
+		
+		
+			proposition = new Proposition(propModel.getPropositionId(),
+											propModel.getTitle(),
+											propModel.getDescription(),
+											addressCtrl.toEntity(propModel.getAddress()),
+											propModel.getPrice(),
+											propModel.getPriceCatInterest(),
+											propModel.getTotalPrice(),
+											categoryCtrl.toEntity(propModel.getCategory()),
+											propModel.getInterest_category(),
+											personCtrl.toEntity(propModel.getPersonId()),
+											propImgCtrl.toEntity(propModel.getImage()),
+											propModel.getPublish_date(),
+											propModel.getRemovel_date());
+						
+		
+		
+		return proposition;
+	}
 
 	public List<Proposition> toEntity(List<PropositionModel> favorite) {
 		PropositionImageController  propImgCtrl = new PropositionImageController();
@@ -63,21 +125,25 @@ public class PropositionController {
 			proposition.add(new Proposition(propModel.getPropositionId(),
 											propModel.getTitle(),
 											propModel.getDescription(),
-											addressCtrl.toEntity(propModel.getAddressId()),
+											addressCtrl.toEntity(propModel.getAddress()),
 											propModel.getPrice(),
 											propModel.getPriceCatInterest(),
 											propModel.getTotalPrice(),
-											categoryCtrl.toEntity(propModel.getCategoryId()),
+											categoryCtrl.toEntity(propModel.getCategory()),
 											propModel.getInterest_category(),
 											personCtrl.toEntity(propModel.getPersonId()),
-											propImgCtrl.toEntity(propModel.getImageId()),
+											propImgCtrl.toEntity(propModel.getImage()),
 											propModel.getPublish_date(),
 											propModel.getRemovel_date()));
 						
 		}
 		
 		return proposition;
-	};
+	}
+
+	
+
+
 
 
 }
