@@ -63,27 +63,29 @@ public class PropositionController {
 	};
 	
 	public List<PropositionModel> toModel(List<Proposition> propositionEntity){
+		
+		
 		PropositionImageController  propImgCtrl = new PropositionImageController();
 		PersonController personCtrl = new PersonController();
 		CategoryController categoryCtrl = new CategoryController();
 		AddressController addressCtrl = new AddressController();
-		
-		
 		List<PropositionModel> propModel = new ArrayList<PropositionModel>();
+		
+		
 		for (Proposition proposition : propositionEntity) {
 			propModel.add(new PropositionModel(proposition.getPropositionId(),
-											   proposition.getTitle(),
-											   proposition.getDescription(),
-											   addressCtrl.toModel(proposition.getAddressId()),
-											   proposition.getPrice(),
-											   proposition.getPriceCatInterest(),
-											   proposition.getTotalPrice(),
-											   categoryCtrl.toModel(proposition.getCategoryId()),
-											   proposition.getInterest_category(),
-											   personCtrl.toModel(proposition.getPersonId()),
-											   propImgCtrl.toModel(proposition.getImageId()),
-											   proposition.getPublish_date(),
-											   proposition.getRemovel_date()));
+					   proposition.getTitle(),
+					   proposition.getDescription(),
+					   addressCtrl.toModel(proposition.getAddressId()),
+					   proposition.getPrice(),
+					   proposition.getPriceCatInterest(),
+					   proposition.getTotalPrice(),
+					   categoryCtrl.toModel(proposition.getCategoryId()),
+					   proposition.getInterest_category(),
+					   personCtrl.toModel(proposition.getPersonId()),
+					   propImgCtrl.toModel(proposition.getImageId()),
+					   proposition.getPublish_date(),
+					   proposition.getRemovel_date()));
 		}
 		return propModel;
 	}

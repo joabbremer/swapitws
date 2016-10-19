@@ -54,10 +54,14 @@ public class AddressController {
 	} 
 	
 	public Address toEntity(AddressModel addressModel){
-		StreetController streetCtrl = new StreetController();		
-		return new Address(addressModel.getAddressId(),
-				streetCtrl.toEntity(addressModel.getStreet()),
-				addressModel.getNumber());
+		StreetController streetCtrl = new StreetController();	
+		if(addressModel.getAddressId() != null){
+			return new Address(addressModel.getAddressId(),
+					streetCtrl.toEntity(addressModel.getStreet()),
+					addressModel.getNumber());
+		}
+		return null;
+		
 	
 	};
 	

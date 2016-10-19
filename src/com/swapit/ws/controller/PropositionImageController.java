@@ -2,7 +2,10 @@ package com.swapit.ws.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import com.swapit.ws.dao.PropositionIMGDAO;
+import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.PropositionImage;
 import com.swapit.ws.model.PropositionImageModel;
 
@@ -23,6 +26,21 @@ public class PropositionImageController {
 			propImgModel.add(new PropositionImageModel(propositionImage.getImageid()));
 		}
 		return propImgModel;
+	}
+
+	public String save() {
+		PropositionIMGDAO propImgDao = new PropositionIMGDAO();
+		String propImgID = creatID();
+		try {
+			propImgDao.save(new PropositionImage(propImgID));
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return propImgID;
+	}
+	
+	private String creatID(){
+		return UUID.randomUUID().toString();	
 	}
 
 }

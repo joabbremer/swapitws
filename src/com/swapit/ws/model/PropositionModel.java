@@ -45,6 +45,9 @@ public class PropositionModel  {
 		this.removel_date = removel_date;
 	}
 
+
+	
+
 	public String getPropositionId() {
 		return propositionId;
 	}

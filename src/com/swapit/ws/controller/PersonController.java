@@ -45,6 +45,19 @@ public class PersonController {
 		return toJson(personReduce);
 	};
 	
+	public PersonModel getTest(String id){
+		AddressController addressCtrl = new AddressController();
+		PersonDAO personDao = new PersonDAO();
+		Person person = null;
+		try {
+			person = personDao.select(id);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}	
+		
+		return toModel(person);
+	};
+	
 	public Boolean save(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		
@@ -194,26 +207,29 @@ public class PersonController {
 	
 
 	public Person toEntity(PersonModel personModel){
-		List<Proposition> favorite = new ArrayList<Proposition>();
-		Address address = null;
-		PropositionController propCtrl = new PropositionController();
-		AddressController addressCtrl = new AddressController();
-		if(personModel.getFavorite() != null){
-			favorite =  propCtrl.toEntity(personModel.getFavorite());
+		if(personModel != null){
+			List<Proposition> favorite = new ArrayList<Proposition>();
+			Address address = null;
+			PropositionController propCtrl = new PropositionController();
+			AddressController addressCtrl = new AddressController();
+			if(personModel.getFavorite() != null){
+				favorite =  propCtrl.toEntity(personModel.getFavorite());
+			}
+			if(personModel.getAddres() != null){
+				address =  addressCtrl.toEntity(personModel.getAddres());
+			}
+			return new Person(personModel.getPersonId(),
+					personModel.getPersonName(),
+					personModel.getEmail(),
+					personModel.getPhone(),
+					personModel.getPassword(), 
+					personModel.getSex(),
+					personModel.getBlocked(),
+					personModel.getLevel(),
+					favorite,
+					address);
 		}
-		if(personModel.getAddres() != null){
-			address =  addressCtrl.toEntity(personModel.getAddres());
-		}
-		return new Person(personModel.getPersonId(),
-				personModel.getPersonName(),
-				personModel.getEmail(),
-				personModel.getPhone(),
-				personModel.getPassword(), 
-				personModel.getSex(),
-				personModel.getBlocked(),
-				personModel.getLevel(),
-				favorite,
-				address);
+		return null;
 		
 	};
 	

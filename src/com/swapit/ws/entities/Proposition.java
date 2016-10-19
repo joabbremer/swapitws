@@ -13,7 +13,7 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @Entity
 @Table(name="proposition")
 @NamedQueries({
-	@NamedQuery(name="findAllProposition", query="SELECT PR FROM Person PR"),
+	@NamedQuery(name="findAllProposition", query="SELECT PR FROM Proposition PR"),
 	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId")
 })
 
@@ -54,9 +54,9 @@ public class Proposition implements Serializable{
 	@JoinColumn(name = "personid", referencedColumnName = "personid", nullable=true)
 	private Person personId;
 	
-
-	@OneToMany(cascade = ALL)
-	@JoinColumn(name = "imageid")
+	
+	@OneToMany(cascade = ALL, orphanRemoval = true)
+	@JoinColumn(name = "propositionid")
 	private List<PropositionImage> imageId;
 	
 	@Column(name="publish_date")
