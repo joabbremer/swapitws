@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response;
 
 import com.swapit.ws.controller.PropositionController;
 import com.swapit.ws.model.PropositionModel;
+import com.swapit.ws.model.reduce.PropositionReduce;
 
 @Path("/proposition")
 @Consumes({MediaType.APPLICATION_JSON})
@@ -39,9 +40,9 @@ public class PropositionService {
 	@Path("/save")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response save(PropositionModel propositionModel){
+	public Response save(PropositionReduce propositionReduce){
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.save(propositionModel)).build();
+		return Response.ok(propCtrl.save(propositionReduce)).build();
 	}
 	
 	@PUT

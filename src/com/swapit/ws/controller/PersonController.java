@@ -41,12 +41,11 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		PersonReduce personReduce = addressCtrl.reduceAddress(toModel(person));
+		PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
 		return toJson(personReduce);
 	};
 	
 	public PersonModel getTest(String id){
-		AddressController addressCtrl = new AddressController();
 		PersonDAO personDao = new PersonDAO();
 		Person person = null;
 		try {
@@ -82,16 +81,11 @@ public class PersonController {
 		return false;
 	}
 	
-	private PersonModel personComplete(PersonReduce personReduce) {
+	public PersonModel personComplete(PersonReduce personReduce) {
 		AddressReduce addressReduce =  personReduce.getAddressReduce();
-		
 		StreetController streetCtrl = new StreetController();
-		
 		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
-		
-		
 		AddressModel addressModel = new AddressModel();
-		
 		addressModel.setStreet(streetModel);
 		addressModel.setNumber(addressReduce.getNumber());
 		
@@ -151,7 +145,7 @@ public class PersonController {
 		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
 		AddressModel addressModel = new AddressModel();
 		if(person.getFavorite() != null){
-			favoriteModel = propCtrl.toModel(person.getFavorite());
+			favoriteModel = propCtrl.toModelList(person.getFavorite());
 		}
 		if(person.getAddress() != null){
 			addressModel = addressCtrl.toModel(person.getAddress());
@@ -180,7 +174,7 @@ public class PersonController {
 		
 		for (Person person : personEntity) {
 			if(person.getFavorite() != null){
-				favoriteModel = propCtrl.toModel(person.getFavorite());
+				favoriteModel = propCtrl.toModelList(person.getFavorite());
 			}
 			if(person.getAddress() != null){
 				addresModel = addressCtrl.toModel(person.getAddress());

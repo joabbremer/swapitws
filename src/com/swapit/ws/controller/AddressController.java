@@ -12,11 +12,13 @@ import com.swapit.ws.model.CityModel;
 import com.swapit.ws.model.CountryModel;
 import com.swapit.ws.model.DistrictModel;
 import com.swapit.ws.model.PersonModel;
+import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StateModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.StreetTypeModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
+import com.swapit.ws.model.reduce.PropositionReduce;
 
 public class AddressController {
 	
@@ -65,7 +67,7 @@ public class AddressController {
 	
 	};
 	
-	public PersonReduce reduceAddress(PersonModel personModel){
+	public PersonReduce reduceAddressPerson(PersonModel personModel){
 		AddressModel addressModel = personModel.getAddres();
 		StreetModel streetModel = addressModel.getStreet();
 		StreetTypeModel streetType = streetModel.getStreettype();
@@ -100,6 +102,48 @@ public class AddressController {
 		
 		
 		return personReduce;
+	}
+	
+	public PropositionReduce reduceAddressProposition(PropositionModel propositionModel){
+		AddressModel addressModel = propositionModel.getAddress();
+		StreetModel streetModel = addressModel.getStreet();
+		StreetTypeModel streetType = streetModel.getStreettype();
+		DistrictModel districtModel = streetModel.getDistrict();
+		CityModel cityModel =  districtModel.getCity();
+		StateModel stateModel = cityModel.getState();
+		CountryModel countryModel = stateModel.getCountry();
+		
+		AddressReduce simpleAddress = new AddressReduce(streetModel.getStreetid(),
+																	streetModel.getZipcode(),
+																	streetType.getName() + streetModel.getName(),
+																	streetModel.getComplement(),
+																	addressModel.getNumber(),
+																	districtModel.getName(),
+																	cityModel.getName(),
+																	stateModel.getAcronym(),
+																	stateModel.getName(),
+																	countryModel.getAcronym(),
+																	countryModel.getName());
+		
+		
+		PropositionReduce propReduce = new PropositionReduce(propositionModel.getPropositionId(),
+															propositionModel.getTitle(),
+															propositionModel.getDescription(),
+															simpleAddress,
+															propositionModel.getPrice(),
+															propositionModel.getPriceCatInterest(),
+															propositionModel.getTotalPrice(),
+															propositionModel.getCategory(),
+															propositionModel.getInterest_category(),
+															reduceAddressPerson(propositionModel.getPersonId()),
+															propositionModel.getImage(),
+															propositionModel.getPublish_date(),
+															propositionModel.getRemovel_date());
+		
+				
+		
+		
+		return propReduce;
 	}
 
 }

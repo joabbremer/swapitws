@@ -13,7 +13,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
  
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataParam;
@@ -84,7 +83,8 @@ public class PropositionIMGService {
         return qualifiedUploadFilePath;
     }
     
-    private String getFileExtension(File file) {
+    @SuppressWarnings("unused")
+	private String getFileExtension(File file) {
         String name = file.getName();
         try {
             return name.substring(name.lastIndexOf(".") + 1);
