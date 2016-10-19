@@ -24,6 +24,7 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 		return (Street) query.getSingleResult();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Street> selectCEP(String zipcode) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectCEP");
@@ -49,6 +50,7 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Street> selectID(String streetID) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectIDstreet");

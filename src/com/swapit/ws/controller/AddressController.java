@@ -15,8 +15,8 @@ import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.StateModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.StreetTypeModel;
-import com.swapit.ws.reduce.AddressReduce;
-import com.swapit.ws.reduce.PersonReduce;
+import com.swapit.ws.model.reduce.AddressReduce;
+import com.swapit.ws.model.reduce.PersonReduce;
 
 public class AddressController {
 	

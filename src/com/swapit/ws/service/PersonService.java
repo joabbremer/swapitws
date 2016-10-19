@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.model.PersonModel;
-import com.swapit.ws.reduce.PersonReduce;
+import com.swapit.ws.model.reduce.PersonReduce;
 
 @Path("/person")
 @Consumes({MediaType.APPLICATION_JSON})
