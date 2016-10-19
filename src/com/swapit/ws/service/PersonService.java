@@ -58,10 +58,8 @@ public class PersonService {
 	public Response save(PersonModel personModel) {
 		PersonController personCtrl = new PersonController();
 		if(personCtrl.save(personModel)){
-			return Response.status(Status.OK).build();
-			
-		}		
-		
+			return Response.status(Status.OK).build();			
+		}				
 		return Response.status(Status.BAD_REQUEST).build();
 	}
 
@@ -72,8 +70,10 @@ public class PersonService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(PersonReduce personReduce) {
 		PersonController personCtrl = new PersonController();
-		
-		return Response.ok(personCtrl.update(personReduce)).build();
+		if(personCtrl.update(personReduce)){
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 
 	
