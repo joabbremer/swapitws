@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import com.swapit.ws.controller.CategoryController;
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.controller.PropositionController;
 import com.swapit.ws.controller.PropositionImageController;
@@ -23,7 +24,7 @@ public class Main {
 
 	public static void main(String []args)  {
 		
-		PropositionController propCtrl = new PropositionController();
+		/*PropositionController propCtrl = new PropositionController();
 		StreetController streetCtrl = new StreetController();
 		PersonController personCtrl = new PersonController();
 		PropositionImageController propImgCtrl = new PropositionImageController();
@@ -70,6 +71,15 @@ public class Main {
 		
 		System.out.println(propCtrl.save(propModel));;
 		
+		*/
+		
+		
+		CategoryModel catModelI = new CategoryModel(null, "Teste", null, "Red", "zip");
+		
+		CategoryModel catModel = new CategoryModel(null, "Quero", catModelI, "Red", "zip");
+		
+		CategoryController catCtrl = new CategoryController();
+		System.out.println(catCtrl.save(catModel));
 		
 		
 	}
