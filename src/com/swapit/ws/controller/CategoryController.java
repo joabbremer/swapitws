@@ -79,11 +79,15 @@ public class CategoryController {
 	}
 
 	public CategoryModel toModel(Category category ){
-		return 	new CategoryModel(category.getCategoryId(),
+		if(category != null){
+			return 	new CategoryModel(category.getCategoryId(),
 					category.getCategoryName(),
 					toModel(category.getParentId()),
 					category.getColor(),
 					category.getIcon());
+		}
+		return null;
+		
 	}
 
 
