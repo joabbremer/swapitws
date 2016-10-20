@@ -15,7 +15,7 @@ public class PropositionReduce {
 	private double price;	
 	private double priceCatInterest;	
 	private double totalPrice;	
-	private List<CategoryModel> category;	
+	private CategoryModel category;	
 	private String interest_category;	
 	private PersonReduce personReduce;	
 	private List<PropositionImageModel> image;	
@@ -27,7 +27,7 @@ public class PropositionReduce {
 	}
 
 	public PropositionReduce(String propositionId, String title, String description, AddressReduce addressReduce,
-			double price, double priceCatInterest, double totalPrice, List<CategoryModel> category,
+			double price, double priceCatInterest, double totalPrice, CategoryModel category,
 			String interest_category, PersonReduce personReduce, List<PropositionImageModel> image, Date publish_date,
 			Date removel_date) {
 		super();
@@ -102,11 +102,11 @@ public class PropositionReduce {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<CategoryModel> getCategory() {
+	public CategoryModel getCategory() {
 		return category;
 	}
 
-	public void setCategory(List<CategoryModel> category) {
+	public void setCategory(CategoryModel category) {
 		this.category = category;
 	}
 

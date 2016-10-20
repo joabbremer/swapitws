@@ -1,12 +1,19 @@
 package com.swapit.ws.entities;
 
 import java.io.Serializable;
+
+
 import javax.persistence.*;
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 
 
 @Entity
 @Table(name="category")
-@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@NamedQueries({
+	@NamedQuery(name="findAllCategory", query="SELECT c FROM Category c"),
+	@NamedQuery(name="selectIDCategoty", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId")
+})
 
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,8 +25,9 @@ public class Category implements Serializable {
 	@Column(name="category_name", length=30)
 	private String categoryName;
 
-	@Column(name="parent_id", length=36)
-	private String parentId;
+	@OneToOne(cascade = ALL, fetch = EAGER)
+	@JoinColumn(name = "parent_id", referencedColumnName = "categoryid")
+	private Category parentId;
 	
 	@Column(name="color")
 	private String color;
@@ -31,7 +39,7 @@ public class Category implements Serializable {
 		super();
 	}
 
-	public Category(String categoryId, String categoryName, String parentId, String color, String icon) {
+	public Category(String categoryId, String categoryName, Category parentId, String color, String icon) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -56,11 +64,11 @@ public class Category implements Serializable {
 		this.categoryName = categoryName;
 	}
 
-	public String getParentId() {
+	public Category getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId) {
+	public void setParentId(Category parentId) {
 		this.parentId = parentId;
 	}
 

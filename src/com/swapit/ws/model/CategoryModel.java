@@ -1,6 +1,7 @@
 package com.swapit.ws.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class CategoryModel implements Serializable {
@@ -9,7 +10,7 @@ public class CategoryModel implements Serializable {
 
 	private String categoryId;
 	private String categoryName;
-	private String parentId;
+	private CategoryModel parentId;
 	private String color;
 	private String icon;
 
@@ -17,7 +18,7 @@ public class CategoryModel implements Serializable {
 		super();
 	}
 
-	public CategoryModel(String categoryId, String categoryName, String parentId, String color, String icon) {
+	public CategoryModel(String categoryId, String categoryName, CategoryModel parentId, String color, String icon) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -42,11 +43,11 @@ public class CategoryModel implements Serializable {
 		this.categoryName = categoryName;
 	}
 
-	public String getParentId() {
+	public CategoryModel getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(String parentId) {
+	public void setParentId(CategoryModel parentId) {
 		this.parentId = parentId;
 	}
 
