@@ -64,7 +64,7 @@ public class Main {
 		AddressModel addresModel =  new AddressModel(UUID.randomUUID().toString(), streetModel);
 		CategoryModel catModelInt = new CategoryModel(UUID.randomUUID().toString(), "QueroTeste", null, "Red", "zip");
 		CategoryModel catModel = new CategoryModel();
-		catModel = new CategoryModel("0cf8b190-2799-4dbe-a1db-18f9e9711093", "TESTT", catModelInt, "White", "icon");
+		catModel = new CategoryModel("0cf8b190-2799-4dbe-a1db-18f9e9711093", "TESTT", "", "White", "icon");
 		
 		
 		

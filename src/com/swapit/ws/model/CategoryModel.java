@@ -10,7 +10,7 @@ public class CategoryModel implements Serializable {
 
 	private String categoryId;
 	private String categoryName;
-	private CategoryModel parentId;
+	private String parentId;
 	private String color;
 	private String icon;
 
@@ -18,7 +18,7 @@ public class CategoryModel implements Serializable {
 		super();
 	}
 
-	public CategoryModel(String categoryId, String categoryName, CategoryModel parentId, String color, String icon) {
+	public CategoryModel(String categoryId, String categoryName, String parentId, String color, String icon) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
@@ -43,11 +43,11 @@ public class CategoryModel implements Serializable {
 		this.categoryName = categoryName;
 	}
 
-	public CategoryModel getParentId() {
+	public String getParentId() {
 		return parentId;
 	}
 
-	public void setParentId(CategoryModel parentId) {
+	public void setParentId(String parentId) {
 		this.parentId = parentId;
 	}
 

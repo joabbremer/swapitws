@@ -62,7 +62,6 @@ public class CategoryController {
 	private CategoryModel creatID(CategoryModel categoryModel) {
 		
 		categoryModel.setCategoryId(UUID.randomUUID().toString());
-			categoryModel.getParentId().setCategoryId(UUID.randomUUID().toString());
 		
 		return categoryModel;
 		
@@ -82,7 +81,7 @@ public class CategoryController {
 		if(category != null){
 			return 	new CategoryModel(category.getCategoryId(),
 					category.getCategoryName(),
-					toModel(category.getParentId()),
+					category.getParentId(),
 					category.getColor(),
 					category.getIcon());
 		}
@@ -96,7 +95,7 @@ public class CategoryController {
 		for (Category category : categoryEntity) {
 			categoryModel.add(new CategoryModel(category.getCategoryId(),
 					category.getCategoryName(),
-					toModel(category.getParentId()),
+					category.getParentId(),
 					category.getColor(),
 					category.getIcon()));
 		}
@@ -108,7 +107,7 @@ public class CategoryController {
 		if(category != null){
 			return new Category(category.getCategoryId(),
 					category.getCategoryName(),
-					toEntity(category.getParentId()),
+					category.getParentId(),
 					category.getColor(),
 					category.getIcon());
 			
@@ -125,7 +124,7 @@ public class CategoryController {
 			for (CategoryModel catModel : categoryModel) {
 				category.add(new Category(catModel.getCategoryId(),
 											catModel.getCategoryName(),
-											toEntity(catModel.getParentId()),
+											catModel.getParentId(),
 											catModel.getColor(),
 											catModel.getIcon()));
 					
