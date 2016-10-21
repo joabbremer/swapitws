@@ -1,4 +1,4 @@
-package com.swapit.ws.reduce;
+package com.swapit.ws.model.reduce;
 
 public class AddressReduce {
 

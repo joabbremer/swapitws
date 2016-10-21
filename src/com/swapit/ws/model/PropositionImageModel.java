@@ -51,5 +51,5 @@ public class PropositionImageModel {
 		return true;
 	}
 	
-
+	
 }

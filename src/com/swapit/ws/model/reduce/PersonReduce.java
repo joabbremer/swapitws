@@ -1,8 +1,6 @@
-package com.swapit.ws.reduce;
+package com.swapit.ws.model.reduce;
 
 import java.util.List;
-
-import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
 
 

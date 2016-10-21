@@ -15,7 +15,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.model.PersonModel;
-import com.swapit.ws.reduce.PersonReduce;
+import com.swapit.ws.model.reduce.PersonReduce;
 
 @Path("/person")
 @Consumes({MediaType.APPLICATION_JSON})
@@ -58,10 +58,8 @@ public class PersonService {
 	public Response save(PersonModel personModel) {
 		PersonController personCtrl = new PersonController();
 		if(personCtrl.save(personModel)){
-			return Response.status(Status.OK).build();
-			
-		}		
-		
+			return Response.status(Status.OK).build();			
+		}				
 		return Response.status(Status.BAD_REQUEST).build();
 	}
 
@@ -72,8 +70,10 @@ public class PersonService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(PersonReduce personReduce) {
 		PersonController personCtrl = new PersonController();
-		
-		return Response.ok(personCtrl.update(personReduce)).build();
+		if(personCtrl.update(personReduce)){
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 
 	

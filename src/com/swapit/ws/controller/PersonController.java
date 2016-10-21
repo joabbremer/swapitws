@@ -15,8 +15,8 @@ import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
-import com.swapit.ws.reduce.AddressReduce;
-import com.swapit.ws.reduce.PersonReduce;
+import com.swapit.ws.model.reduce.AddressReduce;
+import com.swapit.ws.model.reduce.PersonReduce;
 
 
 public class PersonController {
@@ -41,8 +41,20 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		PersonReduce personReduce = addressCtrl.reduceAddress(toModel(person));
+		PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
 		return toJson(personReduce);
+	};
+	
+	public PersonModel getTest(String id){
+		PersonDAO personDao = new PersonDAO();
+		Person person = null;
+		try {
+			person = personDao.select(id);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}	
+		
+		return toModel(person);
 	};
 	
 	public Boolean save(PersonModel personModel) {
@@ -69,16 +81,11 @@ public class PersonController {
 		return false;
 	}
 	
-	private PersonModel personComplete(PersonReduce personReduce) {
+	public PersonModel personComplete(PersonReduce personReduce) {
 		AddressReduce addressReduce =  personReduce.getAddressReduce();
-		
 		StreetController streetCtrl = new StreetController();
-		
 		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
-		
-		
 		AddressModel addressModel = new AddressModel();
-		
 		addressModel.setStreet(streetModel);
 		addressModel.setNumber(addressReduce.getNumber());
 		
@@ -118,7 +125,7 @@ public class PersonController {
 	}
 	
 	private PersonModel CreatID(PersonModel personModel){
-		if(personModel.getPersonId().isEmpty()){
+		if(personModel.getPersonId() == null){
 			personModel.setPersonId(UUID.randomUUID().toString());
 		}		
 		AddressModel addrresModel = personModel.getAddres();
@@ -138,7 +145,7 @@ public class PersonController {
 		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
 		AddressModel addressModel = new AddressModel();
 		if(person.getFavorite() != null){
-			favoriteModel = propCtrl.toModel(person.getFavorite());
+			favoriteModel = propCtrl.toModelList(person.getFavorite());
 		}
 		if(person.getAddress() != null){
 			addressModel = addressCtrl.toModel(person.getAddress());
@@ -167,7 +174,7 @@ public class PersonController {
 		
 		for (Person person : personEntity) {
 			if(person.getFavorite() != null){
-				favoriteModel = propCtrl.toModel(person.getFavorite());
+				favoriteModel = propCtrl.toModelList(person.getFavorite());
 			}
 			if(person.getAddress() != null){
 				addresModel = addressCtrl.toModel(person.getAddress());
@@ -194,26 +201,29 @@ public class PersonController {
 	
 
 	public Person toEntity(PersonModel personModel){
-		List<Proposition> favorite = new ArrayList<Proposition>();
-		Address address = null;
-		PropositionController propCtrl = new PropositionController();
-		AddressController addressCtrl = new AddressController();
-		if(personModel.getFavorite() != null){
-			favorite =  propCtrl.toEntity(personModel.getFavorite());
+		if(personModel != null){
+			List<Proposition> favorite = new ArrayList<Proposition>();
+			Address address = null;
+			PropositionController propCtrl = new PropositionController();
+			AddressController addressCtrl = new AddressController();
+			if(personModel.getFavorite() != null){
+				favorite =  propCtrl.toEntity(personModel.getFavorite());
+			}
+			if(personModel.getAddres() != null){
+				address =  addressCtrl.toEntity(personModel.getAddres());
+			}
+			return new Person(personModel.getPersonId(),
+					personModel.getPersonName(),
+					personModel.getEmail(),
+					personModel.getPhone(),
+					personModel.getPassword(), 
+					personModel.getSex(),
+					personModel.getBlocked(),
+					personModel.getLevel(),
+					favorite,
+					address);
 		}
-		if(personModel.getAddres() != null){
-			address =  addressCtrl.toEntity(personModel.getAddres());
-		}
-		return new Person(personModel.getPersonId(),
-				personModel.getPersonName(),
-				personModel.getEmail(),
-				personModel.getPhone(),
-				personModel.getPassword(), 
-				personModel.getSex(),
-				personModel.getBlocked(),
-				personModel.getLevel(),
-				favorite,
-				address);
+		return null;
 		
 	};
 	

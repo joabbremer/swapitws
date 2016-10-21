@@ -20,6 +20,7 @@ public class AddressDAO implements PojoInterfaceDAO<Address> {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Address> getbyID(String addressID) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectAddressID");
