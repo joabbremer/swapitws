@@ -43,9 +43,9 @@ public class Proposition implements Serializable{
 	@Column(name="total_price")
 	private double totalPrice;
 	
-	@OneToMany( fetch = EAGER, cascade = ALL)
-	@JoinColumn(name = "categoryid")
-	private List<Category> categoryId;
+	@ManyToOne(cascade = ALL)
+	@JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
+	private Category categoryId;
 	
 	@Column(name="interest_category", length=36)
 	private String interest_category;
@@ -74,7 +74,7 @@ public class Proposition implements Serializable{
 	}
 
 	public Proposition(String propositionId, String title, String description, Address addressId, double price,
-			double priceCatInterest, double totalPrice, List<Category> categoryId, String interest_category,
+			double priceCatInterest, double totalPrice, Category categoryId, String interest_category,
 			Person personId, List<PropositionImage> imageId, Date publish_date, Date removel_date) {
 		super();
 		this.propositionId = propositionId;
@@ -148,11 +148,11 @@ public class Proposition implements Serializable{
 		this.totalPrice = totalPrice;
 	}
 
-	public List<Category> getCategoryId() {
+	public Category getCategoryId() {
 		return categoryId;
 	}
 
-	public void setCategoryId(List<Category> categoryId) {
+	public void setCategoryId(Category categoryId) {
 		this.categoryId = categoryId;
 	}
 

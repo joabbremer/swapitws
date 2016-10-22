@@ -13,10 +13,13 @@ public class PropositionImageController {
 
 	public List<PropositionImage> toEntity(List<PropositionImageModel> imageId) {
 		List<PropositionImage> propImg = new ArrayList<PropositionImage>();
-		for (PropositionImageModel propositionImageModel : imageId) {
-			propImg.add(new PropositionImage(propositionImageModel.getImageid()));
-			
+		if(imageId != null){
+			for (PropositionImageModel propositionImageModel : imageId) {
+				propImg.add(new PropositionImage(propositionImageModel.getImageid()));
+				
+			}
 		}
+		
 		return propImg;
 	}
 
