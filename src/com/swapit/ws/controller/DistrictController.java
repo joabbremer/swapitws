@@ -7,9 +7,12 @@ public class DistrictController {
 
 	public District toEntity(DistrictModel districtModel) {
 		CityController cityCtrl = new CityController();
-		return new District(districtModel.getDistrictid(),
-							districtModel.getName(),
-							cityCtrl.toEntity(districtModel.getCity()));
+		if(districtModel != null){
+			return new District(districtModel.getDistrictid(),
+					districtModel.getName(),
+					cityCtrl.toEntity(districtModel.getCity()));
+		}
+		return null;
 	}
 
 	public DistrictModel toModel(District district) {

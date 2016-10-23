@@ -1,12 +1,19 @@
 package com.swapit.ws.entities;
 
 import java.io.Serializable;
+
+
 import javax.persistence.*;
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
 
 
 @Entity
 @Table(name="category")
-@NamedQuery(name="Category.findAll", query="SELECT c FROM Category c")
+@NamedQueries({
+	@NamedQuery(name="findAllCategory", query="SELECT c FROM Category c"),
+	@NamedQuery(name="selectIDCategoty", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId")
+})
 
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +25,7 @@ public class Category implements Serializable {
 	@Column(name="category_name", length=30)
 	private String categoryName;
 
-	@Column(name="parent_id", length=36)
+	@Column(name="	parent_id", length=36)
 	private String parentId;
 	
 	@Column(name="color")

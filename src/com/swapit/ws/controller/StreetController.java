@@ -15,12 +15,17 @@ public class StreetController {
 	public Street toEntity(StreetModel streetModel) {
 		StreetTypeController StrTypeCtrl = new StreetTypeController();
 		DistrictController districtCtrl = new DistrictController();
-		return new Street(streetModel.getStreetid(),
+		if(streetModel != null){
+			return new Street(streetModel.getStreetid(),
 					StrTypeCtrl.toEntity(streetModel.getStreettype()),
 					streetModel.getName(),
 					streetModel.getComplement(),
 					districtCtrl.toEntity(streetModel.getDistrict()),
 					streetModel.getZipcode());
+			
+		}
+		return null;
+		
 		 
 	}
 

@@ -53,7 +53,7 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 		Boolean response;
 		try {
 			em.getTransaction().begin();
-		    em.persist(proposition);
+		    em.merge(proposition);
 			em.getTransaction().commit();
 			em.close();
 			response =  true;

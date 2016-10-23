@@ -1,6 +1,7 @@
 package com.swapit.ws.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 
 public class CategoryModel implements Serializable {

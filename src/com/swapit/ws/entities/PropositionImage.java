@@ -22,7 +22,6 @@ public class PropositionImage {
 		super();
 		this.imageid = imageid;
 	}
-	
 
 	public String getImageid() {
 		return imageid;
@@ -62,6 +61,8 @@ public class PropositionImage {
 		return true;
 	}
 	
+	
+
 	
 	
 }
