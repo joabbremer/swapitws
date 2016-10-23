@@ -12,9 +12,13 @@ public class CountryController {
 	}
 
 	public CountryModel toModel(Country country) {
-		return new CountryModel(country.getCountry(),
-								country.getAcronym(),
-								country.getName());
+		if(country != null){
+			return new CountryModel(country.getCountry(),
+					country.getAcronym(),
+					country.getName());
+		}
+		return null;
+		
 	}
 
 }
