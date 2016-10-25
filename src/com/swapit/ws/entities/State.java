@@ -8,9 +8,15 @@ import javax.persistence.Table;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
 @Table(name="state")
+@NamedQueries({
+	@NamedQuery(name="findAllState", query="SELECT s FROM com.swapit.ws.entities.State s"),
+	
+})
 public class State {
 	
 	@Id

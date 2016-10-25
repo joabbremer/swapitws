@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.tomcat.util.codec.binary.StringUtils;
-
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PropositionDAO;
 import com.swapit.ws.dao.exception.ConnectException;
@@ -27,6 +25,17 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		return toJson(toModelList(prop));
+	};
+	
+	public List<PropositionModel> getForRelate() {
+		PropositionDAO propDao = new PropositionDAO();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.listAll();
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return toModelList(prop);
 	};
 	
 	public String getbyID(String id){
@@ -97,6 +106,12 @@ public class PropositionController {
 		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 		AddressModel addressModel = new AddressModel();
 		addressModel.setStreet(streetModel);
+		
+		AddressController addCtrl = new AddressController();
+		
+		String addressID = addCtrl.creatID(addressModel.getAddressId());
+		
+		addressModel.setAddressId(addressID);
 				
 		PropositionModel propModel = new PropositionModel(creatID(propositionReduce.getPropositionId()),
 															propositionReduce.getTitle(),

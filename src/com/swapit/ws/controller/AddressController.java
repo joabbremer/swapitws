@@ -3,6 +3,7 @@ package com.swapit.ws.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import com.swapit.ws.dao.AddressDAO;
 import com.swapit.ws.dao.exception.ConnectException;
@@ -45,6 +46,14 @@ public class AddressController {
 			
 		
 			
+	}
+	
+	public  String creatID(String addressID){
+		if(addressID == null){
+			return UUID.randomUUID().toString();
+		}
+		return addressID;
+		
 	}
 	public AddressModel toModel(List<Address> addressEntity){	
 		

@@ -26,10 +26,14 @@ import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
 import com.swapit.ws.model.reduce.PropositionReduce;
+import com.swapit.ws.relate.PropositionRelate;
 
 public class Main {
 
 	public static void main(String []args)  {
+		
+		PropositionRelate propRelate = new PropositionRelate();
+		propRelate.relate();
 		
 		PropositionController propCtrl = new PropositionController();
 		StreetController streetCtrl = new StreetController();
@@ -57,18 +61,18 @@ public class Main {
 														countryModel.getAcronym(),
 														countryModel.getName());
 		
-		PersonReduce personReduce = personCtrl.getTestReduce("f33df794-9d82-4252-ba4a-e8cf091825d2");
+		PersonReduce personReduce = personCtrl.getTestReduce("eb072616-bd09-43f8-ad28-c101175bb72f");
 				
 		
 		
 		AddressModel addresModel =  new AddressModel(UUID.randomUUID().toString(), streetModel);
 		CategoryModel catModelInt = new CategoryModel(UUID.randomUUID().toString(), "QueroTeste", null, "Red", "zip");
 		CategoryModel catModel = new CategoryModel();
-		catModel = new CategoryModel("0cf8b190-2799-4dbe-a1db-18f9e9711093", "TESTT", "", "White", "icon");
+		catModel = new CategoryModel("fe48be29-90ef-448c-aebc-4cd4fa25713b", "moto", "5b026fc4-cb63-4559-96bf-d8f6910281bb", "red", "icon");
 		
 		
 		
-		PersonModel personModel = personCtrl.getTest("f33df794-9d82-4252-ba4a-e8cf091825d2");
+		PersonModel personModel = personCtrl.getTest("eb072616-bd09-43f8-ad28-c101175bb72f");
 		
 		Date date = new Date();
 	
@@ -92,14 +96,14 @@ public class Main {
 												 date);
 		
 		PropositionReduce propoReduce = new PropositionReduce(  UUID.randomUUID().toString(),
-																"Teste",
-																"Teste T",
+																"Quero",
+																"Teste Q",
 																addressReduce,
 																10.0,
 																10.0,
 																10.0,
 																catModel,
-																"123456",
+																"fe48be29-90ef-448c-aebc-4cd4fa25713b",
 																personReduce,
 																 null,
 																 null,
@@ -114,14 +118,16 @@ public class Main {
 		
 		
 		
-		//CategoryModel catModelI = new CategoryModel(null, "Teste", null, "Red", "zip");
 		
-		//CategoryModel catModel = new CategoryModel(null, "Quero", catModelI, "Red", "zip");
+		
+		//CategoryModel catModelI = new CategoryModel(null, "moto", null, "Red", "zip");
+		
+		//CategoryModel catModel = new CategoryModel(null, "Veiculos", null, "Red", "zip");
 		
 		//CategoryController catCtrl = new CategoryController();
-		//System.out.println(catCtrl.save(catModel));
+		//System.out.println(catCtrl.save(catModelI));
 		
 		
 	}
-
+	
 }
