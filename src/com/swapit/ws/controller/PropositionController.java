@@ -9,6 +9,7 @@ import com.swapit.ws.dao.PropositionDAO;
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
+import com.swapit.ws.model.CategoryModel;
 import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
@@ -107,8 +108,16 @@ public class PropositionController {
 		AddressModel addressModel = new AddressModel();
 		addressModel.setStreet(streetModel);
 		
-		AddressController addCtrl = new AddressController();
 		
+		
+		CategoryController catCtrl = new CategoryController();
+		CategoryModel catModel = catCtrl.getModelbyID(propositionReduce.getCategory().getCategoryId());
+		String interest = null;
+		if(!propositionReduce.getInterest_category().equals("")){
+			interest = propositionReduce.getInterest_category();
+		}
+		
+		AddressController addCtrl = new AddressController();		
 		String addressID = addCtrl.creatID(addressModel.getAddressId());
 		
 		addressModel.setAddressId(addressID);
@@ -120,8 +129,8 @@ public class PropositionController {
 															propositionReduce.getPrice(),
 															propositionReduce.getPriceCatInterest(),
 															propositionReduce.getTotalPrice(),
-															propositionReduce.getCategory(),
-															propositionReduce.getInterest_category(),
+															catModel,
+															interest,
 															personCtrl.personComplete(propositionReduce.getPersonReduce()),
 															propositionReduce.getImage(),
 															propositionReduce.getPublish_date(),
