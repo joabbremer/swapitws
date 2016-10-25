@@ -12,8 +12,8 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 
 	@Override
 	public List<Street> listAll() throws ConnectException {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager em = EntitiManager.getEntityManager();
+		return em.createNamedQuery("findAllState").getResultList();
 	}
 
 	@Override

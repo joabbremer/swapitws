@@ -106,6 +106,12 @@ public class PropositionController {
 		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 		AddressModel addressModel = new AddressModel();
 		addressModel.setStreet(streetModel);
+		
+		AddressController addCtrl = new AddressController();
+		
+		String addressID = addCtrl.creatID(addressModel.getAddressId());
+		
+		addressModel.setAddressId(addressID);
 				
 		PropositionModel propModel = new PropositionModel(creatID(propositionReduce.getPropositionId()),
 															propositionReduce.getTitle(),
