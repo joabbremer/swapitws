@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.google.gson.Gson;
 import com.swapit.ws.dao.PropositionIMGDAO;
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.PropositionImage;
@@ -40,6 +41,11 @@ public class PropositionImageController {
 			e.printStackTrace();
 		}
 		return propImgID;
+	}
+	
+	public String toJson(List<String> imageName){
+		Gson gson = new Gson();
+		return gson.toJson(imageName);
 	}
 	
 	private String creatID(){
