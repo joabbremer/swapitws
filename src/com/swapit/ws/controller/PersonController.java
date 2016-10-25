@@ -58,7 +58,7 @@ public class PersonController {
 		return personReduce;
 	};
 	
-	public PersonModel getTest(String id){
+	public PersonModel getPersonModel(String id){
 		PersonDAO personDao = new PersonDAO();
 		Person person = null;
 		try {
@@ -105,10 +105,11 @@ public class PersonController {
 			addressModel.setNumber(addressReduce.getNumber());
 		}
 		
+		PersonController personCtrl = new PersonController();
+		PersonModel personModel = personCtrl.getPersonModel(personReduce.getPersonId());
 		
-		
-		
-		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
+				
+		/*PersonModel personModel = new PersonModel(personReduce.getPersonId(),
 													personReduce.getPersonName(),
 													personReduce.getEmail(),
 													personReduce.getPhone(),
@@ -117,7 +118,7 @@ public class PersonController {
 													personReduce.getBlocked(),
 													personReduce.getLevel(),
 													personReduce.getFavorite(),
-													addressModel);
+													addressModel);*/
 		
 		return personModel;
 	}
