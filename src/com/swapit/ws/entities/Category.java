@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 
 import javax.persistence.*;
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
 
 
 @Entity
