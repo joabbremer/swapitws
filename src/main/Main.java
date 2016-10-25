@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+
 import com.swapit.ws.controller.CategoryController;
 import com.swapit.ws.controller.PersonController;
 import com.swapit.ws.controller.PropositionController;
@@ -26,11 +29,19 @@ import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
 import com.swapit.ws.model.reduce.PropositionReduce;
+import com.swapit.ws.service.SendMail;
 
 public class Main {
 
 	public static void main(String []args)  {
 		
+		SendMail sendMail = new SendMail();
+		
+		sendMail.sendMail("joab.bremer@gmail.com", "joab.bremer@adventistas.org.br", "teste", "bem vindo ao swapit");
+		
+		
+		
+		/*
 		PropositionController propCtrl = new PropositionController();
 		StreetController streetCtrl = new StreetController();
 		PersonController personCtrl = new PersonController();
@@ -122,6 +133,7 @@ public class Main {
 		//System.out.println(catCtrl.save(catModel));
 		
 		
+		*/
 	}
 
 }
