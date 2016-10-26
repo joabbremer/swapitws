@@ -31,6 +31,7 @@ public class StreetController {
 
 	public StreetModel toModel(Street streetEntity) {
 		StreetTypeController StrTypeCtrl = new StreetTypeController();
+		
 		DistrictController districtCtrl = new DistrictController();
 		return new StreetModel(streetEntity.getStreetid(),
 						StrTypeCtrl.toModel(streetEntity.getStreettypeid()),
