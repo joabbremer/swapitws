@@ -33,7 +33,26 @@ public class PropositionIMGService {
     @Produces({"image/png", "image/jpg", "image/gif"})
     public Response downloadOneImageFile(@PathParam("imageID") String imageID) {
  
-        File file = new File("D://SWAPITIMG//"+ imageID +".jpg");        
+        File file = new File("D://SWAPITIMG//"+ imageID +".jpg");;
+      
+        try {
+			if(!file.createNewFile()){
+				file = new File("D://SWAPITIMG//"+ imageID +".png");        		
+			}
+			if(!file.createNewFile()){
+				file = new File("D://SWAPITIMG//"+ imageID +".gif");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		
+        
+        
+        if(file == null){
+        	System.out.println("aqui");
+        }
        // String extension = getFileExtension(file);
        // ResponseBuilder responseBuilder = Response.ok((Object) file);
        // responseBuilder.header("Content-Disposition", "attachment; filename=\"MyImageFile."+extension+"\"");
