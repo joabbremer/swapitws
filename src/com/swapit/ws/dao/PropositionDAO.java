@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.swapit.ws.dao.exception.ConnectException;
+import com.swapit.ws.entities.Person;
 import com.swapit.ws.entities.Proposition;
 
 public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
@@ -25,6 +26,15 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 		query.setParameter("propositionId",id);
 		return query.getResultList();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Proposition> getPropPerson(Person person) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("selectPropPerson");
+		query.setParameter("personId",person);
+		return query.getResultList();
+	}
+	
 	@Override
 	public Proposition select(String id) throws ConnectException {
 		return null;
