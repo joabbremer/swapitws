@@ -36,6 +36,22 @@ public class PropositionService {
 		
 	}
 	@GET
+	@Path("/getPropCategory/{categoryID}")
+	public Response getPropCategory(@PathParam("categoryID") String categoryID){
+		PropositionController propCtrl = new PropositionController();
+		return Response.ok(propCtrl.getPropCategory(categoryID)).build();
+		
+	}
+	
+	@GET
+	@Path("/getPropLike/{word}")
+	public Response getPropLike(@PathParam("word") String word){
+		PropositionController propCtrl = new PropositionController();
+		return Response.ok(propCtrl.getPropLike(word)).build();
+		
+	}
+	
+	@GET
 	@Path("/getPropPerson/{personID}")
 	public Response getPropPerson(@PathParam("personID") String id){
 		PropositionController propCtrl = new PropositionController();
