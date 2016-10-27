@@ -15,7 +15,8 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 @NamedQueries({
 	@NamedQuery(name="findAllProposition", query="SELECT PR FROM Proposition PR"),
 	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId"),
-	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId")
+	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId"),
+	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID")
 })
 
 public class Proposition implements Serializable{

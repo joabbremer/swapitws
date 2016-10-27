@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import com.swapit.ws.dao.exception.ConnectException;
+import com.swapit.ws.entities.Category;
 import com.swapit.ws.entities.Person;
 import com.swapit.ws.entities.Proposition;
 
@@ -27,11 +28,24 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 		return query.getResultList();
 	}
 	
+	public List<Proposition> getPropLike(String word) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Proposition> getPropPerson(Person person) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectPropPerson");
 		query.setParameter("personId",person);
+		return query.getResultList();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Proposition> getPropCategory(Category category) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("selectPropCategory");
+		query.setParameter("categoryID",category);
 		return query.getResultList();
 	}
 	
@@ -80,5 +94,11 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	
+
+
+	
 
 }
