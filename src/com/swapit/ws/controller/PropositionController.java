@@ -108,7 +108,8 @@ public class PropositionController {
 			
 			AddressReduce simpleAddress = null;
 			if(streetType != null){
-				simpleAddress = new AddressReduce(streetModel.getStreetid(),
+				simpleAddress = new AddressReduce(addressModel.getAddressId(),
+						streetModel.getStreetid(),
 						streetModel.getZipcode(),
 						streetType.getName() + streetModel.getName(),
 						streetModel.getComplement(),
@@ -159,8 +160,9 @@ public class PropositionController {
 	
 	
 
-	public boolean update(PropositionModel propositionModel) {
+	public boolean update(PropositionReduce propositionReduce) {
 		PropositionDAO propDao = new PropositionDAO();
+		PropositionModel propositionModel =  propositionComplete(propositionReduce);
 		try {
 			return propDao.update(toEntity(propositionModel));
 		} catch (ConnectException e) {
@@ -201,24 +203,37 @@ public class PropositionController {
 		
 		AddressReduce addressReduce =  propositionReduce.getAddressReduce();
 		StreetController streetCtrl = new StreetController();
-		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 		AddressModel addressModel = new AddressModel();
-		addressModel.setStreet(streetModel);
+		StreetModel streetModel = null;
+		if(addressReduce != null){
+			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
+			addressModel.setStreet(streetModel);
+		}
+		
+		//StreetController streetCtrl = new StreetController();
+		//StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
+		//AddressModel addressModel = new AddressModel();
+		//addressModel.setStreet(streetModel);
 		
 		
 		
 		CategoryController catCtrl = new CategoryController();
 		CategoryModel catModel = catCtrl.getModelbyID(propositionReduce.getCategory().getCategoryId());
 		String interest = null;
-		if(!propositionReduce.getInterest_category().equals("")){
-			interest = propositionReduce.getInterest_category();
+		if(propositionReduce.getInterest_category() != null){
+			if(!propositionReduce.getInterest_category().equals("")){
+				interest = propositionReduce.getInterest_category();
+			}
+			
 		}
 		
-		AddressController addCtrl = new AddressController();		
-		String addressID = addCtrl.creatID(addressModel.getAddressId());
 		
+		AddressController addCtrl = new AddressController();		
+		String addressID = addCtrl.creatID(addressReduce.getAddressid());
 		addressModel.setAddressId(addressID);
-				
+		
+		
+		
 		PropositionModel propModel = new PropositionModel(creatID(propositionReduce.getPropositionId()),
 															propositionReduce.getTitle(),
 															propositionReduce.getDescription(),

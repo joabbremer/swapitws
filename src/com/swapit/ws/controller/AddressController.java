@@ -82,61 +82,68 @@ public class AddressController {
 	};
 	
 	public PersonReduce reduceAddressPerson(PersonModel personModel){
-		AddressModel addressModel = personModel.getAddres();
-		StreetModel streetModel = null;
-		if(addressModel != null){
-			streetModel = addressModel.getStreet();
-		}
-		;
-		StreetTypeModel streetType = null;
-		DistrictModel districtModel = null;
-		if(streetModel != null){
-			streetType = streetModel.getStreettype();
-			districtModel = streetModel.getDistrict();
-		}
-		CityModel cityModel = null;
-		if(districtModel != null){
-			cityModel =  districtModel.getCity();
-		}
-		StateModel stateModel = null;
-		if(cityModel != null){
-			stateModel = cityModel.getState();
-		}
-		CountryModel countryModel = null;
-		if(stateModel != null){
-			countryModel = stateModel.getCountry();
-		}
 		
-		AddressReduce simpleAddress = null;
-		if(streetModel != null){
-			simpleAddress = new AddressReduce(streetModel.getStreetid(),
-					streetModel.getZipcode(),
-					streetType.getName() + streetModel.getName(),
-					streetModel.getComplement(),
-					addressModel.getNumber(),
-					districtModel.getName(),
-					cityModel.getName(),
-					stateModel.getAcronym(),
-					stateModel.getName(),
-					countryModel.getAcronym(),
-					countryModel.getName());
+		PersonReduce personReduce = null;
+		
+		if(personModel != null){
+			AddressModel addressModel = personModel.getAddres();
+			StreetModel streetModel = null;
+			if(addressModel != null){
+				streetModel = addressModel.getStreet();
+			}
+			;
+			StreetTypeModel streetType = null;
+			DistrictModel districtModel = null;
+			if(streetModel != null){
+				streetType = streetModel.getStreettype();
+				districtModel = streetModel.getDistrict();
+			}
+			CityModel cityModel = null;
+			if(districtModel != null){
+				cityModel =  districtModel.getCity();
+			}
+			StateModel stateModel = null;
+			if(cityModel != null){
+				stateModel = cityModel.getState();
+			}
+			CountryModel countryModel = null;
+			if(stateModel != null){
+				countryModel = stateModel.getCountry();
+			}
+			
+			AddressReduce simpleAddress = null;
+			if(streetModel != null){
+				simpleAddress = new AddressReduce(addressModel.getAddressId(),
+						streetModel.getStreetid(),
+						streetModel.getZipcode(),
+						streetType.getName() + streetModel.getName(),
+						streetModel.getComplement(),
+						addressModel.getNumber(),
+						districtModel.getName(),
+						cityModel.getName(),
+						stateModel.getAcronym(),
+						stateModel.getName(),
+						countryModel.getAcronym(),
+						countryModel.getName());
+			}
+			
+			
+			
+			personReduce =  new PersonReduce(personModel.getPersonId(),
+															personModel.getPersonName(),
+															personModel.getEmail(),
+															personModel.getPhone(),
+															personModel.getPassword(),
+															personModel.getSex(),
+															personModel.getBlocked(),
+															personModel.getLevel(),
+															personModel.getFavorite(),
+															simpleAddress);
+			
 		}
-		
-		
-		
-		PersonReduce personReduce =  new PersonReduce(personModel.getPersonId(),
-														personModel.getPersonName(),
-														personModel.getEmail(),
-														personModel.getPhone(),
-														personModel.getPassword(),
-														personModel.getSex(),
-														personModel.getBlocked(),
-														personModel.getLevel(),
-														personModel.getFavorite(),
-														simpleAddress);
-		
 		
 		return personReduce;
+		
 	}
 	
 	public PropositionReduce reduceAddressProposition(PropositionModel propositionModel){
@@ -166,7 +173,8 @@ public class AddressController {
 		
 		AddressReduce simpleAddress = null;
 		if(streetType != null){
-			simpleAddress = new AddressReduce(streetModel.getStreetid(),
+			simpleAddress = new AddressReduce(addressModel.getAddressId(),
+					streetModel.getStreetid(),
 					streetModel.getZipcode(),
 					streetType.getName() + streetModel.getName(),
 					streetModel.getComplement(),
