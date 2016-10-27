@@ -35,6 +35,13 @@ public class PropositionService {
 		return Response.ok(propCtrl.getbyID(id)).build();
 		
 	}
+	@GET
+	@Path("/getPropPerson/{personID}")
+	public Response getPropPerson(@PathParam("personID") String id){
+		PropositionController propCtrl = new PropositionController();
+		return Response.ok(propCtrl.getPropPerson(id)).build();
+	}
+	
 	
 	@POST
 	@Path("/save")
@@ -49,9 +56,9 @@ public class PropositionService {
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response update(PropositionModel propositionModel){
+	public Response update(PropositionReduce propositionReduce){
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.update(propositionModel)).build();
+		return Response.ok(propCtrl.update(propositionReduce)).build();
 		
 	}
 

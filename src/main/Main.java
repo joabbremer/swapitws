@@ -35,7 +35,7 @@ public class Main {
 		PropositionRelate propRelate = new PropositionRelate();
 		propRelate.relate();
 		
-		/*PropositionController propCtrl = new PropositionController();
+		PropositionController propCtrl = new PropositionController();
 		StreetController streetCtrl = new StreetController();
 		PersonController personCtrl = new PersonController();
 		PropositionImageController propImgCtrl = new PropositionImageController();
@@ -116,7 +116,7 @@ public class Main {
 		System.out.println(propCtrl.save(propoReduce));
 		
 		
-		*/
+		
 		
 		
 		

@@ -2,6 +2,7 @@ package com.swapit.ws.model.reduce;
 
 public class AddressReduce {
 
+	private String addressid;
 	private String streetid;
 	private String zipcode; //dentro de street
 	private String streetName; // streettype + street
@@ -18,11 +19,11 @@ public class AddressReduce {
 		super();
 	}
 
-
-	public AddressReduce(String streetid, String zipcode, String streetName, String complement, String number,
-			String districtName, String cityName, String stateAcronym, String stateName, String countryAcronym,
-			String countryName) {
+	public AddressReduce(String addressid, String streetid, String zipcode, String streetName, String complement,
+			String number, String districtName, String cityName, String stateAcronym, String stateName,
+			String countryAcronym, String countryName) {
 		super();
+		this.addressid = addressid;
 		this.streetid = streetid;
 		this.zipcode = zipcode;
 		this.streetName = streetName;
@@ -36,6 +37,13 @@ public class AddressReduce {
 		this.countryName = countryName;
 	}
 
+	public String getAddressid() {
+		return addressid;
+	}
+
+	public void setAddressid(String addressid) {
+		this.addressid = addressid;
+	}
 
 	public String getStreetid() {
 		return streetid;

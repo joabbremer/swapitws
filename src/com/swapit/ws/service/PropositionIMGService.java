@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -25,19 +26,31 @@ import com.swapit.ws.controller.PropositionImageController;
 @Path("/propositionIMG")
 public class PropositionIMGService {
  
-    public static final String UPLOAD_FILE_SERVER = "D://SWAPITIMG/";
+    public static final String UPLOAD_FILE_SERVER = "D://SWAPITIMG//";
  
-    @POST
+    @GET
     @Path("/download/{imageID}")
     @Produces({"image/png", "image/jpg", "image/gif"})
     public Response downloadOneImageFile(@PathParam("imageID") String imageID) {
  
-        File file = new File("D://SWAPITIMG//"+ imageID +".jpg");
- 
-       // String extension = getFileExtension(file);
+    	File file = null;
+        File fileLocation = new File("D://SWAPITIMG//"+ imageID +".png");
+        if(fileLocation.exists()){
+        	file = fileLocation;        	
+        }else{
+        	fileLocation = new File("D://SWAPITIMG//"+ imageID +".jpg");
+        	if(fileLocation.exists()){
+            	file = fileLocation;        	
+            }else{
+            	fileLocation = new File("D://SWAPITIMG//"+ imageID +".gif");
+            	if(fileLocation.exists()){
+                	file = fileLocation;        	
+                }
+            }
+        }
         
-       // ResponseBuilder responseBuilder = Response.ok((Object) file);
-       // responseBuilder.header("Content-Disposition", "attachment; filename=\"MyImageFile."+extension+"\"");
+        
+        		
         return Response.ok(file).build();
     }
 

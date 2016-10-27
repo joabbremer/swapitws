@@ -7,10 +7,17 @@ import java.util.UUID;
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PropositionDAO;
 import com.swapit.ws.dao.exception.ConnectException;
+import com.swapit.ws.entities.Person;
 import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
+import com.swapit.ws.model.CategoryModel;
+import com.swapit.ws.model.CityModel;
+import com.swapit.ws.model.CountryModel;
+import com.swapit.ws.model.DistrictModel;
 import com.swapit.ws.model.PropositionModel;
+import com.swapit.ws.model.StateModel;
 import com.swapit.ws.model.StreetModel;
+import com.swapit.ws.model.StreetTypeModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PropositionReduce;
 
@@ -52,7 +59,92 @@ public class PropositionController {
 		
 	}
 	
+	public String getPropPerson(String personID){
+		Person person = new Person();
+		person.setPersonId(personID);
+		PropositionDAO propDao = new PropositionDAO();
+		AddressController addressCtrl = new AddressController();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.getPropPerson(person);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		
+		List<PropositionModel> propModel = toModelList(prop);
+		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+		return toJsonReduceList(propReduceList);
+		
+	}
 	
+	
+
+	private List<PropositionReduce> propositionReduce(List<PropositionModel> propModel) {
+		List<PropositionReduce> propReduce = new ArrayList<PropositionReduce>();
+		for (PropositionModel propositionModel : propModel) {
+			AddressModel addressModel = propositionModel.getAddress();
+			StreetModel streetModel = null;
+			if(addressModel != null){
+				streetModel = addressModel.getStreet();
+			}
+			StreetTypeModel streetType = null;
+			DistrictModel districtModel = null;
+			if(streetModel != null){
+				streetType = streetModel.getStreettype();
+				districtModel = streetModel.getDistrict();
+			}
+			CityModel cityModel = null;
+			if(districtModel != null){
+				cityModel =  districtModel.getCity();
+			}
+			StateModel stateModel = null;
+			if(cityModel != null){
+				stateModel = cityModel.getState();
+			}
+			CountryModel countryModel = null;
+			if(stateModel != null){
+				countryModel = stateModel.getCountry();
+			}
+			
+			AddressReduce simpleAddress = null;
+			if(streetType != null){
+				simpleAddress = new AddressReduce(addressModel.getAddressId(),
+						streetModel.getStreetid(),
+						streetModel.getZipcode(),
+						streetType.getName() + streetModel.getName(),
+						streetModel.getComplement(),
+						addressModel.getNumber(),
+						districtModel.getName(),
+						cityModel.getName(),
+						stateModel.getAcronym(),
+						stateModel.getName(),
+						countryModel.getAcronym(),
+						countryModel.getName());
+			}
+			
+			AddressController addCtrl = new AddressController();
+			propReduce.add(new PropositionReduce(propositionModel.getPropositionId(),
+					propositionModel.getTitle(),
+					propositionModel.getDescription(),
+					simpleAddress,
+					propositionModel.getPrice(),
+					propositionModel.getPriceCatInterest(),
+					propositionModel.getTotalPrice(),
+					propositionModel.getCategory(),
+					propositionModel.getInterest_category(),
+					addCtrl.reduceAddressPerson(propositionModel.getPersonId()),
+					propositionModel.getImage(),
+					propositionModel.getPublish_date(),
+					propositionModel.getRemovel_date()));
+			
+					
+			
+			
+			
+		}
+		
+		return propReduce;
+	}
 
 	public boolean save(PropositionReduce propositionReduce) {
 		PropositionDAO propDao = new PropositionDAO();
@@ -68,8 +160,9 @@ public class PropositionController {
 	
 	
 
-	public boolean update(PropositionModel propositionModel) {
+	public boolean update(PropositionReduce propositionReduce) {
 		PropositionDAO propDao = new PropositionDAO();
+		PropositionModel propositionModel =  propositionComplete(propositionReduce);
 		try {
 			return propDao.update(toEntity(propositionModel));
 		} catch (ConnectException e) {
@@ -92,6 +185,13 @@ public class PropositionController {
 		
 	};
 	
+	public String toJsonReduceList(List<PropositionReduce> list){
+		Gson gson = new Gson();
+		return gson.toJson(list);
+		
+	};
+	
+	
 	private String toJson(PropositionReduce propReduce) {
 		Gson gson = new Gson();
 		return gson.toJson(propReduce);
@@ -103,10 +203,37 @@ public class PropositionController {
 		
 		AddressReduce addressReduce =  propositionReduce.getAddressReduce();
 		StreetController streetCtrl = new StreetController();
-		StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 		AddressModel addressModel = new AddressModel();
-		addressModel.setStreet(streetModel);
-				
+		StreetModel streetModel = null;
+		if(addressReduce != null){
+			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
+			addressModel.setStreet(streetModel);
+		}
+		
+		//StreetController streetCtrl = new StreetController();
+		//StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
+		//AddressModel addressModel = new AddressModel();
+		//addressModel.setStreet(streetModel);
+		
+		
+		
+		CategoryController catCtrl = new CategoryController();
+		CategoryModel catModel = catCtrl.getModelbyID(propositionReduce.getCategory().getCategoryId());
+		String interest = null;
+		if(propositionReduce.getInterest_category() != null){
+			if(!propositionReduce.getInterest_category().equals("")){
+				interest = propositionReduce.getInterest_category();
+			}
+			
+		}
+		
+		
+		AddressController addCtrl = new AddressController();		
+		String addressID = addCtrl.creatID(addressReduce.getAddressid());
+		addressModel.setAddressId(addressID);
+		
+		
+		
 		PropositionModel propModel = new PropositionModel(creatID(propositionReduce.getPropositionId()),
 															propositionReduce.getTitle(),
 															propositionReduce.getDescription(),
@@ -114,8 +241,8 @@ public class PropositionController {
 															propositionReduce.getPrice(),
 															propositionReduce.getPriceCatInterest(),
 															propositionReduce.getTotalPrice(),
-															propositionReduce.getCategory(),
-															propositionReduce.getInterest_category(),
+															catModel,
+															interest,
 															personCtrl.personComplete(propositionReduce.getPersonReduce()),
 															propositionReduce.getImage(),
 															propositionReduce.getPublish_date(),
