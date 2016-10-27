@@ -35,6 +35,13 @@ public class PropositionService {
 		return Response.ok(propCtrl.getbyID(id)).build();
 		
 	}
+	@GET
+	@Path("/getPropPerson/{personID}")
+	public Response getPropPerson(@PathParam("personID") String id){
+		PropositionController propCtrl = new PropositionController();
+		return Response.ok(propCtrl.getPropPerson(id)).build();
+	}
+	
 	
 	@POST
 	@Path("/save")
