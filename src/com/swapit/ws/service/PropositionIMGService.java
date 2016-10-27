@@ -26,36 +26,31 @@ import com.swapit.ws.controller.PropositionImageController;
 @Path("/propositionIMG")
 public class PropositionIMGService {
  
-    public static final String UPLOAD_FILE_SERVER = "D://SWAPITIMG/";
+    public static final String UPLOAD_FILE_SERVER = "D://SWAPITIMG//";
  
     @GET
     @Path("/download/{imageID}")
     @Produces({"image/png", "image/jpg", "image/gif"})
     public Response downloadOneImageFile(@PathParam("imageID") String imageID) {
  
-        File file = new File("D://SWAPITIMG//"+ imageID +".jpg");;
-      
-        try {
-			if(!file.createNewFile()){
-				file = new File("D://SWAPITIMG//"+ imageID +".png");        		
-			}
-			if(!file.createNewFile()){
-				file = new File("D://SWAPITIMG//"+ imageID +".gif");
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-			
-		
-        
-        
-        if(file == null){
-        	System.out.println("aqui");
+    	File file = null;
+        File fileLocation = new File("D://SWAPITIMG//"+ imageID +".png");
+        if(fileLocation.exists()){
+        	file = fileLocation;        	
+        }else{
+        	fileLocation = new File("D://SWAPITIMG//"+ imageID +".jpg");
+        	if(fileLocation.exists()){
+            	file = fileLocation;        	
+            }else{
+            	fileLocation = new File("D://SWAPITIMG//"+ imageID +".gif");
+            	if(fileLocation.exists()){
+                	file = fileLocation;        	
+                }
         }
-       // String extension = getFileExtension(file);
-       // ResponseBuilder responseBuilder = Response.ok((Object) file);
-       // responseBuilder.header("Content-Disposition", "attachment; filename=\"MyImageFile."+extension+"\"");
+        }
+        
+        
+        		
         return Response.ok(file).build();
     }
 
