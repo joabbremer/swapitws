@@ -8,9 +8,14 @@ import javax.persistence.OneToOne;
 import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 @Entity
 @Table(name="city")
+@NamedQueries({
+	@NamedQuery(name="selectCityState", query = "SELECT c FROM City c WHERE c.stateid = :stateId")
+})
 public class City {
 
 	@Id
