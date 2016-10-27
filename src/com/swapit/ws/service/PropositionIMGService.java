@@ -46,7 +46,7 @@ public class PropositionIMGService {
             	if(fileLocation.exists()){
                 	file = fileLocation;        	
                 }
-        }
+            }
         }
         
         
