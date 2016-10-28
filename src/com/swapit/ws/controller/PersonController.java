@@ -135,13 +135,17 @@ public class PersonController {
 	
 	public String login(String email, String password) {
 		PersonDAO personDao = new PersonDAO();
-		Person person = null;
+		List<Person> person = new ArrayList<Person>();
 		try {
 			person = personDao.login(email, password);
+			System.out.println(person.size());
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}		
-		return toJson(toModel(person));
+		if(person.size() != 0){
+			return toJson(toModel(person));
+		}
+		return null;
 	}
 	
 	private PersonModel CreatID(PersonModel personModel){
@@ -185,7 +189,7 @@ public class PersonController {
 				addressModel);
 	};
 	
-	public List<PersonModel> toModel(List<Person> personEntity){
+	public List<PersonModel> toModelList(List<Person> personEntity){
 		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
 		AddressModel addresModel = new AddressModel();
 		AddressController addressCtrl = new AddressController();
@@ -212,6 +216,41 @@ public class PersonController {
 					person.getLevel(),
 					favoriteModel,
 					addresModel));
+			
+			favoriteModel = null;
+			addresModel = null;
+			
+		}		
+		return personModel;
+		
+	};
+	public PersonModel toModel(List<Person> personEntity){
+		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
+		AddressModel addresModel = new AddressModel();
+		AddressController addressCtrl = new AddressController();
+		PropositionController propCtrl = new PropositionController();
+		PersonModel personModel = new PersonModel();
+		
+		
+		
+		for (Person person : personEntity) {
+			if(person.getFavorite() != null){
+				favoriteModel = propCtrl.toModelList(person.getFavorite());
+			}
+			if(person.getAddress() != null){
+				addresModel = addressCtrl.toModel(person.getAddress());
+			}
+			
+			personModel = new PersonModel(person.getPersonId(),
+					person.getPersonName(),
+					person.getEmail(),
+					person.getPhone(),
+					person.getPassword(),
+					person.getSex(),
+					person.getBlocked(),
+					person.getLevel(),
+					favoriteModel,
+					addresModel);
 			
 			favoriteModel = null;
 			addresModel = null;
