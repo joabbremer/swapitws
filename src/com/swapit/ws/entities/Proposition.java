@@ -16,7 +16,8 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 	@NamedQuery(name="findAllProposition", query="SELECT PR FROM Proposition PR"),
 	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId"),
 	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId"),
-	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID")
+	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID"),
+	@NamedQuery(name="selectPropLike", query = "SELECT PR FROM Proposition PR WHERE PR.title LIKE :word")
 })
 
 public class Proposition implements Serializable{
@@ -62,11 +63,11 @@ public class Proposition implements Serializable{
 	private List<PropositionImage> imageId;
 	
 	@Column(name="publish_date")
-	@Temporal(DATE)
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date publish_date;
 	
 	@Column(name="removel_date")
-	@Temporal(TIMESTAMP)
+	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date removel_date;
 	
 	

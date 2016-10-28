@@ -77,13 +77,17 @@ public class PropositionController {
 		return toJsonReduceList(propReduceList);		
 	}
 	
-	public Object getPropLike(String word) {
+	public String getPropLike(String word) {
 		PropositionDAO propDao = new PropositionDAO();
 		List<Proposition> prop = null;
-		
-		prop = propDao.getPropLike(word);
-		
-		return null;
+		try {
+			prop = propDao.getPropLike(word);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		List<PropositionModel> propModel = toModelList(prop);
+		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+		return toJsonReduceList(propReduceList);
 	}
 	
 	public String getPropPerson(String personID){
@@ -234,14 +238,7 @@ public class PropositionController {
 		if(addressReduce != null){
 			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 			addressModel.setStreet(streetModel);
-		}
-		
-		//StreetController streetCtrl = new StreetController();
-		//StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
-		//AddressModel addressModel = new AddressModel();
-		//addressModel.setStreet(streetModel);
-		
-		
+		}		
 		
 		CategoryController catCtrl = new CategoryController();
 		CategoryModel catModel = catCtrl.getModelbyID(propositionReduce.getCategory().getCategoryId());
