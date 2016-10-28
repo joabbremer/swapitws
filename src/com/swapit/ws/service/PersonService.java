@@ -14,6 +14,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.swapit.ws.controller.PersonController;
+import com.swapit.ws.entities.Person;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.reduce.PersonReduce;
 
@@ -47,7 +48,12 @@ public class PersonService {
 	public Response login(@PathParam("email") String email,
 						  @PathParam("senha") String senha){
 		PersonController personCtrl = new PersonController();
-		return Response.ok(personCtrl.login(email, senha)).build();
+		
+		if(personCtrl.login(email, senha) != null){
+			return Response.ok(personCtrl.login(email, senha)).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+		
 		
 	}
 	
