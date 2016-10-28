@@ -28,9 +28,11 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 		return query.getResultList();
 	}
 	
-	public List<Proposition> getPropLike(String word) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Proposition> getPropLike(String word) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("selectPropLike");
+		query.setParameter("word","%"+word+"%");
+		return query.getResultList();
 	}
 	
 	@SuppressWarnings("unchecked")

@@ -10,7 +10,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.org.glassfish.gmbal.ManagedData;
 import com.swapit.ws.controller.PropositionController;
 import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.reduce.PropositionReduce;
