@@ -12,7 +12,6 @@ import javax.ws.rs.core.Response;
 
 
 import com.swapit.ws.controller.PropositionController;
-import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.reduce.PropositionReduce;
 
 @Path("/proposition")
