@@ -7,6 +7,7 @@ import java.util.UUID;
 import com.google.gson.Gson;
 import com.swapit.ws.dao.PropositionDAO;
 import com.swapit.ws.dao.exception.ConnectException;
+import com.swapit.ws.entities.Category;
 import com.swapit.ws.entities.Person;
 import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
@@ -45,6 +46,7 @@ public class PropositionController {
 		return toModelList(prop);
 	};
 	
+	
 	public String getbyID(String id){
 		PropositionDAO propDao = new PropositionDAO();
 		AddressController addressCtrl = new AddressController();
@@ -59,11 +61,39 @@ public class PropositionController {
 		
 	}
 	
+	public String getPropCategory(String categoryID){
+		Category Category = new Category();
+		Category.setCategoryId(categoryID);
+		PropositionDAO propDao = new PropositionDAO();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.getPropCategory(Category);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		
+		List<PropositionModel> propModel = toModelList(prop);
+		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+		return toJsonReduceList(propReduceList);		
+	}
+	
+	public String getPropLike(String word) {
+		PropositionDAO propDao = new PropositionDAO();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.getPropLike(word);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		List<PropositionModel> propModel = toModelList(prop);
+		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+		return toJsonReduceList(propReduceList);
+	}
+	
 	public String getPropPerson(String personID){
 		Person person = new Person();
 		person.setPersonId(personID);
 		PropositionDAO propDao = new PropositionDAO();
-		AddressController addressCtrl = new AddressController();
 		List<Proposition> prop = null;
 		try {
 			prop = propDao.getPropPerson(person);
@@ -208,14 +238,7 @@ public class PropositionController {
 		if(addressReduce != null){
 			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 			addressModel.setStreet(streetModel);
-		}
-		
-		//StreetController streetCtrl = new StreetController();
-		//StreetModel streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
-		//AddressModel addressModel = new AddressModel();
-		//addressModel.setStreet(streetModel);
-		
-		
+		}		
 		
 		CategoryController catCtrl = new CategoryController();
 		CategoryModel catModel = catCtrl.getModelbyID(propositionReduce.getCategory().getCategoryId());
@@ -361,6 +384,8 @@ public class PropositionController {
 		
 		return proposition;
 	}
+
+	
 
 	
 
