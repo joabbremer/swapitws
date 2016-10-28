@@ -10,7 +10,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.org.glassfish.gmbal.ManagedData;
 import com.swapit.ws.controller.PropositionController;
 import com.swapit.ws.model.reduce.PropositionReduce;
 
@@ -34,6 +37,22 @@ public class PropositionService {
 		return Response.ok(propCtrl.getbyID(id)).build();
 		
 	}
+	@GET
+	@Path("/getPropCategory/{categoryID}")
+	public Response getPropCategory(@PathParam("categoryID") String categoryID){
+		PropositionController propCtrl = new PropositionController();
+		return Response.ok(propCtrl.getPropCategory(categoryID)).build();
+		
+	}
+	
+	@GET
+	@Path("/getPropLike/{word}")
+	public Response getPropLike(@PathParam("word") String word){
+		PropositionController propCtrl = new PropositionController();
+		return Response.ok(propCtrl.getPropLike(word)).build();
+		
+	}
+	
 	@GET
 	@Path("/getPropPerson/{personID}")
 	public Response getPropPerson(@PathParam("personID") String id){

@@ -3,6 +3,7 @@ package com.swapit.ws.model.reduce;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.swapit.ws.model.CategoryModel;
 import com.swapit.ws.model.PropositionImageModel;
 
