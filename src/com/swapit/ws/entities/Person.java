@@ -22,6 +22,7 @@ import javax.persistence.JoinTable;
 	@NamedQuery(name="findAllPersons", query="SELECT p FROM Person p"),
 	@NamedQuery(name="selectIDPerson", query = "SELECT P FROM Person p WHERE p.personId = :personId"),
 	@NamedQuery(name="loginPerson", query = "SELECT P FROM Person p WHERE p.email = :email AND p.password = :password"),
+	@NamedQuery(name="findPersonEmail", query = "SELECT P FROM Person p WHERE p.email = :email"),
 })
 
 public class Person {
@@ -39,7 +40,7 @@ public class Person {
 	@Column(length=12, name="phone", nullable=true)
 	private String phone;
 	
-	@Column(length=20, name="password", nullable=false)
+	@Column(length=50, name="password", nullable=false)
 	private String password;
 	
 	@Column(length=1, name="sex", nullable=true)

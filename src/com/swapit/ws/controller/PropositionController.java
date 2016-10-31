@@ -56,11 +56,24 @@ public class PropositionController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
-		return toJson(propReduce);
+		if(prop.size() != 0 && analyRemoved(prop)){
+			PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
+			return toJson(propReduce);
+		}
+		
+		return null;
 		
 	}
 	
+	private boolean analyRemoved(List<Proposition> propositionEntity) {
+		for (Proposition proposition : propositionEntity) {
+			if(proposition.getRemovel_date() == null){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public String getPropCategory(String categoryID){
 		Category Category = new Category();
 		Category.setCategoryId(categoryID);
@@ -77,20 +90,24 @@ public class PropositionController {
 		return toJsonReduceList(propReduceList);		
 	}
 	
+
 	public String getPropLike(String title, String categoryID, String city, Double max, Double min) {
 		PropositionDAO propDao = new PropositionDAO();
 		CategoryController catCtrl = new CategoryController();
-		System.out.println("Controller com categoria");
 		List<Proposition> prop = null;
 		try {
 			prop = propDao.getPropLike(title, catCtrl.getCatEntityByID(categoryID), city, max, min);
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		List<PropositionModel> propModel = toModelList(prop);
-		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
-		System.out.println("Saiu do Controller");
-		return toJsonReduceList(propReduceList);
+		
+		if(prop.size() != 0 && analyRemoved(prop)){
+			List<PropositionModel> propModel = toModelList(prop);
+			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+			return toJsonReduceList(propReduceList);
+		}
+		return null;
+		
 	}
 	
 	public String getPropPerson(String personID){
@@ -245,7 +262,7 @@ public class PropositionController {
 		
 		CategoryController catCtrl = new CategoryController();
 		CategoryModel catModel = catCtrl.getModelbyID(propositionReduce.getCategory().getCategoryId());
-		String interest = null;
+		CategoryModel interest = null;
 		if(propositionReduce.getInterest_category() != null){
 			if(!propositionReduce.getInterest_category().equals("")){
 				interest = propositionReduce.getInterest_category();
@@ -298,7 +315,7 @@ public class PropositionController {
 					   proposition.getPriceCatInterest(),
 					   proposition.getTotalPrice(),
 					   categoryCtrl.toModel(proposition.getCategoryId()),
-					   proposition.getInterest_category(),
+					   categoryCtrl.toModel(proposition.getInterest_category()),
 					   personCtrl.toModel(proposition.getPersonId()),
 					   propImgCtrl.toModel(proposition.getImageId()),
 					   proposition.getPublish_date(),
@@ -326,7 +343,7 @@ public class PropositionController {
 					   proposition.getPriceCatInterest(),
 					   proposition.getTotalPrice(),
 					   categoryCtrl.toModel(proposition.getCategoryId()),
-					   proposition.getInterest_category(),
+					   categoryCtrl.toModel(proposition.getInterest_category()),
 					   personCtrl.toModel(proposition.getPersonId()),
 					   propImgCtrl.toModel(proposition.getImageId()),
 					   proposition.getPublish_date(),
@@ -351,7 +368,7 @@ public class PropositionController {
 											propModel.getPriceCatInterest(),
 											propModel.getTotalPrice(),
 											categoryCtrl.toEntity(propModel.getCategory()),
-											propModel.getInterest_category(),
+											categoryCtrl.toEntity(propModel.getInterest_category()),
 											personCtrl.toEntity(propModel.getPersonId()),
 											propImgCtrl.toEntity(propModel.getImage()),
 											propModel.getPublish_date(),
@@ -377,7 +394,7 @@ public class PropositionController {
 											propModel.getPriceCatInterest(),
 											propModel.getTotalPrice(),
 											categoryCtrl.toEntity(propModel.getCategory()),
-											propModel.getInterest_category(),
+											categoryCtrl.toEntity(propModel.getInterest_category()),
 											personCtrl.toEntity(propModel.getPersonId()),
 											propImgCtrl.toEntity(propModel.getImage()),
 											propModel.getPublish_date(),

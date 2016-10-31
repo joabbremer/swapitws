@@ -20,7 +20,7 @@ public class PropositionRelate {
 		
 		for (PropositionModel propositionModelHave : propModelHave) {
 			for (PropositionModel propositionModelInterst : propModelInterest) {
-				String have = propositionModelHave.getInterest_category();
+				String have = propositionModelHave.getInterest_category().getCategoryId();
 				String has = propositionModelInterst.getCategory().getCategoryId();
 				if(has!=null){
 					if(has.equals(have)){

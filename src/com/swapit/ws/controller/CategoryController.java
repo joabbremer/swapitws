@@ -38,12 +38,13 @@ public class CategoryController {
 	public Category getCatEntityByID(String id) {
 		CategoryDAO catDao = new CategoryDAO();
 		Category cat = null;
-		try {
-			cat = catDao.select(id);
-		} catch (ConnectException e) {
-			e.printStackTrace();
-		}
-		
+		if(!id.equals("null")){
+			try {
+				cat = catDao.select(id);
+			} catch (ConnectException e) {
+				e.printStackTrace();
+			}
+		}		
 		return cat;
 	}
 	

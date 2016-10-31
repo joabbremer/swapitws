@@ -9,6 +9,7 @@ import com.swapit.ws.entities.State;
 
 public class StateDAO implements PojoInterfaceDAO<State> {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<State> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();

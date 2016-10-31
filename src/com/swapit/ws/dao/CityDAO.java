@@ -23,6 +23,7 @@ public class CityDAO implements PojoInterfaceDAO<City>{
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<City> selectCityState(State state) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectCityState");

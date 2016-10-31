@@ -10,13 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.glassfish.jersey.media.multipart.FormDataParam;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.sun.org.glassfish.gmbal.ManagedData;
 import com.swapit.ws.controller.PropositionController;
-import com.swapit.ws.entities.Proposition;
-import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.reduce.PropositionReduce;
 
 @Path("/proposition")
@@ -44,21 +38,17 @@ public class PropositionService {
 	public Response getPropCategory(@PathParam("categoryID") String categoryID){
 		PropositionController propCtrl = new PropositionController();
 		return Response.ok(propCtrl.getPropCategory(categoryID)).build();
-		
 	}
 	
 	@GET
-	@Path("/getProp/{title}/{category}/{city}/{price_max}/{price_min}")
-	public Response getProp(@PathParam("title") String title,
+	@Path("/getPropLike/{title}/{category}/{city}/{price_max}/{price_min}")
+	public Response getPropLike(@PathParam("title") String title,
 							@PathParam("category") String category,
 							@PathParam("city") String city,
 							@PathParam("price_max") Double price_max,
 							@PathParam("price_min") Double price_min){
-		
-		System.out.println("Service");
 		PropositionController propCtrl = new PropositionController();
 		return Response.ok(propCtrl.getPropLike(title, category, city, price_max, price_min)).build();
-		
 	}
 	
 	@GET

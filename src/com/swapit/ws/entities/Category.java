@@ -23,7 +23,7 @@ public class Category implements Serializable {
 	@Column(name="category_name", length=30)
 	private String categoryName;
 
-	@Column(name="	parent_id", length=36)
+	@Column(name="parent_id", length=36)
 	private String parentId;
 	
 	@Column(name="color")
