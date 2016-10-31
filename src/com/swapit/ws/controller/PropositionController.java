@@ -56,8 +56,12 @@ public class PropositionController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
-		return toJson(propReduce);
+		if(prop.size() != 0){
+			PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
+			return toJson(propReduce);
+		}
+		
+		return null;
 		
 	}
 	

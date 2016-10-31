@@ -48,8 +48,8 @@ public class PropositionService {
 	}
 	
 	@GET
-	@Path("/getProp/{title}/{category}/{city}/{price_max}/{price_min}")
-	public Response getProp(@PathParam("title") String title,
+	@Path("/getPropLike/{title}/{category}/{city}/{price_max}/{price_min}")
+	public Response getPropLike(@PathParam("title") String title,
 							@PathParam("category") String category,
 							@PathParam("city") String city,
 							@PathParam("price_max") Double price_max,
