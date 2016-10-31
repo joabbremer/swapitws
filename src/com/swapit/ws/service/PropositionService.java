@@ -15,6 +15,7 @@ import org.glassfish.jersey.media.multipart.FormDataParam;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sun.org.glassfish.gmbal.ManagedData;
 import com.swapit.ws.controller.PropositionController;
+import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.reduce.PropositionReduce;
 
@@ -47,10 +48,16 @@ public class PropositionService {
 	}
 	
 	@GET
-	@Path("/getPropLike/{word}")
-	public Response getPropLike(@PathParam("word") String word){
+	@Path("/getProp/{title}/{category}/{city}/{price_max}/{price_min}")
+	public Response getProp(@PathParam("title") String title,
+							@PathParam("category") String category,
+							@PathParam("city") String city,
+							@PathParam("price_max") Double price_max,
+							@PathParam("price_min") Double price_min){
+		
+		System.out.println("Service");
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.getPropLike(word)).build();
+		return Response.ok(propCtrl.getPropLike(title, category, city, price_max, price_min)).build();
 		
 	}
 	
