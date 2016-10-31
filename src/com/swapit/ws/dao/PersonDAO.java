@@ -81,12 +81,22 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 		return response;
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<Person> login(String email, String password) throws ConnectException {		
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("loginPerson");
 		query.setParameter("email",email);
 		query.setParameter("password",password);
 		return query.getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Person> findbyEmail(String email) {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("findPersonEmail");
+		query.setParameter("email",email);
+		return	query.getResultList();
+		
 	}
 
 }

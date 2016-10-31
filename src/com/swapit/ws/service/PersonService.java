@@ -14,7 +14,6 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.swapit.ws.controller.PersonController;
-import com.swapit.ws.entities.Person;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.reduce.PersonReduce;
 

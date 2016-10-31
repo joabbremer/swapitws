@@ -2,7 +2,6 @@ package com.swapit.ws.model;
 
 import java.util.List;
 
-import com.swapit.ws.model.reduce.AddressReduce;
 
 
 public class PersonModel {
@@ -23,49 +22,19 @@ public class PersonModel {
 	}
 	
 	
-
-	public PersonModel(String personId, String personName, String email, String phone, String password, int blocked, String level) {
+	public PersonModel(String personId, String personName, String email, String phone, char sex, int blocked,
+			String level, List<PropositionModel> favorite, AddressModel address) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
 		this.email = email;
 		this.phone = phone;
-		this.password = password;
-		this.blocked = blocked;
-		this.level=level;
-	}
-
-
-
-	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
 		this.sex = sex;
 		this.blocked = blocked;
 		this.level = level;
-	}
-
-
-	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, List<PropositionModel> favorite, AddressModel address) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.password = password;
-		this.sex = sex;
-		this.blocked = blocked;
 		this.favorite = favorite;
 		this.address = address;
 	}
-	
-	
 
 	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
 			int blocked, String level, List<PropositionModel> favorite, AddressModel address) {
@@ -84,10 +53,7 @@ public class PersonModel {
 
 
 
-	public PersonModel(String personId2, String personName2, String email2, String phone2, String password2, char sex2,
-			int blocked2, String level2, List<PropositionModel> favorite2, AddressReduce simpleAddress) {
-		// TODO Auto-generated constructor stub
-	}
+
 
 
 

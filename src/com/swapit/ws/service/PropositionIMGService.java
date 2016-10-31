@@ -102,8 +102,7 @@ public class PropositionIMGService {
 		
 	}
     
-    @SuppressWarnings("unused")
-	private String getFileExtension(String file) {
+    private String getFileExtension(String file) {
         
         try {
             return file.substring(file.lastIndexOf(".") + 1);

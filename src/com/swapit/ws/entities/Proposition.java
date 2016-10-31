@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.List;
 import static javax.persistence.FetchType.EAGER;
 import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.TemporalType.DATE;
-import static javax.persistence.TemporalType.TIMESTAMP;
 
 
 @Entity
@@ -63,8 +61,9 @@ public class Proposition implements Serializable{
 	@JoinColumn(name = "categoryid", referencedColumnName = "categoryid")
 	private Category categoryId;
 	
-	@Column(name="interest_category", length=36)
-	private String interest_category;
+	@ManyToOne(cascade = ALL)
+	@JoinColumn(name = "interest_category", referencedColumnName = "categoryid")
+	private Category interest_category;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "personid", referencedColumnName = "personid", nullable=true)
@@ -90,7 +89,7 @@ public class Proposition implements Serializable{
 	}
 
 	public Proposition(String propositionId, String title, String description, Address addressId, double price,
-			double priceCatInterest, double totalPrice, Category categoryId, String interest_category,
+			double priceCatInterest, double totalPrice, Category categoryId, Category interest_category,
 			Person personId, List<PropositionImage> imageId, Date publish_date, Date removel_date) {
 		super();
 		this.propositionId = propositionId;
@@ -172,11 +171,11 @@ public class Proposition implements Serializable{
 		this.categoryId = categoryId;
 	}
 
-	public String getInterest_category() {
+	public Category getInterest_category() {
 		return interest_category;
 	}
 
-	public void setInterest_category(String interest_category) {
+	public void setInterest_category(Category interest_category) {
 		this.interest_category = interest_category;
 	}
 
