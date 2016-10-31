@@ -77,16 +77,19 @@ public class PropositionController {
 		return toJsonReduceList(propReduceList);		
 	}
 	
-	public String getPropLike(String word) {
+	public String getPropLike(String title, String categoryID, String city, Double max, Double min) {
 		PropositionDAO propDao = new PropositionDAO();
+		CategoryController catCtrl = new CategoryController();
+		System.out.println("Controller com categoria");
 		List<Proposition> prop = null;
 		try {
-			prop = propDao.getPropLike(word);
+			prop = propDao.getPropLike(title, catCtrl.getCatEntityByID(categoryID), city, max, min);
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
 		List<PropositionModel> propModel = toModelList(prop);
 		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+		System.out.println("Saiu do Controller");
 		return toJsonReduceList(propReduceList);
 	}
 	

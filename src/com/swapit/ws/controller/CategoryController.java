@@ -35,6 +35,17 @@ public class CategoryController {
 		
 		return tojson(cat);
 	}
+	public Category getCatEntityByID(String id) {
+		CategoryDAO catDao = new CategoryDAO();
+		Category cat = null;
+		try {
+			cat = catDao.select(id);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		
+		return cat;
+	}
 	
 	public CategoryModel getModelbyID(String id) {
 		CategoryDAO catDao = new CategoryDAO();

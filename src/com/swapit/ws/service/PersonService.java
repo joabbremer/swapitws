@@ -38,6 +38,7 @@ public class PersonService {
 	@Path("/getbyID/{id}")
 	public Response getbyID(@PathParam("id") String id) {
 		PersonController personCtrl = new PersonController();
+		System.out.println("entrou");
 		return Response.ok(personCtrl.get(id)).build();
 	}
 	
