@@ -77,7 +77,15 @@ public class PropositionController {
 		return toJsonReduceList(propReduceList);		
 	}
 	
-	public String getPropLike(String word) {
+	public String getPropLike(String word, String city, String category, String value_max, String value_min) {
+		
+		
+		
+		
+		
+		
+		
+		
 		PropositionDAO propDao = new PropositionDAO();
 		List<Proposition> prop = null;
 		try {

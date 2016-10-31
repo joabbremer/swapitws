@@ -46,10 +46,14 @@ public class PropositionService {
 	}
 	
 	@GET
-	@Path("/getPropLike/{word}")
-	public Response getPropLike(@PathParam("word") String word){
+	@Path("/getPropLike/{word}/{city}/{category}/{value_max}/{value_min}")
+	public Response getPropLike(@PathParam("word") String word,
+								@PathParam("city") String city,
+								@PathParam("category") String category,
+								@PathParam("value_max") String value_max,
+								@PathParam("value_min") String value_min){
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.getPropLike(word)).build();
+		return Response.ok(propCtrl.getPropLike(word, city, category, value_max, value_min)).build();
 		
 	}
 	
