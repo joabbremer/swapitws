@@ -72,10 +72,14 @@ public class PersonController {
 	
 	public Boolean save(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
-		
 		personModel = CreatID(personModel);
+		
+		List<Person> personValidate = new ArrayList<Person>();
 		try {
-			return personDao.save(toEntity(personModel));
+			personValidate = personDao.findbyEmail(personModel.getEmail());
+			if(personValidate.size() == 0){
+				return personDao.save(toEntity(personModel));
+			}			
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
@@ -143,7 +147,10 @@ public class PersonController {
 			e.printStackTrace();
 		}		
 		if(person.size() != 0){
-			return toJson(toModel(person));
+			PersonModel perModel = toModel(person);
+			if(perModel.getBlocked() != 1){
+				return toJson(perModel);
+			}		
 		}
 		return null;
 	}
@@ -245,7 +252,6 @@ public class PersonController {
 					person.getPersonName(),
 					person.getEmail(),
 					person.getPhone(),
-					person.getPassword(),
 					person.getSex(),
 					person.getBlocked(),
 					person.getLevel(),

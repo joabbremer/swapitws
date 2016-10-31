@@ -10,6 +10,7 @@ import com.swapit.ws.entities.Street;
 
 public class StreetDAO implements PojoInterfaceDAO<Street> {
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Street> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();

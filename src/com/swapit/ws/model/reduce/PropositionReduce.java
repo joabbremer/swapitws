@@ -3,7 +3,6 @@ package com.swapit.ws.model.reduce;
 import java.util.Date;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.swapit.ws.model.CategoryModel;
 import com.swapit.ws.model.PropositionImageModel;
 
@@ -17,7 +16,7 @@ public class PropositionReduce {
 	private double priceCatInterest;	
 	private double totalPrice;	
 	private CategoryModel category;	
-	private String interest_category;	
+	private CategoryModel interest_category;	
 	private PersonReduce personReduce;	
 	private List<PropositionImageModel> image;	
 	private Date publish_date;	
@@ -29,7 +28,7 @@ public class PropositionReduce {
 
 	public PropositionReduce(String propositionId, String title, String description, AddressReduce addressReduce,
 			double price, double priceCatInterest, double totalPrice, CategoryModel category,
-			String interest_category, PersonReduce personReduce, List<PropositionImageModel> image, Date publish_date,
+			CategoryModel interest_category, PersonReduce personReduce, List<PropositionImageModel> image, Date publish_date,
 			Date removel_date) {
 		super();
 		this.propositionId = propositionId;
@@ -111,11 +110,11 @@ public class PropositionReduce {
 		this.category = category;
 	}
 
-	public String getInterest_category() {
+	public CategoryModel getInterest_category() {
 		return interest_category;
 	}
 
-	public void setInterest_category(String interest_category) {
+	public void setInterest_category(CategoryModel interest_category) {
 		this.interest_category = interest_category;
 	}
 
