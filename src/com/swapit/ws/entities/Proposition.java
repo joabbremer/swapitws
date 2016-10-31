@@ -17,9 +17,17 @@ import static javax.persistence.TemporalType.TIMESTAMP;
 	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId"),
 	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId"),
 	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID"),
-	@NamedQuery(name="selectPropLike", query = "Select p from Proposition p, Address a, Street s, District d, City c  WHERE p.price BETWEEN :min AND :max AND p.title LIKE :title AND p.categoryId = :category AND c.cityid = :city")
+	//@NamedQuery(name="selectPropLike", query = "Select p from Proposition p, Address a, Street s, District d, City c  WHERE p.price BETWEEN :min AND :max AND p.title LIKE :title AND p.categoryId = :category AND c.cityid = :city")
 			
-			
+	
+	
+	@NamedQuery(name="selectPropLike", query = "SELECT p FROM Proposition p "
+			+ "INNER JOIN p.addressId a "
+			+ "INNER JOIN a.streetid s "
+			+ "INNER JOIN s.districtid d "
+			+ "INNER JOIN d.cityid c "
+			+ "WHERE p.price BETWEEN :min and :max and p.title LIKE :title and p.categoryId = :category AND c.cityid = :city")
+	
 	
 	
 	

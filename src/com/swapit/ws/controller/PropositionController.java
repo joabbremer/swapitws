@@ -56,8 +56,12 @@ public class PropositionController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
-		return toJson(propReduce);
+		if(prop.size() != 0){
+			PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
+			return toJson(propReduce);
+		}
+		
+		return null;
 		
 	}
 	
@@ -77,7 +81,19 @@ public class PropositionController {
 		return toJsonReduceList(propReduceList);		
 	}
 	
+<<<<<<< HEAD
 	public String getPropLike(String title, String categoryID, String city, Double max, Double min) {
+=======
+	public String getPropLike(String word, String city, String category, String value_max, String value_min) {
+		
+		
+		
+		
+		
+		
+		
+		
+>>>>>>> origin/joab
 		PropositionDAO propDao = new PropositionDAO();
 		CategoryController catCtrl = new CategoryController();
 		System.out.println("Controller com categoria");
