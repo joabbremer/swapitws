@@ -39,7 +39,7 @@ public class Person {
 	@Column(length=12, name="phone", nullable=true)
 	private String phone;
 	
-	@Column(length=20, name="password", nullable=false)
+	@Column(length=50, name="password", nullable=false)
 	private String password;
 	
 	@Column(length=1, name="sex", nullable=true)
