@@ -90,13 +90,15 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 		return query.getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<Person> findbyEmail(String email) {
+
+	public List<Person> findbyEmail (String email) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("findPersonEmail");
 		query.setParameter("email",email);
 		return	query.getResultList();
 		
 	}
+
+	
 
 }

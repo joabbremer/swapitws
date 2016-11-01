@@ -12,11 +12,13 @@ import com.swapit.ws.entities.Address;
 import com.swapit.ws.entities.Person;
 import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
+import com.swapit.ws.model.MessegesBuildModel;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
+import com.swapit.ws.service.SendMail;
 
 
 public class PersonController {
@@ -73,13 +75,20 @@ public class PersonController {
 	public Boolean save(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		personModel = CreatID(personModel);
-		
+		boolean save = false;
 		List<Person> personValidate = new ArrayList<Person>();
 		try {
 			personValidate = personDao.findbyEmail(personModel.getEmail());
 			if(personValidate.size() == 0){
-				return personDao.save(toEntity(personModel));
+				save = personDao.save(toEntity(personModel));
 			}			
+			MessegesBuildModel msgBuild = new MessegesBuildModel();
+			if(save){
+				SendMail sendMail = new SendMail();
+				sendMail.sendMail(personModel.getEmail(), personModel.getPersonId());
+				
+			}
+			return save;
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
@@ -107,13 +116,13 @@ public class PersonController {
 			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 			addressModel.setStreet(streetModel);
 			addressModel.setNumber(addressReduce.getNumber());
+			addressModel.setAddressId(addressReduce.getAddressid());
 		}
 		
 		PersonController personCtrl = new PersonController();
-		PersonModel personModel = personCtrl.getPersonModel(personReduce.getPersonId());
-		
 				
-		/*PersonModel personModel = new PersonModel(personReduce.getPersonId(),
+				
+		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
 													personReduce.getPersonName(),
 													personReduce.getEmail(),
 													personReduce.getPhone(),
@@ -122,7 +131,7 @@ public class PersonController {
 													personReduce.getBlocked(),
 													personReduce.getLevel(),
 													personReduce.getFavorite(),
-													addressModel);*/
+													addressModel);
 		
 		return personModel;
 	}
@@ -155,15 +164,36 @@ public class PersonController {
 		return null;
 	}
 	
+	public String getbyEmail(String email) {
+		PersonDAO personDao = new PersonDAO();
+		List<Person> person = new ArrayList<Person>();
+		try {
+			person = personDao.findbyEmail(email);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}	
+		if(person.size() != 0){
+			PersonModel perModel = toModel(person);
+			if(perModel.getBlocked() != 1){
+				return toJson(perModel);
+			}		
+		}
+		return null;
+	}
+	
 	private PersonModel CreatID(PersonModel personModel){
 		if(personModel.getPersonId() == null){
 			personModel.setPersonId(UUID.randomUUID().toString());
 		}		
 		AddressModel addrresModel = personModel.getAddres();
 		
-		if(addrresModel != null){			
-			addrresModel.setAddressId(UUID.randomUUID().toString());
-			personModel.setAddress(addrresModel);
+		if(addrresModel != null){		
+			if(addrresModel.getAddressId() == null){
+				addrresModel.setAddressId(UUID.randomUUID().toString());
+				personModel.setAddress(addrresModel);
+				
+			}
+			
 		}
 		
 		
@@ -325,6 +355,8 @@ public class PersonController {
 		}
 		return person;
 	}
+
+	
 
 	
 

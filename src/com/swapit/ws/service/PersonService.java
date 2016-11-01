@@ -37,7 +37,6 @@ public class PersonService {
 	@Path("/getbyID/{id}")
 	public Response getbyID(@PathParam("id") String id) {
 		PersonController personCtrl = new PersonController();
-		System.out.println("entrou");
 		return Response.ok(personCtrl.get(id)).build();
 	}
 	
@@ -51,6 +50,20 @@ public class PersonService {
 		
 		if(personCtrl.login(email, senha) != null){
 			return Response.ok(personCtrl.login(email, senha)).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+		
+		
+	}
+	@GET
+	@Path("/getbyemail/{email}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getbyEmail(@PathParam("email") String email){
+		PersonController personCtrl = new PersonController();
+		
+		if(personCtrl.getbyEmail(email) != null){
+			return Response.ok(personCtrl.getbyEmail(email)).build();
 		}
 		return Response.status(Status.BAD_REQUEST).build();
 		
