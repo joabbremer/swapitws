@@ -47,7 +47,6 @@ public class PersonService {
 	public Response login(@PathParam("email") String email,
 						  @PathParam("senha") String senha){
 		PersonController personCtrl = new PersonController();
-		
 		if(personCtrl.login(email, senha) != null){
 			return Response.ok(personCtrl.login(email, senha)).build();
 		}
@@ -61,7 +60,6 @@ public class PersonService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getbyEmail(@PathParam("email") String email){
 		PersonController personCtrl = new PersonController();
-		
 		if(personCtrl.getbyEmail(email) != null){
 			return Response.ok(personCtrl.getbyEmail(email)).build();
 		}

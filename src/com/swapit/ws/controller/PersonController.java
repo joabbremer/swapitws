@@ -43,21 +43,14 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
-		return toJson(personReduce);
-	};
-	
-	public PersonReduce getTestReduce(String id){
-		AddressController addressCtrl = new AddressController();
-		PersonDAO personDao = new PersonDAO();
-		Person person = null;
-		try {
-			person = personDao.select(id);
-		} catch (ConnectException e) {
-			e.printStackTrace();
-		}	
-		PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
-		return personReduce;
+		if(person != null){
+			PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
+			if(personReduce.getBlocked() != 1){
+				return toJson(personReduce);
+			}		
+		}
+		return null;
+		
 	};
 	
 	public PersonModel getPersonModel(String id){
@@ -68,8 +61,13 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		
-		return toModel(person);
+		if(person != null){
+			PersonModel perModel = toModel(person);
+			if(perModel.getBlocked() != 1){
+				return perModel;
+			}		
+		}
+		return null;
 	};
 	
 	public Boolean save(PersonModel personModel) {
@@ -151,7 +149,6 @@ public class PersonController {
 		List<Person> person = new ArrayList<Person>();
 		try {
 			person = personDao.login(email, password);
-			System.out.println(person.size());
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}		
