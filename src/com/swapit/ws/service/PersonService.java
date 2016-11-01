@@ -56,6 +56,20 @@ public class PersonService {
 		
 		
 	}
+	@GET
+	@Path("/getbyemail/{email}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getbyEmail(@PathParam("email") String email){
+		PersonController personCtrl = new PersonController();
+		
+		if(personCtrl.getbyEmail(email) != null){
+			return Response.ok(personCtrl.getbyEmail(email)).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+		
+		
+	}
 	
 	@POST
 	@Path("/save")
