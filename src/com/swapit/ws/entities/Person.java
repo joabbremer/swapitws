@@ -25,6 +25,8 @@ import javax.persistence.JoinTable;
 	@NamedQuery(name="findPersonEmail", query = "SELECT P FROM Person p WHERE p.email = :email"),
 })
 
+
+
 public class Person {
 	
 	@Id

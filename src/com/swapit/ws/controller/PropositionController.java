@@ -201,7 +201,9 @@ public class PropositionController {
 		PropositionModel propositionModel =  propositionComplete(propositionReduce);
 		
 		try {
-			return propDao.save(toEntity(propositionModel));
+			boolean save = propDao.save(toEntity(propositionModel));
+			
+			return save;
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}		
