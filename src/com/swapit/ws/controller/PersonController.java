@@ -116,13 +116,13 @@ public class PersonController {
 			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
 			addressModel.setStreet(streetModel);
 			addressModel.setNumber(addressReduce.getNumber());
+			addressModel.setAddressId(addressReduce.getAddressid());
 		}
 		
 		PersonController personCtrl = new PersonController();
-		PersonModel personModel = personCtrl.getPersonModel(personReduce.getPersonId());
-		
 				
-		/*PersonModel personModel = new PersonModel(personReduce.getPersonId(),
+				
+		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
 													personReduce.getPersonName(),
 													personReduce.getEmail(),
 													personReduce.getPhone(),
@@ -131,7 +131,7 @@ public class PersonController {
 													personReduce.getBlocked(),
 													personReduce.getLevel(),
 													personReduce.getFavorite(),
-													addressModel);*/
+													addressModel);
 		
 		return personModel;
 	}
@@ -187,9 +187,13 @@ public class PersonController {
 		}		
 		AddressModel addrresModel = personModel.getAddres();
 		
-		if(addrresModel != null){			
-			addrresModel.setAddressId(UUID.randomUUID().toString());
-			personModel.setAddress(addrresModel);
+		if(addrresModel != null){		
+			if(addrresModel.getAddressId() == null){
+				addrresModel.setAddressId(UUID.randomUUID().toString());
+				personModel.setAddress(addrresModel);
+				
+			}
+			
 		}
 		
 		
