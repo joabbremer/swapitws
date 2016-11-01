@@ -12,7 +12,6 @@ import com.swapit.ws.entities.Address;
 import com.swapit.ws.entities.Person;
 import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
-import com.swapit.ws.model.MessegesBuildModel;
 import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
@@ -43,13 +42,15 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		if(person != null){
-			PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
-			if(personReduce.getBlocked() != 1){
-				return toJson(personReduce);
-			}		
-		}
-		return null;
+		//if(person != null){
+		//	PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
+		//	if(personReduce.getBlocked() != 1){
+		//		return toJson(personReduce);
+		//	}		
+		//}
+		//return null;
+		PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
+		return toJson(personReduce);
 		
 	};
 	
@@ -70,6 +71,21 @@ public class PersonController {
 		return null;
 	};
 	
+	public PersonModel getPersonForActive(String id){
+		PersonDAO personDao = new PersonDAO();
+		Person person = null;
+		try {
+			person = personDao.select(id);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}	
+		if(person != null){
+			PersonModel perModel = toModel(person);
+			return perModel;
+		}
+		return null;
+	};
+	
 	public Boolean save(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		personModel = CreatID(personModel);
@@ -80,7 +96,6 @@ public class PersonController {
 			if(personValidate.size() == 0){
 				save = personDao.save(toEntity(personModel));
 			}			
-			MessegesBuildModel msgBuild = new MessegesBuildModel();
 			if(save){
 				SendMail sendMail = new SendMail();
 				sendMail.sendMail(personModel.getEmail(), personModel.getPersonId());
@@ -117,9 +132,6 @@ public class PersonController {
 			addressModel.setAddressId(addressReduce.getAddressid());
 		}
 		
-		PersonController personCtrl = new PersonController();
-				
-				
 		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
 													personReduce.getPersonName(),
 													personReduce.getEmail(),
@@ -177,6 +189,21 @@ public class PersonController {
 		}
 		return null;
 	}
+	
+	public boolean active(String personID) {
+		PersonDAO personDao = new PersonDAO();
+		PersonModel perModel = getPersonForActive(personID);
+		if(perModel != null){
+			perModel.setBlocked(0);
+			try {
+				return personDao.update(toEntity(perModel));
+			} catch (ConnectException e) {
+				e.printStackTrace();
+			}
+		}
+		return false;
+	}
+
 	
 	private PersonModel CreatID(PersonModel personModel){
 		if(personModel.getPersonId() == null){
@@ -353,6 +380,7 @@ public class PersonController {
 		return person;
 	}
 
+	
 	
 
 	

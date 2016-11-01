@@ -37,7 +37,10 @@ public class PersonService {
 	@Path("/getbyID/{id}")
 	public Response getbyID(@PathParam("id") String id) {
 		PersonController personCtrl = new PersonController();
-		return Response.ok(personCtrl.get(id)).build();
+		if(personCtrl.get(id) != null){
+			return Response.ok(personCtrl.get(id)).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@GET
@@ -66,6 +69,17 @@ public class PersonService {
 		return Response.status(Status.BAD_REQUEST).build();
 		
 		
+	}
+	@GET
+	@Path("/activeAccount/{personID}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response activeAccount(@PathParam("personID") String personID) {
+		PersonController personCtrl = new PersonController();
+		if(personCtrl.active(personID)){
+			return Response.status(Status.OK).build();			
+		}				
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@POST
