@@ -96,7 +96,7 @@ public class PropositionController {
 		CategoryController catCtrl = new CategoryController();
 		List<Proposition> prop = null;
 		try {
-			prop = propDao.getPropLike(title, catCtrl.getCatEntityByID(categoryID), city, max, min);
+			prop = propDao.getPropLikeFrip(title, catCtrl.getCatEntityByID(categoryID), city, max, min);
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
@@ -201,17 +201,10 @@ public class PropositionController {
 		PropositionModel propositionModel =  propositionComplete(propositionReduce);
 		
 		try {
-<<<<<<< HEAD
+
 			boolean save = propDao.save(toEntity(propositionModel));
-			
 			return save;
-=======
-			 boolean save = propDao.save(toEntity(propositionModel));
-			 if(save){
-				 
-			 }
-			 
->>>>>>> master
+
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}		

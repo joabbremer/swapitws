@@ -8,7 +8,7 @@ public class MessegesBuildModel {
 		String active = "Olá, seja bem vindo ao sistema swapit."
 				+ " Antes de começar é necessária a ativação da sua conta."
 				+ " Para isso, clique no link a baixo. "
-				+ "http://localhost:8080/swapitws/rs/person/active/"+personID;
+				+ "http://localhost:81/sw_app/#/"+personID;
 		
 		
 		return active;
