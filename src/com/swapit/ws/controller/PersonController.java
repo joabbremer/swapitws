@@ -85,7 +85,7 @@ public class PersonController {
 			MessegesBuildModel msgBuild = new MessegesBuildModel();
 			if(save){
 				SendMail sendMail = new SendMail();
-				sendMail.sendMail("joab.bremer@gmail.com", personModel.getEmail(), "ACTIVE", "http://localhost:8080/swapitws/rs/person/active/"+personModel.getPersonId());
+				sendMail.sendMail(personModel.getEmail(), personModel.getPersonId());
 				
 			}
 			return save;
