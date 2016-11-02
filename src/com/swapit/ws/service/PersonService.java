@@ -70,8 +70,6 @@ public class PersonService {
 			return Response.ok(jsonPersonModel).build();
 		}
 		return Response.status(Status.BAD_REQUEST).build();
-		
-		
 	}
 	@GET
 	@Path("/getForActiveAccount/{personID}")
