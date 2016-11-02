@@ -4,13 +4,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.swapit.ws.controller.PropositionController;
+import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
+import com.swapit.ws.service.SendMail;
 
-public class PropositionRelate {
+public class PropositionRelate extends Thread implements Runnable {
 	
 	
+	public void run() {
+		try {
+			while (true) {		
+				
+				relate();
+				this.sleep(300000);// 5 minutos
+			}			
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 	public void relate(){
+		System.out.println(">>Iniciando Relacionamento de proposta");
 		PropositionController propCtrl = new PropositionController();
 		List<PropositionModel> propModelHave = propCtrl.getForRelate();
 		
@@ -19,35 +34,53 @@ public class PropositionRelate {
 		List<PropositionModel> propModelSend = new ArrayList<>();
 		
 		for (PropositionModel propositionModelHave : propModelHave) {
+			boolean canSend = false;
 			for (PropositionModel propositionModelInterst : propModelInterest) {
-				String have = propositionModelHave.getInterest_category().getCategoryId();
+				String have = " ";
+				if(propositionModelHave.getInterest_category() != null){
+					have = propositionModelHave.getInterest_category().getCategoryId();
+				}
+				
 				String has = propositionModelInterst.getCategory().getCategoryId();
 				if(has!=null){
 					if(has.equals(have)){
 						System.out.println(propositionModelHave.getTitle() + " QUER " + propositionModelInterst.getTitle());
 						propModelSend.add(propositionModelInterst);
-						//enviar pera para abacaxi a pera
+						canSend = true;
 					}
 				}
 				
 				
 			}
-			sendInterest(propModelSend);
+			if(canSend){
+				System.out.println(">>Enviando E-mail para afins");
+				sendInterest(propModelSend, propositionModelHave.getPersonId().getEmail());
+			}
+			
 		}
-		
-		for (PropositionModel propositionModel : propModelSend) {
-			System.out.println(propositionModel.getTitle());
-		}
-		
-		
-		
-		
+
 	}
 
-	private void sendInterest(List<PropositionModel> propModelSend) {
-		// varer lista
-		//montar e-mail e enviar
+	private void sendInterest(List<PropositionModel> propModelSend, String emailPersonWant) {
+		String MSGLOCATION = "Encontramos algumas propostas do seu interesse";		
+	
+		for (PropositionModel propModel : propModelSend) {
+
+			MSGLOCATION += " http://localhost:8080/swapitws/rs/proposition/getPropLike/"+propModel.getTitle()
+																			+"/"+propModel.getCategory().getCategoryId()
+																			+"/"+propModel.getAddress().getStreet().getDistrict().getCity().getCityid()
+																			+"/"+propModel.getPrice()
+																			+"/"+propModel.getPrice();
+			
+		}
+		
+		SendMail sendMail = new SendMail();
+		sendMail.sendMailListProposition(emailPersonWant ,MSGLOCATION);		
+		System.out.println(">>Email Enviado");
 		
 	}
 	
+
 }
+
+
