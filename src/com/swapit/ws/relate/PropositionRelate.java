@@ -11,6 +11,17 @@ import com.swapit.ws.service.SendMail;
 public class PropositionRelate extends Thread implements Runnable {
 	
 	
+	public PropositionRelate() {
+		super();
+		
+	}
+	
+	public PropositionRelate(boolean save, PersonModel personModel) {
+		super();
+		sendMailForActive(save, personModel);
+		
+	}
+
 	public void run() {
 		try {
 			while (true) {		

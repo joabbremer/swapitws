@@ -56,7 +56,7 @@ public class PropositionController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		if(prop.size() != 0 && analyRemoved(prop)){
+		if(prop.size() != 0){
 			PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
 			return toJson(propReduce);
 		}
@@ -65,14 +65,6 @@ public class PropositionController {
 		
 	}
 	
-	private boolean analyRemoved(List<Proposition> propositionEntity) {
-		for (Proposition proposition : propositionEntity) {
-			if(proposition.getRemovel_date() == null){
-				return true;
-			}
-		}
-		return false;
-	}
 
 	public String getPropCategory(String categoryID){
 		Category Category = new Category();
@@ -85,7 +77,7 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		
-		if(prop.size() != 0 && analyRemoved(prop)){
+		if(prop.size() != 0){
 			List<PropositionModel> propModel = toModelList(prop);
 			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
 			return toJsonReduceList(propReduceList);
@@ -104,7 +96,7 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		
-		if(prop.size() != 0 && analyRemoved(prop)){
+		if(prop.size() != 0){
 			List<PropositionModel> propModel = toModelList(prop);
 			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
 			return toJsonReduceList(propReduceList);
@@ -124,7 +116,7 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		
-		if(prop.size() != 0 && analyRemoved(prop)){
+		if(prop.size() != 0){
 			List<PropositionModel> propModel = toModelList(prop);
 			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
 			return toJsonReduceList(propReduceList);
