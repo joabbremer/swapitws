@@ -25,7 +25,8 @@ public class AddressDAO implements PojoInterfaceDAO<Address> {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectAddressID");
 		query.setParameter("addressID",addressID);
-		return query.getResultList();
+		List<Address> addr = query.getResultList();
+		return addr;
 	}
 
 	@Override
