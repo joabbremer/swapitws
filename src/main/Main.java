@@ -32,9 +32,16 @@ public class Main {
 
 	public static void main(String []args)  {
 		
-		/*PropositionRelate propRelate = new PropositionRelate();
+		
+		
+		
+		
+		
+		
+		PropositionRelate propRelate = new PropositionRelate();
 		propRelate.relate();
 		
+		/*
 		PropositionController propCtrl = new PropositionController();
 		StreetController streetCtrl = new StreetController();
 		PersonController personCtrl = new PersonController();
