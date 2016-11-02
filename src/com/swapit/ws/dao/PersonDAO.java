@@ -48,6 +48,19 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 		return response;
 		
 	}
+	public void updateActive(Person person) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Boolean response;		try {
+			em.getTransaction().begin();
+			em.merge(person);
+			em.getTransaction().commit();
+			em.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	@Override
 	public Boolean save(Person person) throws ConnectException {
