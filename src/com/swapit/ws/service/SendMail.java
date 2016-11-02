@@ -7,6 +7,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import com.swapit.ws.model.MessegesBuildModel;
+import com.swapit.ws.model.PersonModel;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication; 
@@ -20,6 +21,13 @@ public class SendMail {
 		super();
 		mailSMTPServer = "smtp.gmail.com";
 		mailSMTPServerPort = "465";
+	}
+	private void sendMailForActive(boolean save, PersonModel personModel) {
+		if(save){
+			
+			sendMailActive(personModel.getEmail(), personModel.getPersonId());
+			
+		}
 	}
 	
 	SendMail(String mailSMTPServer, String mailSMTPServerPort) { //Para outro Servidor

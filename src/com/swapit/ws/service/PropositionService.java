@@ -9,6 +9,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import com.swapit.ws.controller.PropositionController;
 import com.swapit.ws.model.reduce.PropositionReduce;
@@ -30,14 +31,20 @@ public class PropositionService {
 	@Path("/getbyID/{id}")
 	public Response getbyID(@PathParam("id") String id){
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.getbyID(id)).build();
+		if(propCtrl.getbyID(id) != null){
+			return Response.ok(propCtrl.getbyID(id)).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 		
 	}
 	@GET
 	@Path("/getPropCategory/{categoryID}")
 	public Response getPropCategory(@PathParam("categoryID") String categoryID){
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.getPropCategory(categoryID)).build();
+		if(propCtrl.getPropCategory(categoryID) != null){
+			return Response.ok(propCtrl.getPropCategory(categoryID)).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@GET
@@ -55,7 +62,10 @@ public class PropositionService {
 	@Path("/getPropPerson/{personID}")
 	public Response getPropPerson(@PathParam("personID") String id){
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.getPropPerson(id)).build();
+		if(propCtrl.getPropPerson(id) != null){
+			return Response.ok(propCtrl.getPropPerson(id)).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();		
 	}
 	
 	
