@@ -18,7 +18,6 @@ import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
 import com.swapit.ws.relate.PropositionRelate;
-import com.swapit.ws.service.SendMail;
 
 
 public class PersonController {
@@ -32,6 +31,16 @@ public class PersonController {
 			e.printStackTrace();
 		}		
 		return toJson(toModel(person));
+	};
+	public List<PersonModel> getForActive() {
+		PersonDAO personDao = new PersonDAO();
+		List<Person> person = null;
+		try {
+			person = personDao.listAll();
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}		
+		return toModelList(person);
 	};
 	
 	public String get(String id){
@@ -65,14 +74,14 @@ public class PersonController {
 		}	
 		if(person != null){
 			PersonModel perModel = toModel(person);
-			if(perModel.getBlocked() != 1){
+			if(perModel.getBlocked() == 0){
 				return perModel;
 			}		
 		}
 		return null;
 	};
 	
-	public PersonModel getPersonForActive(String id){
+	public String getPersonForActive(String id){
 		PersonDAO personDao = new PersonDAO();
 		Person person = null;
 		try {
@@ -80,9 +89,8 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		if(person != null){
-			PersonModel perModel = toModel(person);
-			return perModel;
+		if(person != null && person.getBlocked() == 2){
+			return toJson(toModel(person));
 		}
 		return null;
 	};
@@ -97,10 +105,6 @@ public class PersonController {
 			if(personValidate.size() == 0){
 				save = personDao.save(toEntity(personModel));
 			}	
-			new PropositionRelate(save, personModel).start();
-			
-			//sendMailForActive(save, personModel);
-			
 			return save;
 		} catch (ConnectException e) {
 			e.printStackTrace();
@@ -108,7 +112,14 @@ public class PersonController {
 		return false;
 	}
 	
-
+	public void updateActive(PersonModel personModel) {
+		PersonDAO personDao = new PersonDAO();
+		try {
+			personDao.update(toEntity(personModel));
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public Boolean update(PersonReduce personReduce) {
 		PersonDAO personDao = new PersonDAO();	
@@ -168,7 +179,7 @@ public class PersonController {
 		}		
 		if(person.size() != 0){
 			PersonModel perModel = toModel(person);
-			if(perModel.getBlocked() != 1){
+			if(perModel.getBlocked() == 0){
 				return toJson(perModel);
 			}		
 		}
@@ -185,27 +196,12 @@ public class PersonController {
 		}	
 		if(person.size() != 0){
 			PersonModel perModel = toModel(person);
-			if(perModel.getBlocked() != 1){
+			if(perModel.getBlocked() == 0){
 				return toJson(perModel);
 			}		
 		}
 		return null;
 	}
-	
-	public boolean active(String personID) {
-		PersonDAO personDao = new PersonDAO();
-		PersonModel perModel = getPersonForActive(personID);
-		if(perModel != null){
-			perModel.setBlocked(0);
-			try {
-				return personDao.update(toEntity(perModel));
-			} catch (ConnectException e) {
-				e.printStackTrace();
-			}
-		}
-		return false;
-	}
-
 	
 	private PersonModel CreatID(PersonModel personModel){
 		if(personModel.getPersonId() == null){
