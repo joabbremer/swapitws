@@ -74,12 +74,12 @@ public class PersonService {
 		
 	}
 	@GET
-	@Path("/activeAccount/{personID}")
+	@Path("/getForActiveAccount/{personID}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response activeAccount(@PathParam("personID") String personID) {
 		PersonController personCtrl = new PersonController();
-		String jsonPersonModel = personCtrl.active(personID);
+		String jsonPersonModel = personCtrl.getPersonForActive(personID);
 		if(jsonPersonModel != null){
 			return Response.ok(jsonPersonModel).build();			
 		}				

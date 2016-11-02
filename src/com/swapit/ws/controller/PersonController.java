@@ -81,7 +81,7 @@ public class PersonController {
 		return null;
 	};
 	
-	public PersonModel getPersonForActive(String id){
+	public String getPersonForActive(String id){
 		PersonDAO personDao = new PersonDAO();
 		Person person = null;
 		try {
@@ -89,9 +89,8 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		if(person != null){
-			PersonModel perModel = toModel(person);
-			return perModel;
+		if(person != null && person.getBlocked() == 2){
+			return toJson(toModel(person));
 		}
 		return null;
 	};
@@ -203,25 +202,6 @@ public class PersonController {
 		}
 		return null;
 	}
-	
-	public String active(String personID) {
-		PersonDAO personDao = new PersonDAO();
-		PersonModel perModel = getPersonForActive(personID);
-		boolean update = false;
-		if(perModel != null){
-			perModel.setBlocked(0);
-			try {
-				update = personDao.update(toEntity(perModel));
-			} catch (ConnectException e) {
-				e.printStackTrace();
-			}
-		}
-		if(update){
-			return toJson(perModel);	
-		}
-		return null;
-	}
-
 	
 	private PersonModel CreatID(PersonModel personModel){
 		if(personModel.getPersonId() == null){
