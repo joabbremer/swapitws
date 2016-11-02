@@ -23,6 +23,13 @@ public class PropositionRelate extends Thread implements Runnable {
 		}
 		
 	}
+	private void sendMailForActive(boolean save, PersonModel personModel) {
+		if(save){
+			SendMail sendMail = new SendMail();
+			sendMail.sendMailActive(personModel.getEmail(), personModel.getPersonId());
+			
+		}
+	}
 	
 	public void relate(){
 		System.out.println(">>Iniciando Relacionamento de proposta");
