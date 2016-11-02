@@ -32,9 +32,16 @@ public class Main {
 
 	public static void main(String []args)  {
 		
+		
+		
+		
+		
+		
+		
 		PropositionRelate propRelate = new PropositionRelate();
 		propRelate.relate();
 		
+		/*
 		PropositionController propCtrl = new PropositionController();
 		StreetController streetCtrl = new StreetController();
 		PersonController personCtrl = new PersonController();
@@ -72,7 +79,7 @@ public class Main {
 		
 		
 		
-		PersonModel personModel = personCtrl.getTest("eb072616-bd09-43f8-ad28-c101175bb72f");
+		//PersonModel personModel = personCtrl.getTest("eb072616-bd09-43f8-ad28-c101175bb72f");
 		
 		Date date = new Date();
 	
@@ -116,7 +123,7 @@ public class Main {
 		System.out.println(propCtrl.save(propoReduce));
 		
 		
-		
+		*/
 		
 		
 		

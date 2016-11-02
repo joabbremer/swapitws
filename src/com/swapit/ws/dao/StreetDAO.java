@@ -14,7 +14,9 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 	@Override
 	public List<Street> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		return em.createNamedQuery("findAllState").getResultList();
+		List<Street> street = em.createNamedQuery("findAllState").getResultList();
+		em.close();
+		return street;
 	}
 
 	@Override
@@ -22,7 +24,9 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectCEP");
 		query.setParameter("zipcode",zipcode);
-		return (Street) query.getSingleResult();
+		Street street = (Street) query.getSingleResult();
+		em.close();
+		return street;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -30,7 +34,9 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectCEP");
 		query.setParameter("zipcode",zipcode);
-		return query.getResultList();
+		List<Street> street = query.getResultList();
+		em.close();
+		return street;
 	}
 
 	@Override
@@ -56,8 +62,9 @@ public class StreetDAO implements PojoInterfaceDAO<Street> {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectIDstreet");
 		query.setParameter("streetID",streetID);
-		return query.getResultList();
-		
+		List<Street> street = query.getResultList();
+		em.close();
+		return street;		
 		
 	}
 

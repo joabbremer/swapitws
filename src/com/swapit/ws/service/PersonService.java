@@ -37,8 +37,11 @@ public class PersonService {
 	@Path("/getbyID/{id}")
 	public Response getbyID(@PathParam("id") String id) {
 		PersonController personCtrl = new PersonController();
-		System.out.println("entrou");
-		return Response.ok(personCtrl.get(id)).build();
+		String jsonPersonModel = personCtrl.get(id);
+		if(jsonPersonModel != null){
+			return Response.ok(jsonPersonModel).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@GET
@@ -48,9 +51,9 @@ public class PersonService {
 	public Response login(@PathParam("email") String email,
 						  @PathParam("senha") String senha){
 		PersonController personCtrl = new PersonController();
-		
-		if(personCtrl.login(email, senha) != null){
-			return Response.ok(personCtrl.login(email, senha)).build();
+		String jsonPersonModel = personCtrl.login(email, senha);
+		if(jsonPersonModel != null){
+			return Response.ok(jsonPersonModel).build();
 		}
 		return Response.status(Status.BAD_REQUEST).build();
 		
@@ -62,13 +65,23 @@ public class PersonService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getbyEmail(@PathParam("email") String email){
 		PersonController personCtrl = new PersonController();
-		
-		if(personCtrl.getbyEmail(email) != null){
-			return Response.ok(personCtrl.getbyEmail(email)).build();
+		String jsonPersonModel = personCtrl.getbyEmail(email);
+		if(jsonPersonModel != null){
+			return Response.ok(jsonPersonModel).build();
 		}
 		return Response.status(Status.BAD_REQUEST).build();
-		
-		
+	}
+	@GET
+	@Path("/getForActiveAccount/{personID}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response activeAccount(@PathParam("personID") String personID) {
+		PersonController personCtrl = new PersonController();
+		String jsonPersonModel = personCtrl.getPersonForActive(personID);
+		if(jsonPersonModel != null){
+			return Response.ok(jsonPersonModel).build();			
+		}				
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@POST

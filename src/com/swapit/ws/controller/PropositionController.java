@@ -56,7 +56,7 @@ public class PropositionController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
-		if(prop.size() != 0 && analyRemoved(prop)){
+		if(prop.size() != 0){
 			PropositionReduce propReduce = addressCtrl.reduceAddressProposition(toModel(prop));
 			return toJson(propReduce);
 		}
@@ -65,14 +65,6 @@ public class PropositionController {
 		
 	}
 	
-	private boolean analyRemoved(List<Proposition> propositionEntity) {
-		for (Proposition proposition : propositionEntity) {
-			if(proposition.getRemovel_date() == null){
-				return true;
-			}
-		}
-		return false;
-	}
 
 	public String getPropCategory(String categoryID){
 		Category Category = new Category();
@@ -85,9 +77,12 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		
-		List<PropositionModel> propModel = toModelList(prop);
-		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
-		return toJsonReduceList(propReduceList);		
+		if(prop.size() != 0){
+			List<PropositionModel> propModel = toModelList(prop);
+			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+			return toJsonReduceList(propReduceList);
+		}
+		return null;	
 	}
 	
 
@@ -96,12 +91,12 @@ public class PropositionController {
 		CategoryController catCtrl = new CategoryController();
 		List<Proposition> prop = null;
 		try {
-			prop = propDao.getPropLike(title, catCtrl.getCatEntityByID(categoryID), city, max, min);
+			prop = propDao.getPropLikeFrip(title, catCtrl.getCatEntityByID(categoryID), city, max, min);
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
 		
-		if(prop.size() != 0 && analyRemoved(prop)){
+		if(prop.size() != 0){
 			List<PropositionModel> propModel = toModelList(prop);
 			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
 			return toJsonReduceList(propReduceList);
@@ -121,9 +116,13 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		
-		List<PropositionModel> propModel = toModelList(prop);
-		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
-		return toJsonReduceList(propReduceList);
+		if(prop.size() != 0){
+			List<PropositionModel> propModel = toModelList(prop);
+			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+			return toJsonReduceList(propReduceList);
+		}
+		return null;
+		
 		
 	}
 	
@@ -201,17 +200,10 @@ public class PropositionController {
 		PropositionModel propositionModel =  propositionComplete(propositionReduce);
 		
 		try {
-<<<<<<< HEAD
+
 			boolean save = propDao.save(toEntity(propositionModel));
-			
 			return save;
-=======
-			 boolean save = propDao.save(toEntity(propositionModel));
-			 if(save){
-				 
-			 }
-			 
->>>>>>> master
+
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}		
