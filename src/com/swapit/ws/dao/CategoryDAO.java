@@ -14,7 +14,8 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 	@Override
 	public List<Category> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		return em.createNamedQuery("findAllCategory").getResultList();
+		List<Category> cat = em.createNamedQuery("findAllCategory").getResultList();
+		return cat;
 	}
 
 	@Override
@@ -22,7 +23,8 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectIDCategoty");
 		query.setParameter("categoryId",id);
-		return  (Category) query.getSingleResult();
+		Category cat = (Category) query.getSingleResult();
+		return  cat;
 	}
 
 	@Override

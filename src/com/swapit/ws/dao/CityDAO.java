@@ -28,7 +28,8 @@ public class CityDAO implements PojoInterfaceDAO<City>{
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectCityState");
 		query.setParameter("stateId",state);
-		return  query.getResultList();
+		List<City> city = query.getResultList();
+		return  city;
 	}
 
 	@Override
