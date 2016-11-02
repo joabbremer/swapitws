@@ -17,7 +17,9 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	@Override
 	public List<Person> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		return em.createNamedQuery("findAllPersons").getResultList();
+		List<Person> person = em.createNamedQuery("findAllPersons").getResultList();
+		em.close();
+		return person;
 	}
 
 	@Override
@@ -25,7 +27,9 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("selectIDPerson");
 		query.setParameter("personId",id);
-		return (Person) query.getSingleResult();
+		Person person = (Person) query.getSingleResult();
+		em.close();
+		return person;
 	}
 
 	@Override
@@ -87,15 +91,20 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 		Query query = em.createNamedQuery("loginPerson");
 		query.setParameter("email",email);
 		query.setParameter("password",password);
-		return query.getResultList();
+		List<Person> person = query.getResultList();
+		em.close();
+		return person;
 	}
 
 
+	@SuppressWarnings("unchecked")
 	public List<Person> findbyEmail (String email) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
 		Query query = em.createNamedQuery("findPersonEmail");
 		query.setParameter("email",email);
-		return	query.getResultList();
+		List<Person> person = query.getResultList();
+		em.close();
+		return	person;
 		
 	}
 

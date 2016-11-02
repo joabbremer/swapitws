@@ -13,7 +13,8 @@ public class StateDAO implements PojoInterfaceDAO<State> {
 	@Override
 	public List<State> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		return em.createNamedQuery("findAllState").getResultList();
+		List<State> state = em.createNamedQuery("findAllState").getResultList();
+		return state;
 	}
 
 	@Override
