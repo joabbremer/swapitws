@@ -98,7 +98,7 @@ public class PersonController {
 			}			
 			if(save){
 				SendMail sendMail = new SendMail();
-				sendMail.sendMail(personModel.getEmail(), personModel.getPersonId());
+				sendMail.sendMailActive(personModel.getEmail(), personModel.getPersonId());
 				
 			}
 			return save;
