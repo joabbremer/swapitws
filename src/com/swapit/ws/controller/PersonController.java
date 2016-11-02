@@ -17,6 +17,7 @@ import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
+import com.swapit.ws.relate.PropositionRelate;
 import com.swapit.ws.service.SendMail;
 
 
@@ -95,12 +96,11 @@ public class PersonController {
 			personValidate = personDao.findbyEmail(personModel.getEmail());
 			if(personValidate.size() == 0){
 				save = personDao.save(toEntity(personModel));
-			}			
-			if(save){
-				SendMail sendMail = new SendMail();
-				sendMail.sendMailActive(personModel.getEmail(), personModel.getPersonId());
-				
-			}
+			}	
+			new PropositionRelate().start();
+			
+			//sendMailForActive(save, personModel);
+			
 			return save;
 		} catch (ConnectException e) {
 			e.printStackTrace();
@@ -108,6 +108,8 @@ public class PersonController {
 		return false;
 	}
 	
+
+
 	public Boolean update(PersonReduce personReduce) {
 		PersonDAO personDao = new PersonDAO();	
 		PersonModel personModel =  personComplete(personReduce);

@@ -85,9 +85,12 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		
-		List<PropositionModel> propModel = toModelList(prop);
-		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
-		return toJsonReduceList(propReduceList);		
+		if(prop.size() != 0 && analyRemoved(prop)){
+			List<PropositionModel> propModel = toModelList(prop);
+			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+			return toJsonReduceList(propReduceList);
+		}
+		return null;	
 	}
 	
 
@@ -121,9 +124,13 @@ public class PropositionController {
 			e.printStackTrace();
 		}
 		
-		List<PropositionModel> propModel = toModelList(prop);
-		List<PropositionReduce> propReduceList  = propositionReduce(propModel);
-		return toJsonReduceList(propReduceList);
+		if(prop.size() != 0 && analyRemoved(prop)){
+			List<PropositionModel> propModel = toModelList(prop);
+			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+			return toJsonReduceList(propReduceList);
+		}
+		return null;
+		
 		
 	}
 	
