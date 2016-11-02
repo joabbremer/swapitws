@@ -10,17 +10,6 @@ import com.swapit.ws.service.SendMail;
 
 public class PropositionRelate extends Thread implements Runnable {
 	
-	
-	public PropositionRelate() {
-		super();
-		
-	}
-	
-	public PropositionRelate(boolean save, PersonModel personModel) {
-		super();
-		sendMailForActive(save, personModel);
-		
-	}
 
 	public void run() {
 		try {
@@ -34,14 +23,7 @@ public class PropositionRelate extends Thread implements Runnable {
 		}
 		
 	}
-	private void sendMailForActive(boolean save, PersonModel personModel) {
-		if(save){
-			SendMail sendMail = new SendMail();
-			sendMail.sendMailActive(personModel.getEmail(), personModel.getPersonId());
-			
-		}
-	}
-	
+
 	public void relate(){
 		System.out.println(">>Iniciando Relacionamento de proposta");
 		PropositionController propCtrl = new PropositionController();
