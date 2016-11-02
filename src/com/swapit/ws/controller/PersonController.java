@@ -97,7 +97,7 @@ public class PersonController {
 			if(personValidate.size() == 0){
 				save = personDao.save(toEntity(personModel));
 			}	
-			new PropositionRelate().start();
+			new PropositionRelate(save, personModel).start();
 			
 			//sendMailForActive(save, personModel);
 			
