@@ -38,7 +38,11 @@ public class CategoryService {
 	@Path("/getParent/{id}")
 	public Response getParent(@PathParam("id") String parentId){
 		CategoryController catCtrl = new CategoryController();
-		return Response.ok(catCtrl.getParent(parentId)).build();
+		String parents = catCtrl.getParent(parentId);
+		if(parents != null){
+			return Response.ok(parents).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 		
 	}
 	
