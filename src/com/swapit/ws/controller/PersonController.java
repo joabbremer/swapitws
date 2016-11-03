@@ -133,28 +133,59 @@ public class PersonController {
 	}
 	
 	public PersonModel personComplete(PersonReduce personReduce) {
+		
 		AddressReduce addressReduce =  personReduce.getAddressReduce();
-		StreetController streetCtrl = new StreetController();
-		AddressModel addressModel = new AddressModel();
-		StreetModel streetModel = null;
+		
+		AddressController addrCtrl = new AddressController();
+		AddressModel addrModel = null;
 		if(addressReduce != null){
-			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
-			addressModel.setStreet(streetModel);
-			addressModel.setNumber(addressReduce.getNumber());
-			addressModel.setAddressId(addressReduce.getAddressid());
+			addrModel = addrCtrl.getbyID(addressReduce.getAddressid());
 		}
 		
-		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
-													personReduce.getPersonName(),
-													personReduce.getEmail(),
-													personReduce.getPhone(),
-													personReduce.getPassword(),
-													personReduce.getSex(),
-													personReduce.getBlocked(),
-													personReduce.getLevel(),
-													personReduce.getFavorite(),
-													addressModel);
 		
+		StreetController streetCtrl = new StreetController();
+
+		StreetModel streetModel = null;
+		if(addrModel != null){
+			streetModel = streetCtrl.getbyID(addrModel.getStreet().getStreetid());
+			addrModel.setStreet(streetModel);
+			addrModel.setAddressId(addressReduce.getAddressid());
+			if(addressReduce.getNumber() != null){
+				addrModel.setNumber(addressReduce.getNumber());
+			}
+			
+		}
+		PersonModel personModel = getPersonModel(personReduce.getPersonId());
+		personModel.setPersonId(personReduce.getPersonId());
+		if(personReduce.getPersonName() != null){
+			personModel.setPersonName(personReduce.getPersonName());
+		}
+		if(personReduce.getEmail() != null){
+			personModel.setEmail(personReduce.getEmail());
+		}
+		if(personReduce.getPhone() != null){
+			personModel.setPhone(personReduce.getPhone());
+		}
+		if(personReduce.getPassword() != null){
+			personModel.setPassword(personReduce.getPassword());
+		}
+		if(personReduce.getSex() != 'n'){
+			personModel.setSex(personReduce.getSex());
+		}
+		if(personReduce.getBlocked() != 0){
+			personModel.setBlocked(personReduce.getBlocked());
+		}
+		if(personReduce.getLevel() != null){
+			personModel.setLevel(personReduce.getLevel());
+		}
+		if(personReduce.getFavorite() != null){
+			personModel.setFavorite(personReduce.getFavorite());
+		}
+		if(addrModel != null){
+			personModel.setAddress(addrModel);
+		}
+
+
 		return personModel;
 	}
 
