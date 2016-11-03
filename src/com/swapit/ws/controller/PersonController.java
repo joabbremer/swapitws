@@ -144,7 +144,47 @@ public class PersonController {
 			addressModel.setNumber(addressReduce.getNumber());
 			addressModel.setAddressId(addressReduce.getAddressid());
 		}
+		PersonModel personModel = getPersonModel(personReduce.getPersonId());
+		personModel.setPersonId(personReduce.getPersonId());
+		if(personReduce.getPersonName() != null){
+			personModel.setPersonName(personReduce.getPersonName());
+		}
+		if(personReduce.getEmail() != null){
+			personModel.setEmail(personReduce.getEmail());
+		}
+		if(personReduce.getPhone() != null){
+			personModel.setPhone(personReduce.getPhone());
+		}
+		if(personReduce.getPassword() != null){
+			personModel.setPassword(personReduce.getPassword());
+		}
+		if(personReduce.getSex() != 'n'){
+			personModel.setSex(personReduce.getSex());
+		}
+		if(personReduce.getBlocked() != 0){
+			personModel.setBlocked(personReduce.getBlocked());
+		}
+		if(personReduce.getLevel() != null){
+			personModel.setLevel(personReduce.getLevel());
+		}
+		if(personReduce.getFavorite() != null){
+			personModel.setFavorite(personReduce.getFavorite());
+		}
+		if(addressModel != null){
+			personModel.setAddress(addressModel);
+		}
+
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
 		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
 													personReduce.getPersonName(),
 													personReduce.getEmail(),
@@ -155,7 +195,7 @@ public class PersonController {
 													personReduce.getLevel(),
 													personReduce.getFavorite(),
 													addressModel);
-		
+		*/
 		return personModel;
 	}
 
