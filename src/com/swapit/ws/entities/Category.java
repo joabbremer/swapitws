@@ -10,8 +10,10 @@ import javax.persistence.*;
 @Table(name="category")
 @NamedQueries({
 	@NamedQuery(name="findAllCategory", query="SELECT c FROM Category c"),
-	@NamedQuery(name="selectIDCategoty", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId")
+	@NamedQuery(name="selectIDCategoty", query = "SELECT c FROM Category c WHERE c.categoryId = :categoryId"),
+	@NamedQuery(name="selectParentID", query = "SELECT c FROM Category c WHERE c.parentId = :parentId")
 })
+
 
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;

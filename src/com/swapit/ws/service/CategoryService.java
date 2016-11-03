@@ -34,6 +34,17 @@ public class CategoryService {
 		return Response.ok(catCtrl.getbyID(id)).build();
 		
 	}
+	@GET
+	@Path("/getParent/{id}")
+	public Response getParent(@PathParam("id") String parentId){
+		CategoryController catCtrl = new CategoryController();
+		String parents = catCtrl.getParent(parentId);
+		if(parents != null){
+			return Response.ok(parents).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+		
+	}
 	
 	@POST
 	@Path("/save")

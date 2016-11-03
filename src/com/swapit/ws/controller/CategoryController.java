@@ -35,6 +35,21 @@ public class CategoryController {
 		
 		return tojson(cat);
 	}
+	
+	public String getParent(String parentID) {
+		CategoryDAO catDao = new CategoryDAO();
+		List<Category> cat = null;
+		try {
+			cat = catDao.getParent(parentID);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		if(cat.size() != 0){
+			return tojson(cat);
+		}
+		return null;
+		
+	}
 	public Category getCatEntityByID(String id) {
 		CategoryDAO catDao = new CategoryDAO();
 		Category cat = null;
@@ -158,6 +173,7 @@ public class CategoryController {
 		
 		return category;
 	}
+
 
 	
 
