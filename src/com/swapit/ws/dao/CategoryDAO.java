@@ -26,6 +26,14 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 		Category cat = (Category) query.getSingleResult();
 		return  cat;
 	}
+	@SuppressWarnings("unchecked")
+	public List<Category> getParent(String parentID) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		Query query = em.createNamedQuery("selectParentID", Category.class);
+		query.setParameter("parentId",parentID);
+		List<Category> cat =  query.getResultList();
+		return  cat;
+	}
 
 	@Override
 	public Boolean update(Category category) throws ConnectException {
@@ -83,6 +91,8 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 		return null;
 		
 	}
+
+
 
 
 

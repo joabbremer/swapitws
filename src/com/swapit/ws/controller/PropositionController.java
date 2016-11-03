@@ -278,7 +278,6 @@ public class PropositionController {
 		addressModel.setAddressId(addressID);
 		
 		
-		
 		PropositionModel propModel = new PropositionModel(creatID(propositionReduce.getPropositionId()),
 															propositionReduce.getTitle(),
 															propositionReduce.getDescription(),
