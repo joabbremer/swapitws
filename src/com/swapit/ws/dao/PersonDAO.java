@@ -13,11 +13,11 @@ import com.swapit.ws.entities.Person;
 
 public class PersonDAO implements PojoInterfaceDAO<Person> {
 
-	@SuppressWarnings("unchecked")
+
 	@Override
 	public List<Person> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		List<Person> person = em.createNamedQuery("findAllPersons").getResultList();
+		List<Person> person = em.createNamedQuery("findAllPersons",Person.class).getResultList();
 		em.close();
 		return person;
 	}
@@ -50,7 +50,7 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	}
 	public void updateActive(Person person) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		Boolean response;		try {
+		try {
 			em.getTransaction().begin();
 			em.merge(person);
 			em.getTransaction().commit();
