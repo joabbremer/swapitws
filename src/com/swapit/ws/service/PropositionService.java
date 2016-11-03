@@ -55,7 +55,11 @@ public class PropositionService {
 							@PathParam("price_max") Double price_max,
 							@PathParam("price_min") Double price_min){
 		PropositionController propCtrl = new PropositionController();
-		return Response.ok(propCtrl.getPropLike(title, category, city, price_max, price_min)).build();
+		String propLike = propCtrl.getPropLike(title, category, city, price_max, price_min);
+		if(propLike != null){
+			return Response.ok(propLike).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
 	}
 	
 	@GET

@@ -248,7 +248,7 @@ public class PropositionController {
 		Gson gson = new Gson();
 		return gson.toJson(propReduce);
 	}
-	
+
 	private PropositionModel propositionComplete(PropositionReduce propositionReduce) {
 		
 		PersonController personCtrl = new PersonController();
@@ -276,7 +276,6 @@ public class PropositionController {
 		AddressController addCtrl = new AddressController();		
 		String addressID = addCtrl.creatID(addressReduce.getAddressid());
 		addressModel.setAddressId(addressID);
-		
 		
 		
 		PropositionModel propModel = new PropositionModel(creatID(propositionReduce.getPropositionId()),
