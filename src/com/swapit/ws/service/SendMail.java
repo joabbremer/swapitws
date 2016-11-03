@@ -22,6 +22,7 @@ public class SendMail {
 		mailSMTPServer = "smtp.gmail.com";
 		mailSMTPServerPort = "465";
 	}
+	@SuppressWarnings("unused")
 	private void sendMailForActive(boolean save, PersonModel personModel) {
 		if(save){
 			

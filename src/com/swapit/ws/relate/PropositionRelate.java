@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.swapit.ws.controller.PropositionController;
-import com.swapit.ws.model.PersonModel;
 import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.service.SendMail;
 
@@ -16,7 +15,7 @@ public class PropositionRelate extends Thread implements Runnable {
 			while (true) {		
 				
 				relate();
-				this.sleep(300000);// 5 minutos
+				Thread.sleep(300000);// 5 minutos
 			}			
 		} catch (InterruptedException e) {
 			e.printStackTrace();

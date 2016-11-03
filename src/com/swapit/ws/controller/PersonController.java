@@ -17,7 +17,6 @@ import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
-import com.swapit.ws.relate.PropositionRelate;
 
 
 public class PersonController {
@@ -30,7 +29,7 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}		
-		return toJson(toModel(person));
+		return toJson(toModelList(person));
 	};
 	public List<PersonModel> getForActive() {
 		PersonDAO personDao = new PersonDAO();

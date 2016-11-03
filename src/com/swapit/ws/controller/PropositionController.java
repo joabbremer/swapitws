@@ -248,7 +248,7 @@ public class PropositionController {
 		Gson gson = new Gson();
 		return gson.toJson(propReduce);
 	}
-	
+
 	private PropositionModel propositionComplete(PropositionReduce propositionReduce) {
 		
 		PersonController personCtrl = new PersonController();
