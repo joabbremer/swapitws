@@ -134,15 +134,27 @@ public class PersonController {
 	}
 	
 	public PersonModel personComplete(PersonReduce personReduce) {
+		
 		AddressReduce addressReduce =  personReduce.getAddressReduce();
-		StreetController streetCtrl = new StreetController();
-		AddressModel addressModel = new AddressModel();
-		StreetModel streetModel = null;
+		
+		AddressController addrCtrl = new AddressController();
+		AddressModel addrModel = null;
 		if(addressReduce != null){
-			streetModel = streetCtrl.getbyID(addressReduce.getStreetid());
-			addressModel.setStreet(streetModel);
-			addressModel.setNumber(addressReduce.getNumber());
-			addressModel.setAddressId(addressReduce.getAddressid());
+			addrModel = addrCtrl.getbyID(addressReduce.getAddressid());
+		}
+		
+		
+		StreetController streetCtrl = new StreetController();
+
+		StreetModel streetModel = null;
+		if(addrModel != null){
+			streetModel = streetCtrl.getbyID(addrModel.getStreet().getStreetid());
+			addrModel.setStreet(streetModel);
+			addrModel.setAddressId(addressReduce.getAddressid());
+			if(addressReduce.getNumber() != null){
+				addrModel.setNumber(addressReduce.getNumber());
+			}
+			
 		}
 		PersonModel personModel = getPersonModel(personReduce.getPersonId());
 		personModel.setPersonId(personReduce.getPersonId());
@@ -170,32 +182,11 @@ public class PersonController {
 		if(personReduce.getFavorite() != null){
 			personModel.setFavorite(personReduce.getFavorite());
 		}
-		if(addressModel != null){
-			personModel.setAddress(addressModel);
+		if(addrModel != null){
+			personModel.setAddress(addrModel);
 		}
 
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		/*
-		PersonModel personModel = new PersonModel(personReduce.getPersonId(),
-													personReduce.getPersonName(),
-													personReduce.getEmail(),
-													personReduce.getPhone(),
-													personReduce.getPassword(),
-													personReduce.getSex(),
-													personReduce.getBlocked(),
-													personReduce.getLevel(),
-													personReduce.getFavorite(),
-													addressModel);
-		*/
+
 		return personModel;
 	}
 
