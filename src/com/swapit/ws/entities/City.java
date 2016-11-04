@@ -14,7 +14,7 @@ import javax.persistence.NamedQuery;
 @Entity
 @Table(name="city")
 @NamedQueries({
-	@NamedQuery(name="selectCityState", query = "SELECT c FROM City c WHERE c.stateid = :stateId")
+	@NamedQuery(name="selectCityState", query = "SELECT c FROM City c WHERE c.stateid = :stateId order by c.name")
 })
 public class City {
 
