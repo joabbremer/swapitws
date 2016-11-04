@@ -54,11 +54,11 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 			titleStatus = true;
 		}
 		if(!city.equals("null")){
-			consulting += "AND c.cityid = :city";
+			consulting += " AND c.cityid = :city";
 			cityStatus = true;
 		}
 		if(category != null){
-			consulting += "AND p.categoryId = :category ";	
+			consulting += " AND p.categoryId = :category ";	
 			categoryStatus = true;
 		}		
 		query = em.createQuery(consulting);		
