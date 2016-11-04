@@ -57,7 +57,6 @@ public class PropositionService {
 		PropositionController propCtrl = new PropositionController();
 		String propLike = propCtrl.getPropLike(title, category, city, price_max, price_min);
 		return Response.ok(propLike).build();
-
 	}
 	
 	@GET
