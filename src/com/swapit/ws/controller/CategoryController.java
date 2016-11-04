@@ -44,8 +44,11 @@ public class CategoryController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
+		if(cat.size() != 0){
+			return tojson(cat);
+		}
+		return null;
 		
-		return tojson(cat);
 	}
 	public Category getCatEntityByID(String id) {
 		CategoryDAO catDao = new CategoryDAO();

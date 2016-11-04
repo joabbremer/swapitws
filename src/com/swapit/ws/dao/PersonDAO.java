@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Person;
@@ -98,10 +99,10 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 		return response;
 	}
 
-	@SuppressWarnings("unchecked")
+
 	public List<Person> login(String email, String password) throws ConnectException {		
 		EntityManager em = EntitiManager.getEntityManager();
-		Query query = em.createNamedQuery("loginPerson");
+		TypedQuery<Person> query = em.createNamedQuery("loginPerson", Person.class);
 		query.setParameter("email",email);
 		query.setParameter("password",password);
 		List<Person> person = query.getResultList();
@@ -110,10 +111,9 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	}
 
 
-	@SuppressWarnings("unchecked")
 	public List<Person> findbyEmail (String email) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		Query query = em.createNamedQuery("findPersonEmail");
+		TypedQuery<Person> query = em.createNamedQuery("findPersonEmail", Person.class);
 		query.setParameter("email",email);
 		List<Person> person = query.getResultList();
 		em.close();

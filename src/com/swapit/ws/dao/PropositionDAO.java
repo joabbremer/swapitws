@@ -44,7 +44,7 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 			+ "INNER JOIN a.streetid s "
 			+ "INNER JOIN s.districtid d "
 			+ "INNER JOIN d.cityid c "
-			+ "WHERE p.price BETWEEN :min and :max  ";
+			+ "WHERE p.price BETWEEN :min and :max AND p.removel_date is null";
 		
 		Query query = null;
 		query = em.createQuery(consulting);
