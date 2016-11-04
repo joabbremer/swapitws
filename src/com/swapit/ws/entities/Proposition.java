@@ -16,12 +16,7 @@ import static javax.persistence.CascadeType.ALL;
 	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId AND PR.removel_date is null"),
 	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID AND PR.removel_date is null"),
 	
-	@NamedQuery(name="selectPropLike", query = "SELECT p FROM Proposition p "
-			+ "INNER JOIN p.addressId a "
-			+ "INNER JOIN a.streetid s "
-			+ "INNER JOIN s.districtid d "
-			+ "INNER JOIN d.cityid c "
-			+ "WHERE p.price BETWEEN :min and :max and p.title LIKE :title and p.categoryId = :category AND c.cityid = :city AND p.removel_date is null")
+	//@NamedQuery(name="selectPropLike") >>> Contruida Em PropositionDAO
 	
 	
 	
