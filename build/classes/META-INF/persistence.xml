@@ -12,6 +12,7 @@
 		<class>com.swapit.ws.entities.Street</class>
 		<class>com.swapit.ws.entities.StreetType</class>
 		<class>com.swapit.ws.entities.PropositionImage</class>
+		<class>com.swapit.ws.entities.Favorite</class>
 		
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/swapit"/>

@@ -20,15 +20,15 @@ public class PropositionModel  {
 	private List<PropositionImageModel> image;	
 	private Date publish_date;	
 	private Date removel_date;
+	private int denunce;
 	
 	public PropositionModel() {
 		super();
-	}
+	}	
 
-	public PropositionModel(String propositionId, String title, String description, AddressModel address,
-			double price, double priceCatInterest, double totalPrice, CategoryModel category,
-			CategoryModel interest_category, PersonModel person, List<PropositionImageModel> image,
-			Date publish_date, Date removel_date) {
+	public PropositionModel(String propositionId, String title, String description, AddressModel address, double price,
+			double priceCatInterest, double totalPrice, CategoryModel category, CategoryModel interest_category,
+			PersonModel person, List<PropositionImageModel> image, Date publish_date, Date removel_date, int denunce) {
 		super();
 		this.propositionId = propositionId;
 		this.title = title;
@@ -43,10 +43,8 @@ public class PropositionModel  {
 		this.image = image;
 		this.publish_date = publish_date;
 		this.removel_date = removel_date;
+		this.denunce = denunce;
 	}
-
-
-	
 
 	public String getPropositionId() {
 		return propositionId;
@@ -152,13 +150,21 @@ public class PropositionModel  {
 		this.removel_date = removel_date;
 	}
 
+	public int getDenunce() {
+		return denunce;
+	}
+
+	public void setDenunce(int denunce) {
+		this.denunce = denunce;
+	}
+
 	@Override
 	public String toString() {
 		return "PropositionModel [propositionId=" + propositionId + ", title=" + title + ", description=" + description
-				+ ", addressId=" + address + ", price=" + price + ", priceCatInterest=" + priceCatInterest
-				+ ", totalPrice=" + totalPrice + ", categoryId=" + category + ", interest_category="
-				+ interest_category + ", personId=" + person + ", imageId=" + image + ", publish_date="
-				+ publish_date + ", removel_date=" + removel_date + "]";
+				+ ", address=" + address + ", price=" + price + ", priceCatInterest=" + priceCatInterest
+				+ ", totalPrice=" + totalPrice + ", category=" + category + ", interest_category=" + interest_category
+				+ ", person=" + person + ", image=" + image + ", publish_date=" + publish_date + ", removel_date="
+				+ removel_date + ", denunce=" + denunce + "]";
 	}
 
 	@Override
@@ -167,6 +173,7 @@ public class PropositionModel  {
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + denunce;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((interest_category == null) ? 0 : interest_category.hashCode());
@@ -203,6 +210,8 @@ public class PropositionModel  {
 			if (other.category != null)
 				return false;
 		} else if (!category.equals(other.category))
+			return false;
+		if (denunce != other.denunce)
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -252,6 +261,8 @@ public class PropositionModel  {
 			return false;
 		return true;
 	}
+
+
 	
 	
 

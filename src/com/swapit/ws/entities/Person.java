@@ -13,10 +13,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 
-import static javax.persistence.CascadeType.ALL;
-import static javax.persistence.FetchType.EAGER;
-import javax.persistence.JoinTable;
-
 @Entity
 @NamedQueries({
 	@NamedQuery(name="findAllPersons", query="SELECT p FROM Person p"),
@@ -54,9 +50,9 @@ public class Person {
 	@Column(length=10, name="level", nullable=true)
 	private String level;
 	
-	@OneToMany(cascade = ALL, fetch = EAGER)
-	@JoinTable(name = "favorite", joinColumns = @JoinColumn(name = "personid", referencedColumnName = "personid", nullable=true), inverseJoinColumns = @JoinColumn(name = "propositionid", referencedColumnName = "propositionid", nullable=true))
-	private List<Proposition> favorite;
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+	@JoinColumn(name = "personid")
+	private List<Favorite> favorite;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "addressid", referencedColumnName = "addressid", nullable=true)
@@ -84,7 +80,7 @@ public class Person {
 
 
 	public Person(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level, List<Proposition> favorite, Address address) {
+			int blocked, String level, List<Favorite> favorite, Address address) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -156,11 +152,11 @@ public class Person {
 		this.blocked = blocked;
 	}
 
-	public List<Proposition> getFavorite() {
+	public List<Favorite> getFavorite() {
 		return favorite;
 	}
 
-	public void setFavorite(List<Proposition> favorite) {
+	public void setFavorite(List<Favorite> favorite) {
 		this.favorite = favorite;
 	}
 

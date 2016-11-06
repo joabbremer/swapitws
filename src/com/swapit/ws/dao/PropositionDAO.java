@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Category;
@@ -152,6 +153,15 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 		return null;
 		// TODO Auto-generated method stub
 		
+	}
+
+
+	public List<Proposition> getDenunce() throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		TypedQuery<Proposition> query = em.createNamedQuery("selectDenunce", Proposition.class);
+		List<Proposition> prop = query.getResultList();
+		em.close();
+		return prop;
 	}
 
 

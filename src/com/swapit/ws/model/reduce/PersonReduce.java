@@ -1,7 +1,8 @@
 package com.swapit.ws.model.reduce;
 
 import java.util.List;
-import com.swapit.ws.model.PropositionModel;
+
+import com.swapit.ws.model.FavoriteModel;
 
 
 
@@ -15,7 +16,7 @@ public class PersonReduce {
 	private char sex;	
 	private int blocked;
 	private String level;
-	private List<PropositionModel> favorite;	
+	private List<FavoriteModel> favorite;	
 	private AddressReduce addressReduce;
 	
 	public PersonReduce() {
@@ -23,7 +24,7 @@ public class PersonReduce {
 	}
 
 	public PersonReduce(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level, List<PropositionModel> favorite, AddressReduce addressReduce) {
+			int blocked, String level, List<FavoriteModel> favorite, AddressReduce addressReduce) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -101,11 +102,11 @@ public class PersonReduce {
 		this.level = level;
 	}
 
-	public List<PropositionModel> getFavorite() {
+	public List<FavoriteModel> getFavorite() {
 		return favorite;
 	}
 
-	public void setFavorite(List<PropositionModel> favorite) {
+	public void setFavorite(List<FavoriteModel> favorite) {
 		this.favorite = favorite;
 	}
 

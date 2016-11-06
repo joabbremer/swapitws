@@ -4,6 +4,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import com.swapit.ws.relate.PersonActiveRelate;
+import com.swapit.ws.relate.PersonRecoverPass;
 import com.swapit.ws.relate.PropositionRelate;
 
 public class RelationServiceStartServlet extends HttpServlet {
@@ -17,5 +18,8 @@ public class RelationServiceStartServlet extends HttpServlet {
 		
 		PersonActiveRelate perActive = new PersonActiveRelate();
 		perActive.start();
+		
+		PersonRecoverPass perRecover = new PersonRecoverPass();
+		perRecover.start();
 	}
 }

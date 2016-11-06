@@ -69,6 +69,25 @@ public class PropositionService {
 		return Response.status(Status.BAD_REQUEST).build();		
 	}
 	
+	@GET
+	@Path("/getDenunce")
+	public Response getDenunce(){
+		PropositionController propCtrl = new PropositionController();
+		String denunce = propCtrl.getDenunce();
+		if(denunce != null){
+			return Response.ok(denunce).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+	}
+	@POST
+	@Path("/denunce/{propositionID}")
+	public Response denunce(@PathParam("propositionID") String propositionID){
+		PropositionController propCtrl = new PropositionController();
+		if(propCtrl.denunce(propositionID)){
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+	}
 	
 	@POST
 	@Path("/save")
