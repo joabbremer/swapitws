@@ -14,30 +14,15 @@ public class PersonModel {
 	private char sex;	
 	private int blocked;
 	private String level;
-	private List<PropositionModel> favorite;	
+	private List<FavoriteModel> favorite;	
 	private AddressModel address;
 	
 	public PersonModel() {
 		super();
 	}
 	
-	
-	public PersonModel(String personId, String personName, String email, String phone, char sex, int blocked,
-			String level, List<PropositionModel> favorite, AddressModel address) {
-		super();
-		this.personId = personId;
-		this.personName = personName;
-		this.email = email;
-		this.phone = phone;
-		this.sex = sex;
-		this.blocked = blocked;
-		this.level = level;
-		this.favorite = favorite;
-		this.address = address;
-	}
-
 	public PersonModel(String personId, String personName, String email, String phone, String password, char sex,
-			int blocked, String level, List<PropositionModel> favorite, AddressModel address) {
+			int blocked, String level, List<FavoriteModel> favorite, AddressModel address) {
 		super();
 		this.personId = personId;
 		this.personName = personName;
@@ -50,12 +35,6 @@ public class PersonModel {
 		this.favorite = favorite;
 		this.address = address;
 	}
-
-
-
-
-
-
 
 	public String getPersonId() {
 		return personId;
@@ -113,7 +92,7 @@ public class PersonModel {
 		this.blocked = blocked;
 	}
 
-	public List<PropositionModel> getFavorite() {
+	public List<FavoriteModel> getFavorite() {
 		return favorite;
 	}
 
@@ -127,7 +106,7 @@ public class PersonModel {
 
 
 
-	public void setFavorite(List<PropositionModel> favorite) {
+	public void setFavorite(List<FavoriteModel> favorite) {
 		this.favorite = favorite;
 	}
 

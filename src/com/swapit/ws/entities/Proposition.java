@@ -15,8 +15,10 @@ import static javax.persistence.CascadeType.ALL;
 	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId AND PR.removel_date is null"),
 	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId AND PR.removel_date is null"),
 	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID AND PR.removel_date is null"),
+	@NamedQuery(name="selectDenunce", query = "SELECT PR FROM Proposition PR WHERE PR.denunce is not null AND PR.removel_date is null order by PR.personId"),
 	
 	//@NamedQuery(name="selectPropLike") >>> Contruida Em PropositionDAO
+
 	
 	
 	
@@ -74,15 +76,16 @@ public class Proposition implements Serializable{
 	@Temporal(value=TemporalType.TIMESTAMP)
 	private Date removel_date;
 	
+	@Column(name="denunce")
+	private int denunce;
 	
-
 	public Proposition() {
 		super();
 	}
 
 	public Proposition(String propositionId, String title, String description, Address addressId, double price,
 			double priceCatInterest, double totalPrice, Category categoryId, Category interest_category,
-			Person personId, List<PropositionImage> imageId, Date publish_date, Date removel_date) {
+			Person personId, List<PropositionImage> imageId, Date publish_date, Date removel_date, int denunce) {
 		super();
 		this.propositionId = propositionId;
 		this.title = title;
@@ -97,6 +100,7 @@ public class Proposition implements Serializable{
 		this.imageId = imageId;
 		this.publish_date = publish_date;
 		this.removel_date = removel_date;
+		this.denunce = denunce;
 	}
 
 	public String getPropositionId() {
@@ -203,14 +207,26 @@ public class Proposition implements Serializable{
 		this.removel_date = removel_date;
 	}
 
+	public int getDenunce() {
+		return denunce;
+	}
+
+	public void setDenunce(int denunce) {
+		this.denunce = denunce;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Proposition [propositionId=" + propositionId + ", title=" + title + ", description=" + description
 				+ ", addressId=" + addressId + ", price=" + price + ", priceCatInterest=" + priceCatInterest
 				+ ", totalPrice=" + totalPrice + ", categoryId=" + categoryId + ", interest_category="
 				+ interest_category + ", personId=" + personId + ", imageId=" + imageId + ", publish_date="
-				+ publish_date + ", removel_date=" + removel_date + "]";
+				+ publish_date + ", removel_date=" + removel_date + ", denunce=" + denunce + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -218,6 +234,7 @@ public class Proposition implements Serializable{
 		int result = 1;
 		result = prime * result + ((addressId == null) ? 0 : addressId.hashCode());
 		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
+		result = prime * result + denunce;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((imageId == null) ? 0 : imageId.hashCode());
 		result = prime * result + ((interest_category == null) ? 0 : interest_category.hashCode());
@@ -235,6 +252,8 @@ public class Proposition implements Serializable{
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -254,6 +273,8 @@ public class Proposition implements Serializable{
 			if (other.categoryId != null)
 				return false;
 		} else if (!categoryId.equals(other.categoryId))
+			return false;
+		if (denunce != other.denunce)
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -303,6 +324,7 @@ public class Proposition implements Serializable{
 			return false;
 		return true;
 	}
+
 	
 	
 	

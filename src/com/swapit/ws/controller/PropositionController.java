@@ -64,7 +64,38 @@ public class PropositionController {
 		return null;
 		
 	}
-	
+	public PropositionModel getDenunce(String id){
+		PropositionDAO propDao = new PropositionDAO();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.getbyid(id);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		if(prop.size() != 0){
+			return toModel(prop);
+		}
+		
+		return null;
+		
+	}
+	public String getDenunce(){
+		PropositionDAO propDao = new PropositionDAO();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.getDenunce();
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		if(prop.size() != 0){
+			List<PropositionModel> propModel = toModelList(prop);
+			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+			return toJsonReduceList(propReduceList);
+		}
+		return null;
+
+		
+	}
 
 	public String getPropCategory(String categoryID){
 		Category Category = new Category();
@@ -184,7 +215,8 @@ public class PropositionController {
 					addCtrl.reduceAddressPerson(propositionModel.getPersonId()),
 					propositionModel.getImage(),
 					propositionModel.getPublish_date(),
-					propositionModel.getRemovel_date()));
+					propositionModel.getRemovel_date(),
+					propositionModel.getDenunce()));
 			
 					
 			
@@ -217,6 +249,18 @@ public class PropositionController {
 		PropositionModel propositionModel =  propositionComplete(propositionReduce);
 		try {
 			return propDao.update(toEntity(propositionModel));
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	public boolean denunce(String propositionID) {
+		PropositionDAO propDao = new PropositionDAO();
+		PropositionModel propDenunce = getDenunce(propositionID);
+		int d = propDenunce.getDenunce();
+		propDenunce.setDenunce(d += 1);
+		try {
+			return propDao.update(toEntity(propDenunce));
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}
@@ -290,7 +334,8 @@ public class PropositionController {
 															personCtrl.personComplete(propositionReduce.getPersonReduce()),
 															propositionReduce.getImage(),
 															propositionReduce.getPublish_date(),
-															propositionReduce.getRemovel_date());
+															propositionReduce.getRemovel_date(),
+															propositionReduce.getDenunce());
 		
 		
 		
@@ -320,7 +365,8 @@ public class PropositionController {
 					   personCtrl.toModel(proposition.getPersonId()),
 					   propImgCtrl.toModel(proposition.getImageId()),
 					   proposition.getPublish_date(),
-					   proposition.getRemovel_date());
+					   proposition.getRemovel_date(),
+					   proposition.getDenunce());
 		}
 		return propModel;
 	}
@@ -348,7 +394,8 @@ public class PropositionController {
 					   personCtrl.toModel(proposition.getPersonId()),
 					   propImgCtrl.toModel(proposition.getImageId()),
 					   proposition.getPublish_date(),
-					   proposition.getRemovel_date()));
+					   proposition.getRemovel_date(),
+					   proposition.getDenunce()));
 		}
 		return propModel;
 	}
@@ -373,7 +420,8 @@ public class PropositionController {
 											personCtrl.toEntity(propModel.getPersonId()),
 											propImgCtrl.toEntity(propModel.getImage()),
 											propModel.getPublish_date(),
-											propModel.getRemovel_date());
+											propModel.getRemovel_date(),
+											propModel.getDenunce());
 						
 		
 		
@@ -399,12 +447,17 @@ public class PropositionController {
 											personCtrl.toEntity(propModel.getPersonId()),
 											propImgCtrl.toEntity(propModel.getImage()),
 											propModel.getPublish_date(),
-											propModel.getRemovel_date()));
+											propModel.getRemovel_date(),
+											propModel.getDenunce()));
 						
 		}
 		
 		return proposition;
 	}
+
+
+
+
 
 	
 

@@ -9,11 +9,11 @@ import com.google.gson.Gson;
 import com.swapit.ws.dao.PersonDAO;
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Address;
+import com.swapit.ws.entities.Favorite;
 import com.swapit.ws.entities.Person;
-import com.swapit.ws.entities.Proposition;
 import com.swapit.ws.model.AddressModel;
+import com.swapit.ws.model.FavoriteModel;
 import com.swapit.ws.model.PersonModel;
-import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
@@ -51,13 +51,6 @@ public class PersonController {
 		} catch (ConnectException e) {
 			e.printStackTrace();
 		}	
-		//if(person != null){
-		//	PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
-		//	if(personReduce.getBlocked() != 1){
-		//		return toJson(personReduce);
-		//	}		
-		//}
-		//return null;
 		PersonReduce personReduce = addressCtrl.reduceAddressPerson(toModel(person));
 		return toJson(personReduce);
 		
@@ -111,7 +104,7 @@ public class PersonController {
 		return false;
 	}
 	
-	public void updateActive(PersonModel personModel) {
+	public void updateService(PersonModel personModel) {
 		PersonDAO personDao = new PersonDAO();
 		try {
 			personDao.update(toEntity(personModel));
@@ -233,6 +226,28 @@ public class PersonController {
 		return null;
 	}
 	
+	public boolean recoverPassWord(String email) {
+		PersonDAO personDao = new PersonDAO();
+		List<Person> person = new ArrayList<Person>();
+		boolean responseRecover = false;
+		try {
+			person = personDao.findbyEmail(email);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}	
+		if(person.size() != 0){
+			PersonModel perModel = toModel(person);
+			if(perModel.getBlocked() == 0){
+				perModel.setBlocked(3);
+				updateService(perModel);
+				responseRecover = true;
+			}		
+		}
+		return responseRecover;
+	}
+	
+
+
 	private PersonModel CreatID(PersonModel personModel){
 		if(personModel.getPersonId() == null){
 			personModel.setPersonId(UUID.randomUUID().toString());
@@ -247,18 +262,24 @@ public class PersonController {
 			}
 			
 		}
-		
-		
+		List<FavoriteModel> favModel = personModel.getFavorite();
+		FavoriteController favCtrl = new FavoriteController();
+		if(favModel != null){
+			List<FavoriteModel> favModelCID = favCtrl.cretID(favModel);
+			personModel.setFavorite(favModelCID);
+			
+		}
 		return personModel;
 	};
 	
 	public PersonModel toModel(Person person){
-		PropositionController propCtrl = new PropositionController();
 		AddressController addressCtrl = new AddressController();
-		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
+		FavoriteController favCtrl = new FavoriteController();
+		
+		List<FavoriteModel> favoriteModel = new ArrayList<FavoriteModel>();
 		AddressModel addressModel = new AddressModel();
 		if(person.getFavorite() != null){
-			favoriteModel = propCtrl.toModelList(person.getFavorite());
+			favoriteModel = favCtrl.toModelList(person.getFavorite());
 		}
 		if(person != null){
 			if(person.getAddress() != null){
@@ -279,17 +300,16 @@ public class PersonController {
 	};
 	
 	public List<PersonModel> toModelList(List<Person> personEntity){
-		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
+		List<FavoriteModel> favoriteModel = new ArrayList<FavoriteModel>();
 		AddressModel addresModel = new AddressModel();
 		AddressController addressCtrl = new AddressController();
-		PropositionController propCtrl = new PropositionController();
 		List<PersonModel> personModel = new ArrayList<PersonModel>();
-		
+		FavoriteController favCtrl = new FavoriteController();
 		
 		
 		for (Person person : personEntity) {
 			if(person.getFavorite() != null){
-				favoriteModel = propCtrl.toModelList(person.getFavorite());
+				favoriteModel = favCtrl.toModelList(person.getFavorite());
 			}
 			if(person.getAddress() != null){
 				addresModel = addressCtrl.toModel(person.getAddress());
@@ -314,17 +334,17 @@ public class PersonController {
 		
 	};
 	public PersonModel toModel(List<Person> personEntity){
-		List<PropositionModel> favoriteModel = new ArrayList<PropositionModel>();
+		List<FavoriteModel> favoriteModel = new ArrayList<FavoriteModel>();
 		AddressModel addresModel = new AddressModel();
 		AddressController addressCtrl = new AddressController();
-		PropositionController propCtrl = new PropositionController();
 		PersonModel personModel = new PersonModel();
+		FavoriteController favCtrl = new FavoriteController();
 		
 		
 		
 		for (Person person : personEntity) {
 			if(person.getFavorite() != null){
-				favoriteModel = propCtrl.toModelList(person.getFavorite());
+				favoriteModel = favCtrl.toModelList(person.getFavorite());
 			}
 			if(person.getAddress() != null){
 				addresModel = addressCtrl.toModel(person.getAddress());
@@ -334,6 +354,7 @@ public class PersonController {
 					person.getPersonName(),
 					person.getEmail(),
 					person.getPhone(),
+					person.getPassword(),
 					person.getSex(),
 					person.getBlocked(),
 					person.getLevel(),
@@ -351,12 +372,14 @@ public class PersonController {
 
 	public Person toEntity(PersonModel personModel){
 		if(personModel != null){
-			List<Proposition> favorite = new ArrayList<Proposition>();
+			List<Favorite> favorite = null;
 			Address address = null;
-			PropositionController propCtrl = new PropositionController();
 			AddressController addressCtrl = new AddressController();
+			FavoriteController favCtrl = new FavoriteController();
 			if(personModel.getFavorite() != null){
-				favorite =  propCtrl.toEntity(personModel.getFavorite());
+				favorite = new ArrayList<Favorite>();
+				favorite = favCtrl.toEntityList(personModel.getFavorite());
+						
 			}
 			if(personModel.getAddres() != null){
 				address =  addressCtrl.toEntity(personModel.getAddres());
@@ -391,7 +414,7 @@ public class PersonController {
 	
 	public List<Person> toEntity(List<PersonModel> personModel) {
 		AddressController addressCtrl = new AddressController();
-		PropositionController propCtrl = new PropositionController();
+		FavoriteController favCtrl = new FavoriteController();
 		List<Person> person = new ArrayList<Person>();
 		for (PersonModel persoModel : personModel) {
 			person.add(new Person(persoModel.getPersonId(),
@@ -402,11 +425,12 @@ public class PersonController {
 								  persoModel.getSex(),
 								  persoModel.getBlocked(),
 								  persoModel.getLevel(),
-								  propCtrl.toEntity(persoModel.getFavorite()),
+								  favCtrl.toEntityList(persoModel.getFavorite()),
 								  addressCtrl.toEntity(persoModel.getAddres())));
 		}
 		return person;
 	}
+
 
 	
 	

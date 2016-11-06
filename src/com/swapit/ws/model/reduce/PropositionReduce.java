@@ -21,6 +21,7 @@ public class PropositionReduce {
 	private List<PropositionImageModel> image;	
 	private Date publish_date;	
 	private Date removel_date;
+	private int denunce;
 	
 	public PropositionReduce() {
 		super();
@@ -28,8 +29,8 @@ public class PropositionReduce {
 
 	public PropositionReduce(String propositionId, String title, String description, AddressReduce addressReduce,
 			double price, double priceCatInterest, double totalPrice, CategoryModel category,
-			CategoryModel interest_category, PersonReduce personReduce, List<PropositionImageModel> image, Date publish_date,
-			Date removel_date) {
+			CategoryModel interest_category, PersonReduce personReduce, List<PropositionImageModel> image,
+			Date publish_date, Date removel_date, int denunce) {
 		super();
 		this.propositionId = propositionId;
 		this.title = title;
@@ -44,6 +45,7 @@ public class PropositionReduce {
 		this.image = image;
 		this.publish_date = publish_date;
 		this.removel_date = removel_date;
+		this.denunce = denunce;
 	}
 
 	public String getPropositionId() {
@@ -150,14 +152,24 @@ public class PropositionReduce {
 		this.removel_date = removel_date;
 	}
 
+	public int getDenunce() {
+		return denunce;
+	}
+
+	public void setDenunce(int denunce) {
+		this.denunce = denunce;
+	}
+
 	@Override
 	public String toString() {
 		return "PropositionReduce [propositionId=" + propositionId + ", title=" + title + ", description=" + description
 				+ ", addressReduce=" + addressReduce + ", price=" + price + ", priceCatInterest=" + priceCatInterest
 				+ ", totalPrice=" + totalPrice + ", category=" + category + ", interest_category=" + interest_category
-				+ ", person=" + personReduce + ", image=" + image + ", publish_date=" + publish_date + ", removel_date="
-				+ removel_date + "]";
+				+ ", personReduce=" + personReduce + ", image=" + image + ", publish_date=" + publish_date
+				+ ", removel_date=" + removel_date + ", denunce=" + denunce + "]";
 	}
+
+
 
 	@Override
 	public int hashCode() {
@@ -165,6 +177,7 @@ public class PropositionReduce {
 		int result = 1;
 		result = prime * result + ((addressReduce == null) ? 0 : addressReduce.hashCode());
 		result = prime * result + ((category == null) ? 0 : category.hashCode());
+		result = prime * result + denunce;
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((interest_category == null) ? 0 : interest_category.hashCode());
@@ -182,6 +195,8 @@ public class PropositionReduce {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -201,6 +216,8 @@ public class PropositionReduce {
 			if (other.category != null)
 				return false;
 		} else if (!category.equals(other.category))
+			return false;
+		if (denunce != other.denunce)
 			return false;
 		if (description == null) {
 			if (other.description != null)
@@ -250,6 +267,8 @@ public class PropositionReduce {
 			return false;
 		return true;
 	}
+
+
 	
 	
 	

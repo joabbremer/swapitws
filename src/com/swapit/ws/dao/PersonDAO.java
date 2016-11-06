@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import com.swapit.ws.dao.exception.ConnectException;
@@ -26,9 +25,9 @@ public class PersonDAO implements PojoInterfaceDAO<Person> {
 	@Override
 	public Person select(String id) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		Query query = em.createNamedQuery("selectIDPerson");
+		TypedQuery<Person> query = em.createNamedQuery("selectIDPerson", Person.class);
 		query.setParameter("personId",id);
-		Person person = (Person) query.getSingleResult();
+		Person person = query.getSingleResult();
 		em.close();
 		return person;
 	}
