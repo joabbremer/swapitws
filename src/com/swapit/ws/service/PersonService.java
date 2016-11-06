@@ -56,9 +56,8 @@ public class PersonService {
 			return Response.ok(jsonPersonModel).build();
 		}
 		return Response.status(Status.BAD_REQUEST).build();
-		
-		
 	}
+	
 	@GET
 	@Path("/getbyemail/{email}")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -71,6 +70,18 @@ public class PersonService {
 		}
 		return Response.status(Status.BAD_REQUEST).build();
 	}
+	@GET
+	@Path("/recoverPassWord/{email}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response recoverPassWord(@PathParam("email") String email){
+		PersonController personCtrl = new PersonController();
+		if(personCtrl.recoverPassWord(email)){
+			return Response.status(Status.OK).build();
+		}
+		return Response.status(Status.BAD_REQUEST).build();
+	}
+	
 	@GET
 	@Path("/getForActiveAccount/{personID}")
 	@Consumes(MediaType.APPLICATION_JSON)

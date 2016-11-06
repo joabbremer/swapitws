@@ -200,7 +200,8 @@ public class AddressController {
 															reduceAddressPerson(propositionModel.getPersonId()),
 															propositionModel.getImage(),
 															propositionModel.getPublish_date(),
-															propositionModel.getRemovel_date());
+															propositionModel.getRemovel_date(),
+															propositionModel.getDenunce());
 		
 				
 		
