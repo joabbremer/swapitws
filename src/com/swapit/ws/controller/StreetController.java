@@ -33,12 +33,17 @@ public class StreetController {
 		StreetTypeController StrTypeCtrl = new StreetTypeController();
 		
 		DistrictController districtCtrl = new DistrictController();
-		return new StreetModel(streetEntity.getStreetid(),
-						StrTypeCtrl.toModel(streetEntity.getStreettypeid()),
-						streetEntity.getName(),
-						streetEntity.getComplement(),
-						districtCtrl.toModel(streetEntity.getDistrictid()),
-						streetEntity.getZipcode());
+		if(streetEntity != null){
+			return new StreetModel(streetEntity.getStreetid(),
+					StrTypeCtrl.toModel(streetEntity.getStreettypeid()),
+					streetEntity.getName(),
+					streetEntity.getComplement(),
+					districtCtrl.toModel(streetEntity.getDistrictid()),
+					streetEntity.getZipcode());
+		}
+		return null;
+		
+		
 		 
 	}
 	public StreetModel toModel(List<Street> streetEntity){

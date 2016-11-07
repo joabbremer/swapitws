@@ -13,7 +13,7 @@ public class PersonRecoverPass extends Thread implements Runnable {
 			while (true) {		
 				
 				sendMailForRecoverPass();
-				Thread.sleep(NORM_PRIORITY);;// 300000 5 minutos
+				Thread.sleep(MAX_PRIORITY);;// 300000 5 minutos
 			}			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
