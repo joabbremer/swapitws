@@ -21,6 +21,8 @@ import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
 import com.swapit.ws.model.reduce.PropositionReduce;
 
+
+
 public class AddressController {
 	
 	public AddressModel getbyID(String addressID){
