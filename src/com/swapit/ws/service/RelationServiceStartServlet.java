@@ -17,7 +17,7 @@ public class RelationServiceStartServlet extends HttpServlet {
 		//propRelate.start();
 		
 		PersonActiveRelate perActive = new PersonActiveRelate();
-		perActive.start();
+		//perActive.start();
 		
 		PersonRecoverPass perRecover = new PersonRecoverPass();
 		perRecover.start();
