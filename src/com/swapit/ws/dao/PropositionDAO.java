@@ -51,7 +51,7 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 		query = em.createQuery(consulting);
 		boolean titleStatus = false, cityStatus = false, categoryStatus = false;
 		if(!title.equals("null")){
-			consulting += "AND p.title LIKE :title";
+			consulting += " AND p.title LIKE :title";
 			titleStatus = true;
 		}
 		if(!city.equals("null")){
