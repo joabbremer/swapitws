@@ -15,7 +15,7 @@ import static javax.persistence.CascadeType.ALL;
 	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId AND PR.removel_date is null"),
 	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId AND PR.removel_date is null"),
 	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID AND PR.removel_date is null"),
-	@NamedQuery(name="selectDenunce", query = "SELECT PR FROM Proposition PR WHERE PR.denunce is not null AND PR.removel_date is null order by PR.personId"),
+	@NamedQuery(name="selectDenunce", query = "SELECT PR FROM Proposition PR WHERE PR.denunce is not null AND PR.denunce > 0 AND PR.removel_date is null order by PR.personId"),
 	
 	//@NamedQuery(name="selectPropLike") >>> Contruida Em PropositionDAO
 

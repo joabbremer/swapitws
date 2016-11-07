@@ -1,6 +1,7 @@
 package com.swapit.ws.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,9 +15,11 @@ import com.swapit.ws.entities.Person;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.FavoriteModel;
 import com.swapit.ws.model.PersonModel;
+import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;
+import com.swapit.ws.model.reduce.PropositionReduce;
 
 
 public class PersonController {
@@ -117,6 +120,7 @@ public class PersonController {
 		PersonDAO personDao = new PersonDAO();	
 		PersonModel personModel =  personComplete(personReduce);
 		personModel = CreatID(personModel);
+		removeProposition(personModel.getBlocked(), personModel.getPersonId());
 		try {
 			return personDao.update(toEntity(personModel));
 		} catch (ConnectException e) {
@@ -125,6 +129,17 @@ public class PersonController {
 		return false;
 	}
 	
+	private void removeProposition(int blocked, String personId) {
+		if(blocked == 4 && personId != null){
+			PropositionController propCtrl = new PropositionController();
+			List<PropositionReduce> propList = propCtrl.getPropPersonModel(personId);
+			for (PropositionReduce propositionReduce : propList) {
+				propositionReduce.setRemovel_date(new Date());
+				propCtrl.update(propositionReduce);
+			}
+		}
+		
+	}
 	public PersonModel personComplete(PersonReduce personReduce) {
 		
 		AddressReduce addressReduce =  personReduce.getAddressReduce();
