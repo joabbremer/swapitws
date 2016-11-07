@@ -20,6 +20,6 @@ public class RelationServiceStartServlet extends HttpServlet {
 		//perActive.start();
 		
 		PersonRecoverPass perRecover = new PersonRecoverPass();
-		perRecover.start();
+		//perRecover.start();
 	}
 }

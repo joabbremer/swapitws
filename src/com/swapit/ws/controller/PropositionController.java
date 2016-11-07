@@ -156,6 +156,26 @@ public class PropositionController {
 		
 		
 	}
+	public List<PropositionReduce>  getPropPersonModel(String personID){
+		Person person = new Person();
+		person.setPersonId(personID);
+		PropositionDAO propDao = new PropositionDAO();
+		List<Proposition> prop = null;
+		try {
+			prop = propDao.getPropPerson(person);
+		} catch (ConnectException e) {
+			e.printStackTrace();
+		}
+		
+		if(prop.size() != 0){
+			List<PropositionModel> propModel = toModelList(prop);
+			List<PropositionReduce> propReduceList  = propositionReduce(propModel);
+			return propReduceList;
+		}
+		return null;
+		
+		
+	}
 	
 	
 
@@ -246,7 +266,7 @@ public class PropositionController {
 
 	public boolean update(PropositionReduce propositionReduce) {
 		PropositionDAO propDao = new PropositionDAO();
-		PropositionModel propositionModel =  propositionComplete(propositionReduce);
+		PropositionModel propositionModel = propositionComplete(propositionReduce);
 		try {
 			return propDao.update(toEntity(propositionModel));
 		} catch (ConnectException e) {

@@ -16,9 +16,9 @@ import javax.persistence.NamedQueries;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="findAllPersons", query="SELECT p FROM Person p"),
-	@NamedQuery(name="selectIDPerson", query = "SELECT P FROM Person p WHERE p.personId = :personId"),
-	@NamedQuery(name="loginPerson", query = "SELECT P FROM Person p WHERE p.email = :email AND p.password = :password"),
-	@NamedQuery(name="findPersonEmail", query = "SELECT P FROM Person p WHERE p.email = :email"),
+	@NamedQuery(name="selectIDPerson", query = "SELECT P FROM Person p WHERE p.personId = :personId AND P.blocked != 4"),
+	@NamedQuery(name="loginPerson", query = "SELECT P FROM Person p WHERE p.email = :email AND p.password = :password AND P.blocked != 4"),
+	@NamedQuery(name="findPersonEmail", query = "SELECT P FROM Person p WHERE p.email = :email AND P.blocked != 4"),
 })
 
 
