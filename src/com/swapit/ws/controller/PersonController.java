@@ -69,7 +69,7 @@ public class PersonController {
 		}	
 		if(person != null){
 			PersonModel perModel = toModel(person);
-			if(perModel.getBlocked() == 0){
+			if(perModel.getBlocked() != 4){
 				return perModel;
 			}		
 		}
@@ -180,9 +180,9 @@ public class PersonController {
 		if(personReduce.getSex() != 'n'){
 			personModel.setSex(personReduce.getSex());
 		}
-		if(personReduce.getBlocked() != 0){
-			personModel.setBlocked(personReduce.getBlocked());
-		}
+		
+		personModel.setBlocked(personReduce.getBlocked());
+		
 		if(personReduce.getLevel() != null){
 			personModel.setLevel(personReduce.getLevel());
 		}
