@@ -65,15 +65,18 @@ public class CategoryController {
 	
 	private Category listToSingle(List<Category> cat) {
 		Category cate = null;
-		if(cat.size() > 0){
-			for (Category category : cat) {
-					cate = new Category(category.getCategoryId(),
-										category.getCategoryName(),
-										category.getParentId(),
-										category.getColor(),
-										category.getIcon());
+		if(cat != null){
+			if(cat.size() > 0){
+				for (Category category : cat) {
+						cate = new Category(category.getCategoryId(),
+											category.getCategoryName(),
+											category.getParentId(),
+											category.getColor(),
+											category.getIcon());
+					}
 				}
-			}
+		}
+		
 		
 		return cate;
 	}
