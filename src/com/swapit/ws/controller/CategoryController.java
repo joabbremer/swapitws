@@ -52,17 +52,32 @@ public class CategoryController {
 	}
 	public Category getCatEntityByID(String id) {
 		CategoryDAO catDao = new CategoryDAO();
-		Category cat = null;
+		List<Category> cat = null;
 		if(!id.equals("null")){
 			try {
-				cat = catDao.select(id);
+				cat = catDao.selectShow(id);
 			} catch (ConnectException e) {
 				e.printStackTrace();
 			}
 		}		
-		return cat;
+		return listToSingle(cat);
 	}
 	
+	private Category listToSingle(List<Category> cat) {
+		Category cate = null;
+		if(cat.size() > 0){
+			for (Category category : cat) {
+					cate = new Category(category.getCategoryId(),
+										category.getCategoryName(),
+										category.getParentId(),
+										category.getColor(),
+										category.getIcon());
+				}
+			}
+		
+		return cate;
+	}
+
 	public CategoryModel getModelbyID(String id) {
 		CategoryDAO catDao = new CategoryDAO();
 		Category cat = null;
