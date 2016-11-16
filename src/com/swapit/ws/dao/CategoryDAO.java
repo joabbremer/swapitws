@@ -3,7 +3,7 @@ package com.swapit.ws.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import com.swapit.ws.dao.exception.ConnectException;
 import com.swapit.ws.entities.Category;
@@ -21,15 +21,24 @@ public class CategoryDAO implements PojoInterfaceDAO<Category> {
 	@Override
 	public Category select(String id) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		Query query = em.createNamedQuery("selectIDCategoty");
+		em.getTransaction().begin();
+		TypedQuery<Category> query = em.createNamedQuery("selectIDCategoty", Category.class);
 		query.setParameter("categoryId",id);
-		Category cat = (Category) query.getSingleResult();
+		Category cat = query.getSingleResult();
 		return  cat;
 	}
-	@SuppressWarnings("unchecked")
+	public List<Category> selectShow(String id) throws ConnectException {
+		EntityManager em = EntitiManager.getEntityManager();
+		em.getTransaction().begin();
+		TypedQuery<Category> query = em.createNamedQuery("selectIDCategoty", Category.class);
+		query.setParameter("categoryId",id);
+		List<Category> cat =  query.getResultList();
+		return  cat;
+	}
+	
 	public List<Category> getParent(String parentID) throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		Query query = em.createNamedQuery("selectParentID", Category.class);
+		TypedQuery<Category> query = em.createNamedQuery("selectParentID", Category.class);
 		query.setParameter("parentId",parentID);
 		List<Category> cat =  query.getResultList();
 		return  cat;

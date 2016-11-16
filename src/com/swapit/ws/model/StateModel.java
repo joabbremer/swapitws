@@ -11,6 +11,7 @@ public class StateModel {
 	public StateModel() {
 		super();
 	}
+	
 	public StateModel(String stateid, String acronym, String name, CountryModel country) {
 		super();
 		this.stateid = stateid;
