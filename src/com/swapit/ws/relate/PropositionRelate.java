@@ -61,15 +61,12 @@ public class PropositionRelate extends Thread implements Runnable {
 	}
 
 	private void sendInterest(List<PropositionModel> propModelSend, String emailPersonWant) {
-		String MSGLOCATION = "Encontramos algumas propostas do seu interesse";		
+		String MSGLOCATION = "Encontramos algumas propostas do seu interesse ";		
 	
 		for (PropositionModel propModel : propModelSend) {
-
-			MSGLOCATION += " http://localhost:8080/swapitws/rs/proposition/getPropLike/"+propModel.getTitle()
-																			+"/"+propModel.getCategory().getCategoryId()
-																			+"/"+propModel.getAddress().getStreet().getDistrict().getCity().getCityid()
-																			+"/"+propModel.getPrice()
-																			+"/"+propModel.getPrice();
+			
+			MSGLOCATION += "<br/>";
+			MSGLOCATION += "<a href='"+"http://localhost/sw_app/#/details/"+propModel.getPropositionId()+"'>"+propModel.getTitle()+"</a>";
 			
 		}
 		

@@ -119,7 +119,7 @@ public void sendMailListProposition(String to, String message ) {
 		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(to));
 		msg.setFrom(new InternetAddress(from));
 		msg.setSubject(subject);
-		msg.setContent(message,"text/plain");
+		msg.setContent(message,"text/html");
 	} catch (Exception e) {
 		System.out.println(">> Erro: Completar Mensagem");
 		e.printStackTrace();

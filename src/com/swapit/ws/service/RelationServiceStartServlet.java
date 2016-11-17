@@ -12,14 +12,13 @@ public class RelationServiceStartServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void init() throws ServletException{
-		@SuppressWarnings("unused")
-		PropositionRelate propRelate = new PropositionRelate();
+		//PropositionRelate propRelate = new PropositionRelate();
 		//propRelate.start();
 		
 		PersonActiveRelate perActive = new PersonActiveRelate();
-		//perActive.start();
+		perActive.start();
 		
 		PersonRecoverPass perRecover = new PersonRecoverPass();
-		//perRecover.start();
+		perRecover.start();
 	}
 }

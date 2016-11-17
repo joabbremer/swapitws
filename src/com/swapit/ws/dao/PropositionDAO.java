@@ -19,7 +19,7 @@ public class PropositionDAO implements PojoInterfaceDAO<Proposition> {
 	@Override
 	public List<Proposition> listAll() throws ConnectException {
 		EntityManager em = EntitiManager.getEntityManager();
-		List<Proposition> prop = em.createNamedQuery("findAllProposition").getResultList();
+		List<Proposition> prop = em.createNamedQuery("findForSendProposition").getResultList();
 		em.close();
 		return prop;
 	}

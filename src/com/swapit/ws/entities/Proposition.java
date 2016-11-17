@@ -11,7 +11,8 @@ import static javax.persistence.CascadeType.ALL;
 @Entity
 @Table(name="proposition")
 @NamedQueries({
-	@NamedQuery(name="findAllProposition", query="SELECT PR FROM Proposition PR"),
+	@NamedQuery(name="findAllProposition", query="SELECT PR FROM Proposition PR "),
+	@NamedQuery(name="findForSendProposition", query="SELECT PR FROM Proposition PR WHERE PR.removel_date is null"),
 	@NamedQuery(name="selectIDproposition", query = "SELECT PR FROM Proposition PR WHERE PR.propositionId = :propositionId AND PR.removel_date is null"),
 	@NamedQuery(name="selectPropPerson", query = "SELECT PR FROM Proposition PR WHERE PR.personId = :personId AND PR.removel_date is null"),
 	@NamedQuery(name="selectPropCategory", query = "SELECT PR FROM Proposition PR WHERE PR.categoryId = :categoryID AND PR.removel_date is null"),

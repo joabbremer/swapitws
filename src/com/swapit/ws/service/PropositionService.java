@@ -13,6 +13,7 @@ import javax.ws.rs.core.Response.Status;
 
 import com.swapit.ws.controller.PropositionController;
 import com.swapit.ws.model.reduce.PropositionReduce;
+import com.swapit.ws.relate.PropositionRelate;
 
 @Path("/proposition")
 @Consumes({MediaType.APPLICATION_JSON})
@@ -79,6 +80,16 @@ public class PropositionService {
 		}
 		return Response.status(Status.BAD_REQUEST).build();
 	}
+	@GET
+	@Path("/startRelationService")
+	public Response startRelationService(){
+		
+		PropositionRelate propRelate = new PropositionRelate();
+		propRelate.start();
+		return Response.ok("Serviço Iniciado").build();
+		
+	}
+	
 	@POST
 	@Path("/denunce/{propositionID}")
 	public Response denunce(@PathParam("propositionID") String propositionID){
