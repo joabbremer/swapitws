@@ -15,7 +15,6 @@ import com.swapit.ws.entities.Person;
 import com.swapit.ws.model.AddressModel;
 import com.swapit.ws.model.FavoriteModel;
 import com.swapit.ws.model.PersonModel;
-import com.swapit.ws.model.PropositionModel;
 import com.swapit.ws.model.StreetModel;
 import com.swapit.ws.model.reduce.AddressReduce;
 import com.swapit.ws.model.reduce.PersonReduce;

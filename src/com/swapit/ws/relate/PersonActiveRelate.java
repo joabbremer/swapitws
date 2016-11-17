@@ -14,7 +14,7 @@ public class PersonActiveRelate extends Thread implements Runnable {
 			while (true) {		
 				
 				sendMailForActive();
-				Thread.sleep(NORM_PRIORITY);// 300000 5 minutos
+				Thread.sleep(300000);// 300000 5 minutos
 			}			
 		} catch (InterruptedException e) {
 			e.printStackTrace();
